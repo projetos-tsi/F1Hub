@@ -1,0 +1,356 @@
+header{
+    display: flex;
+    justify-content: space-between;
+    background-color: #1f1f1f;
+    height: 100px;
+}
+.header-logo{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 16px 24px;
+    gap: 8px;
+}
+.header-logo > img{
+    width: 156px;
+}
+.header-logo p{
+    color: #ed1320;
+    font-family: "Syncopate", sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    font-style: normal;
+}
+.header-nav{
+    display: flex;
+    align-items: end;
+    gap: 32px;
+    padding: 24px;
+}
+.header-nav > a{
+    color: #fff;
+    font-size: 20px;
+}
+.header-buttons{
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    gap: 16px;
+    padding: 24px 24px;
+}
+.header-buttons > button{
+    display: flex;
+    width: 24px;
+    background-color: transparent;
+    border: none;
+}
+.header-buttons > button > img{
+    height: 24px;
+}
+.dropdown{
+    position: relative;
+    display: inline-block;
+}
+.dropdown > a{
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    color: #fff;
+    font-size: 20px;
+}
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+.dropdown-teams{
+    display: none;
+    position: absolute;
+    background-color: #f0f0f0;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+.dropdown-teams a{
+    color: black;
+    padding: 12px 16px;
+    font-weight: 700;
+    font-size: 18px;;
+    text-decoration: none;
+    display: block;
+    transition: 0.2s ease;
+}
+.dropdown:hover .dropdown-teams {
+    display: block;
+}
+.dropdown-teams a:hover {
+    color: #fff;
+}
+.mercedes:hover {background-color: #11ccc0;}
+.ferrari:hover {background-color: #ed1320;}
+.rbr:hover {background-color:#021627;}
+.mclaren:hover {background-color: #ff9e17;}
+.williams:hover {background-color: #0442fc;}
+.dropdown-categories{
+    display: none;
+    position: absolute;
+    background-color: #f0f0f0;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+.dropdown-categories a{
+    color: black;
+    padding: 12px 16px;
+    font-size: 18px;
+    font-weight: 700;
+    text-decoration: none;
+    display: block;
+    transition: 0.2s ease;
+}
+.dropdown:hover .dropdown-categories {
+    display: block;
+}
+.dropdown-categories a:hover {
+    color: #fff;
+    background-color: #1f1f1f;
+}
+.header-buttons{
+    display: flex;
+    gap: 24px;
+}
+main{
+    display: flex;
+    justify-content: space-between;
+}
+.product-media{
+    display: flex;
+    width: 900px;
+    padding: 48px;
+}
+.product-media img{
+    width: 800px;
+}
+.product-infos{
+    display: flex;
+    flex-direction: column;
+    gap: 10%;
+    width: 900px;
+    padding: 48px;
+}
+.title{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.title > p{
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+}
+.prices{
+    font-size: 1.3rem;
+    font-weight: 550;
+    text-align: end;
+}
+.pix{
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: rgb(38, 180, 38);;
+}
+.sizes{
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+.size-buttons{
+    display: flex;
+    gap: 8px;
+}
+.size-buttons button{
+    width: 70px;
+    height: 70px;
+    border-radius: 20px;
+    border: 1px solid black;
+    font-size: 1.2rem;
+    transition: 0.12s ease;
+}
+.size-buttons button:hover{
+    transform: scale(1.1);
+    background-color: #1f1f1f;
+    color: #fff;
+}
+.size-buttons button:active{
+    transform: scale(0.95);
+}
+.sizes > button{
+    border-radius: 20px;
+    height: 55px;
+    border: none;
+    font-size: 1.5rem;
+    color: white;
+    background-color: #1f1f1f;
+}
+.description{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 32px;
+}
+.product-description{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    border-bottom: 1px solid #969696;
+    padding: 16px;
+}
+.product-description h2{
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+.product-description p{
+    font-size: 1.1rem;
+}
+.product-info{
+    display: flex;
+    padding: 24px;
+    font-size: 1.2rem;
+}
+.product-info ul{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.carroussel{
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type:mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    width: 100%;
+}
+.carroussel-buttons-wrappers{
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+}
+.carroussel-buttons-wrappers > a{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 64px;
+    border: 1px solid black;
+}
+.carroussel-buttons-wrappers > a > img{
+    width: 10px;
+}
+.carroussel-pages{
+    min-width: 100%;
+    display: grid;
+    place-items: center;
+}
+.carroussel-content{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 48px;
+    width: 100%;
+    height: 400px;
+    margin: 16px 0px;
+}
+.carroussel-product{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 10px;
+    width: 350px;
+}
+.carroussel-product:hover img{
+    transform: scale(1.08);
+}
+.carroussel-product img{
+    display: flex;
+    justify-content: center;
+    height: 280px;
+    transition: transform 0.2s ease;
+}
+.carroussel-product > p{
+    font-size: 24px;
+    color: black; 
+    text-align: center;
+}
+.carroussel-product-prices{
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 22px;
+    font-weight: 700;
+    color: black;
+}
+#pix{
+    font-size: 18px;
+    font-weight: 400;
+    color: rgb(38, 180, 38);
+}
+.carroussel-title{
+    display: flex;
+    justify-content: center;
+    font-size: 48px;
+    font-weight: 700;
+    margin-top: 64px;
+    margin-bottom: 24px;
+}
+footer{
+    display: flex;
+    flex-direction: column;
+    gap: 80px;
+    padding: 64px 80px;
+    background-color: #1f1f1f;
+    margin-top: 64px;
+}
+.main-footer{
+    display: flex;
+    justify-content: space-between;
+}
+.main-footer > img{
+    width: 84px;
+    height: 36px;
+}
+.link-footer{
+    display: flex;
+    gap: 32px;
+}
+.link-footer > a{
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+}
+.media-footer{
+    display: flex;
+    gap: 12px;
+}
+.footer-subcontent{
+    display: flex;
+    border-top: 1px solid white;
+    padding-top: 32px;
+    gap: 24px;
+    justify-content: center;
+}
+.footer-terms{
+    display: flex;
+    gap: 24px;
+}
+.footer-terms > a{
+    color: White;
+    text-decoration: underline;
+    font-size: 14px;
+    font-weight: 400;
+}
+.footer-text > p{
+    font-size: 14px;
+    font-weight: 400;
+    color: white;
+}

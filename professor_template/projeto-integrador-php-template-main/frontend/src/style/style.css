@@ -1,0 +1,280 @@
+header{
+    display: flex;
+    justify-content: space-between;
+    background-color: #1f1f1f;
+    height: 100px;
+}
+.header-logo{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 16px 24px;
+    gap: 8px;
+}
+.header-logo > img{
+    width: 156px;
+}
+.header-logo p{
+    color: #ed1320;
+    font-family: "Syncopate", sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    font-style: normal;
+}
+.header-nav{
+    display: flex;
+    align-items: end;
+    gap: 32px;
+    padding: 24px;
+}
+.header-nav > a{
+    color: #fff;
+    font-size: 20px;
+}
+.header-buttons{
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    gap: 16px;
+    padding: 24px 24px;
+}
+.header-buttons > button{
+    display: flex;
+    width: 24px;
+    background-color: transparent;
+    border: none;
+}
+.header-buttons > button > img{
+    height: 24px;
+}
+.dropdown{
+    position: relative;
+    display: inline-block;
+}
+.dropdown > a{
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 20px;
+}
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+.dropdown-teams{
+    display: none;
+    position: absolute;
+    background-color: #f0f0f0;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+.dropdown-teams a{
+    color: black;
+    padding: 12px 16px;
+    font-weight: 700;
+    font-size: 18px;;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+    transition: 0.2s ease;
+}
+.dropdown:hover .dropdown-teams {
+    display: block;
+}
+.dropdown-teams a:hover {
+    color: #fff;
+}
+.mercedes:hover {background-color: #11ccc0;}
+.ferrari:hover {background-color: #ed1320;}
+.rbr:hover {background-color:#021627;}
+.mclaren:hover {background-color: #ff9e17;}
+.williams:hover {background-color: #0442fc;}
+.dropdown-categories{
+    display: none;
+    position: absolute;
+    background-color: #f0f0f0;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+.dropdown-categories a{
+    color: black;
+    padding: 12px 16px;
+    font-size: 18px;
+    font-weight: 700;
+    text-decoration: none;
+    display: block;
+    transition: 0.2s ease;
+}
+.dropdown:hover .dropdown-categories {
+    display: block;
+}
+.dropdown-categories a:hover {
+    color: #fff;
+    background-color: #1f1f1f;
+}
+.header-buttons{
+    display: flex;
+    gap: 24px;
+}
+.main-banner{
+    display: flex;
+    justify-content: center;
+    padding: 24px 35px;
+}
+.main-img{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 575px;
+}
+.carroussel{
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type:mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    width: 100%;
+}
+.carroussel-buttons-wrappers{
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+}
+.carroussel-buttons-wrappers > a{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 64px;
+    border: 1px solid black;
+    transition: 0.2s ease;
+}
+.carroussel-buttons-wrappers a:hover{
+    transform: scale(1.1);
+}
+.carroussel-buttons-wrappers a:active{
+    transform: scale(0.9);
+}
+.carroussel-buttons-wrappers a > img{
+    width: 10px;
+}
+.carroussel-pages{
+    min-width: 100%;
+    display: grid;
+    place-items: center;
+}
+.carroussel-content{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 48px;
+    width: 100%;
+    height: 400px;
+    margin: 16px 0px;
+    background-color: none;
+}
+.carroussel-product{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 10px;
+    background-color: none;
+    width: 350px;
+}
+.carroussel-product:hover img{
+    transform: scale(1.1);
+}
+.carroussel-product:active img{
+    transform: scale(0.9);
+}
+.carroussel-product img{
+    display: flex;
+    justify-content: center;
+    height: 280px;
+    transition: transform 0.2s ease;
+}
+.carroussel-product > p{
+    font-size: 25px;
+    color: black; 
+    text-align: center;
+}
+.carroussel-product-prices{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    font-size: 22px;
+    font-weight: 700;
+    color: black;
+}
+#pix{
+    font-size: 18px;
+    font-weight: 400;
+    color: rgb(38, 180, 38);
+}
+.carroussel-title{
+    display: flex;
+    justify-content: center;
+    font-size: 48px;
+    font-weight: 700;
+    margin-top: 64px;
+    margin-bottom: 24px;
+}
+footer{
+    display: flex;
+    flex-direction: column;
+    gap: 80px;
+    padding: 64px 80px;
+    background-color: #1f1f1f;
+    margin-top: 64px;
+}
+.main-footer{
+    display: flex;
+    justify-content: space-between;
+}
+.main-footer > img{
+    width: 84px;
+    height: 36px;
+}
+.link-footer{
+    display: flex;
+    gap: 32px;
+}
+.link-footer > a{
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+}
+.media-footer{
+    display: flex;
+    gap: 12px;
+}
+.footer-subcontent{
+    display: flex;
+    border-top: 1px solid white;
+    padding-top: 32px;
+    gap: 24px;
+    justify-content: center;
+}
+.footer-terms{
+    display: flex;
+    gap: 24px;
+}
+.footer-terms > a{
+    color: White;
+    text-decoration: underline;
+    font-size: 14px;
+    font-weight: 400;
+}
+.footer-text > p{
+    font-size: 14px;
+    font-weight: 400;
+    color: white;
+}

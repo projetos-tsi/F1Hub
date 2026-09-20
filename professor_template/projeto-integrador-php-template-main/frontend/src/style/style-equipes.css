@@ -1,0 +1,321 @@
+header{
+    display: flex;
+    justify-content: space-between;
+    background-color: #1f1f1f;
+    height: 100px;
+}
+.header-logo{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 16px 24px;
+    gap: 8px;
+}
+.header-logo > img{
+    width: 156px;
+}
+.header-logo p{
+    color: #ed1320;
+    font-family: "Syncopate", sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    font-style: normal;
+}
+.header-nav{
+    display: flex;
+    align-items: end;
+    gap: 32px;
+    padding: 24px;
+}
+.header-nav > a{
+    color: #fff;
+    font-size: 20px;
+}
+.header-buttons{
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    gap: 16px;
+    padding: 24px 24px;
+}
+.header-buttons > button{
+    display: flex;
+    width: 24px;
+    background-color: transparent;
+    border: none;
+}
+.header-buttons > button > img{
+    height: 24px;
+}
+.dropdown{
+    position: relative;
+    display: inline-block;
+}
+.dropdown > a{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #fff;
+    font-size: 20px;
+}
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+.dropdown-teams{
+    display: none;
+    position: absolute;
+    background-color: #f0f0f0;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+.dropdown-teams a{
+    color: black;
+    padding: 12px 16px;
+    font-weight: 700;
+    font-size: 18px;;
+    text-decoration: none;
+    display: block;
+    transition: 0.2s ease;
+}
+.dropdown:hover .dropdown-teams {
+    display: block;
+}
+.dropdown-teams a:hover {
+    color: #fff;
+}
+.mercedesa:hover {background-color: #11ccc0;}
+.ferraria:hover {background-color: #ed1320;}
+.rbra:hover {background-color:#021627;}
+.mclarena:hover {background-color: #ff9e17;}
+.williamsa:hover {background-color: #0442fc;}
+.dropdown-categories{
+    display: none;
+    position: absolute;
+    background-color: #f0f0f0;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+.dropdown-categories a{
+    color: black;
+    padding: 12px 16px;
+    font-size: 18px;
+    font-weight: 700;
+    text-decoration: none;
+    display: block;
+    transition: 0.2s ease;
+}
+.dropdown:hover .dropdown-categories {
+    display: block;
+}
+.dropdown-categories a:hover {
+    color: #fff;
+    background-color: #1f1f1f;
+}
+.header-buttons{
+    display: flex;
+    gap: 24px;
+}
+h1{
+    display: flex;
+    justify-content: center;
+    padding: 24px;
+    font-size: 64px;
+}
+main{
+    display: flex;
+    flex-direction: column;
+    gap: 75px;
+    padding: 32px;
+    align-items: center;
+}
+.main-title{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 350px;
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 36px;
+}
+.main-title > h1{
+    font-size: 48px;
+    color: white;
+    padding: 0;
+}
+.main-title > img{
+    width: 70px;
+}
+.main-title-container{
+    display: flex;
+    justify-content: center;
+    margin-top: 32px;
+}
+.team-wrapper{
+    display: flex;
+    gap: 90px;
+}
+.team-wrapper > a{
+    width: 750px;
+    height: 450px;
+}
+.team-button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 750px;
+    height: 450px;
+}
+.team-button:hover img{
+    transform: scale(1.08);
+}
+.team-button:active img{
+    transform: scale(0.95);
+}
+.team-button img{
+    width: 250px;
+    transition: transform 0.2s ease;
+}
+.mercedes{background-color: #11ccc0;}
+.ferrari{background-color: #ed1320;}
+.rbr{background-color:#021627;}
+.mclaren{background-color: #ff9e17;}
+.williams{background-color: #0442fc;}
+
+.main-container{
+    display: flex;
+    justify-content: space-between;
+}
+.filter-box{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 24px 0 0 24px;
+}
+.filter-box > div{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #969696;
+    padding: 24px 0;
+}
+.filter-box > div > p{
+    font-size: 24px;
+    font-weight: 350;
+}
+.filter-box > div > img{
+    width: 24px;
+}
+.main-container > section{
+    display: flex;
+    gap: 8px;
+}
+.team-product{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 10px;
+    width: 26vw;
+    height: 490px;
+}
+.team-product:hover  img{
+    transform: scale(1.08);
+}
+.team-product  img{
+    display: flex;
+    justify-content: center;
+    width: 14vw;
+    transition: transform 0.2s ease;
+}
+.team-product > p{
+    font-size: 32px;
+    color: black; 
+    text-align: center;
+}
+#pix{
+    font-size: 18px;
+    font-weight: 400;
+    color: rgb(38, 180, 38);
+}
+.team-product-prices{
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    font-size: 24px;
+    font-weight: 700;
+    color: black;
+}
+.product-grid{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.more-btn-contain{
+    display: flex;
+    justify-content: center;
+    margin: 32px;
+}
+.more-button{
+    display: flex;
+    padding: 18px;
+    border: none;
+    border-radius: 24px;
+    background-color: #11ccc0;
+    color: white;
+    font-size: 18px;
+}
+footer{
+    display: flex;
+    flex-direction: column;
+    gap: 80px;
+    padding: 64px 80px;
+    background-color: #1f1f1f;
+    margin-top: 24px;
+}
+.main-footer{
+    display: flex;
+    justify-content: space-between;
+}
+.main-footer > img{
+    width: 84px;
+    height: 36px;
+}
+.link-footer{
+    display: flex;
+    gap: 32px;
+}
+.link-footer > a{
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+}
+.media-footer{
+    display: flex;
+    gap: 12px;
+}
+.footer-subcontent{
+    display: flex;
+    border-top: 1px solid white;
+    padding-top: 32px;
+    gap: 24px;
+    justify-content: center;
+}
+.footer-terms{
+    display: flex;
+    gap: 24px;
+}
+.footer-terms > a{
+    color: White;
+    text-decoration: underline;
+    font-size: 14px;
+    font-weight: 400;
+}
+.footer-text > p{
+    font-size: 14px;
+    font-weight: 400;
+    color: white;
+}

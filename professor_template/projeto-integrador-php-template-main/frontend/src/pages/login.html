@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entrar | F1 Hub</title>
+    <link rel="stylesheet" href="../style/reset.css">
+    <link rel="stylesheet" href="../style/login.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Syncopate:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <main class="login-page">
+        <section class="login-showcase" aria-label="F1 Hub">
+            <a class="brand" href="../../index.php" aria-label="Voltar para a página inicial da F1 Hub">
+                <img src="../assets/images/logo.svg" alt="">
+                <span>F1 Hub</span>
+            </a>
+
+            <div class="track-lines" aria-hidden="true"></div>
+
+            <div class="showcase-copy">
+                <p class="eyebrow">F1 HUB</p>
+                <h1>Sua paixão pela velocidade, em um só lugar.</h1>
+                <p>Entre para acompanhar lançamentos e deixar seus produtos favoritos na pole position.</p>
+            </div>
+        </section>
+
+        <section class="login-panel">
+            <a class="back-link" href="../../index.php">← Voltar para a loja</a>
+
+            <form class="login-form" action="#" method="post">
+                <div class="form-heading">
+                    <h2>Bem-vindo de volta</h2>
+                    <p>Entre na sua conta para continuar.</p>
+                </div>
+
+                <label for="email">E-mail</label>
+                <input id="email" name="email" type="email" placeholder="seuemail@exemplo.com" autocomplete="email" required>
+
+                <div class="password-label">
+                    <label for="password">Senha</label>
+                    <a href="#">Esqueci minha senha</a>
+                </div>
+                <div class="password-field">
+                    <input id="password" name="password" type="password" placeholder="Digite sua senha" autocomplete="current-password" required>
+                    <button type="button" class="toggle-password" aria-label="Mostrar senha">◉</button>
+                </div>
+
+                <label class="remember-me" for="remember">
+                    <input id="remember" name="remember" type="checkbox">
+                    <span>Lembrar de mim</span>
+                </label>
+
+                <button class="submit-button" type="submit">Entrar</button>
+
+                <div class="divider"><span>ou</span></div>
+
+                <button class="social-button" type="button">
+                    <span class="google-icon">G</span>
+                    Continuar com Google
+                </button>
+
+                <p class="create-account">Ainda não possui conta? <a href="#">Criar conta</a></p>
+            </form>
+        </section>
+    </main>
+
+    <script>
+        const togglePassword = document.querySelector('.toggle-password');
+        const password = document.querySelector('#password');
+
+        togglePassword.addEventListener('click', () => {
+            const hidden = password.type === 'password';
+            password.type = hidden ? 'text' : 'password';
+            togglePassword.textContent = hidden ? '◌' : '◉';
+            togglePassword.setAttribute('aria-label', hidden ? 'Ocultar senha' : 'Mostrar senha');
+        });
+    </script>
+</body>
+</html>
