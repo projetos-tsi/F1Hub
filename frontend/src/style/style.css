@@ -44,9 +44,23 @@ header{
     width: 24px;
     background-color: transparent;
     border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+.header-buttons > button:hover{
+    transform: scale(1.1);
+    background-color: rgba(255, 255, 255, 0.12);
+}
+.header-buttons > button:active{
+    transform: scale(0.95);
 }
 .header-buttons > button > img{
     height: 24px;
+    transition: transform 0.2s ease, filter 0.2s ease;
+}
+.header-buttons > button:hover > img{
+    transform: scale(1.08);
 }
 .dropdown{
     position: relative;
@@ -59,6 +73,13 @@ header{
     justify-content: center;
     color: #fff;
     font-size: 20px;
+}
+.dropdown > a > img{
+    transition: transform 0.3s ease;
+}
+.dropdown:hover > a > img,
+.dropdown.open > a > img{
+    transform: rotate(180deg);
 }
 .dropdown:hover .dropdown-content {
     display: block;
@@ -81,7 +102,8 @@ header{
     text-align: center;
     transition: 0.2s ease;
 }
-.dropdown:hover .dropdown-teams {
+.dropdown:hover .dropdown-teams,
+.dropdown.open .dropdown-teams {
     display: block;
 }
 .dropdown-teams a:hover {
@@ -109,7 +131,8 @@ header{
     display: block;
     transition: 0.2s ease;
 }
-.dropdown:hover .dropdown-categories {
+.dropdown:hover .dropdown-categories,
+.dropdown.open .dropdown-categories {
     display: block;
 }
 .dropdown-categories a:hover {
