@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar conta | F1 Hub</title>
+    <link rel="stylesheet" href="../style/reset.css">
+    <link rel="stylesheet" href="../style/login.css">
+    <link rel="stylesheet" href="../style/cadastro.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Syncopate:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <main class="login-page">
+        <section class="login-showcase" aria-label="F1 Hub">
+            <a class="brand" href="../../index.php" aria-label="Voltar para a página inicial da F1 Hub">
+                <img src="../assets/images/logo.svg" alt="">
+                <span>F1 Hub</span>
+            </a>
+
+            <div class="track-lines" aria-hidden="true"></div>
+
+            <div class="showcase-copy">
+                <p class="eyebrow">F1 HUB</p>
+                <h1>Sua vaga no grid começa aqui.</h1>
+                <p>Crie sua conta para acompanhar lançamentos e guardar os produtos das equipes que você ama.</p>
+            </div>
+        </section>
+
+        <section class="login-panel">
+            <a class="back-link" href="../../index.php">← Voltar para a loja</a>
+
+            <form class="login-form signup-form" id="signup-form" action="#" method="post" novalidate>
+                <div class="form-heading">
+                    <h2>Crie sua conta</h2>
+                    <p>Preencha seus dados para começar.</p>
+                </div>
+
+                <div class="field">
+                    <label for="name">Nome completo</label>
+                    <input class="field-input" id="name" name="name" type="text" placeholder="Seu nome e sobrenome" autocomplete="name" maxlength="120" data-rule="name" aria-describedby="name-message" required>
+                    <p class="field-message" id="name-message" aria-live="polite"></p>
+                </div>
+
+                <div class="field">
+                    <label for="email">E-mail</label>
+                    <input class="field-input" id="email" name="email" type="email" placeholder="seuemail@exemplo.com" autocomplete="email" maxlength="180" data-rule="email" aria-describedby="email-message" required>
+                    <p class="field-message" id="email-message" aria-live="polite"></p>
+                </div>
+
+                <div class="field">
+                    <label for="password">Senha</label>
+                    <div class="password-field">
+                        <input class="field-input" id="password" name="password" type="password" placeholder="Crie uma senha" autocomplete="new-password" data-rule="password" aria-describedby="password-message" required>
+                        <button type="button" class="toggle-password" data-target="password" data-name="senha" aria-label="Mostrar senha">◉</button>
+                    </div>
+                    <p class="field-message" id="password-message" data-hint="Use 8 ou mais caracteres, com letras e números." aria-live="polite">Use 8 ou mais caracteres, com letras e números.</p>
+                </div>
+
+                <div class="field">
+                    <label for="confirm-password">Confirmar senha</label>
+                    <div class="password-field">
+                        <input class="field-input" id="confirm-password" name="confirm_password" type="password" placeholder="Repita a senha" autocomplete="new-password" data-rule="confirmPassword" aria-describedby="confirm-password-message" required>
+                        <button type="button" class="toggle-password" data-target="confirm-password" data-name="confirmação de senha" aria-label="Mostrar confirmação de senha">◉</button>
+                    </div>
+                    <p class="field-message" id="confirm-password-message" aria-live="polite"></p>
+                </div>
+
+                <div class="field terms-field">
+                    <label class="terms" for="terms">
+                        <input id="terms" name="terms" type="checkbox" data-rule="terms" aria-describedby="terms-message" required>
+                        <span>Li e aceito os <a href="#">Termos de uso</a> e a <a href="#">Política de privacidade</a>.</span>
+                    </label>
+                    <p class="field-message" id="terms-message" aria-live="polite"></p>
+                </div>
+
+                <button class="submit-button" type="submit">Criar conta</button>
+
+                <p class="form-status" id="form-status" role="status" hidden></p>
+
+                <div class="divider"><span>ou</span></div>
+
+                <button class="social-button" type="button">
+                    <span class="google-icon">G</span>
+                    Continuar com Google
+                </button>
+
+                <p class="create-account">Já possui conta? <a href="login.html">Entrar</a></p>
+            </form>
+        </section>
+    </main>
+
+    <script src="../../js/cadastro.js"></script>
+</body>
+</html>
