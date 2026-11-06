@@ -1,0 +1,108 @@
+/*
+ * F1 Hub — Design Tokens
+ * Espelho das variáveis do arquivo Figma "F1Hub — Design System"
+ * (coleções Primitives, Color e Dimension).
+ * Ainda não importado pelas páginas: inclua com
+ *   <link rel="stylesheet" href="../style/tokens.css">
+ * antes dos demais CSS para começar a migração.
+ */
+:root {
+    /* ---------- Primitives ---------- */
+    --carbon-950: #0B0B0C;
+    --carbon-900: #111113;
+    --carbon-850: #17171A;
+    --carbon-800: #1F1F1F; /* cor do header/footer atuais */
+    --carbon-700: #2A2A2E;
+    --carbon-600: #3A3A3F;
+    --gray-500: #6B6B6B;
+    --gray-400: #969696;
+    --gray-300: #B8B8BC;
+    --gray-200: #E3E3E3;
+    --gray-100: #F6F6F6;
+    --white: #FFFFFF;
+    --red-700: #A10E16;
+    --red-600: #BD0D17;
+    --red-500: #ED1320; /* vermelho da marca */
+    --red-400: #FF4D57;
+    --red-100: #FFE5E7;
+    --red-50: #FFF6F6;
+    --green-600: #1A8A1A;
+    --green-500: #26B426; /* desconto PIX */
+    --green-400: #3DD63D;
+    --amber-600: #B45309;
+    --amber-500: #F59E0B;
+    --yellow-400: #FFC21A;
+    --blue-600: #1D5FD1;
+    --blue-400: #4C9AFF;
+
+    /* Cores de equipe (já usadas no código) */
+    --team-ferrari: #ED1320;
+    --team-mercedes: #11CCC0;
+    --team-red-bull: #021627;
+    --team-mclaren: #FF9E17;
+    --team-williams: #0442FC;
+
+    /* ---------- Semantic (tema Dark, padrão) ---------- */
+    --color-bg-base: var(--carbon-950);
+    --color-bg-surface: var(--carbon-850);
+    --color-bg-elevated: var(--carbon-800);
+    --color-bg-sunken: var(--carbon-900);
+    --color-bg-inverse: var(--gray-100);
+    --color-bg-hover: var(--carbon-700);
+    --color-bg-media: var(--gray-100);
+    --color-bg-media-hover: var(--white);
+    --color-border-default: var(--carbon-700);
+    --color-border-strong: var(--carbon-600);
+    --color-text-primary: var(--white);
+    --color-text-secondary: var(--gray-300);
+    --color-text-muted: var(--gray-500);
+    --color-text-inverse: var(--carbon-800);
+    --color-text-on-primary: var(--white);
+    --color-text-link: var(--red-400);
+    --color-primary-default: var(--red-500);
+    --color-primary-hover: var(--red-600);
+    --color-primary-pressed: var(--red-700);
+    --color-primary-subtle: var(--carbon-800);
+    --color-secondary-default: var(--gray-100);
+    --color-secondary-hover: var(--white);
+    --color-secondary-on: var(--carbon-800);
+    --color-accent-default: var(--yellow-400);
+    --color-success-default: var(--green-500);
+    --color-warning-default: var(--amber-500);
+    --color-error-default: var(--red-400);
+    --color-info-default: var(--blue-400);
+    --color-focus-ring: var(--red-400);
+
+    /* ---------- Spacing (base 4) ---------- */
+    --space-0: 0; --space-2: 2px; --space-4: 4px; --space-8: 8px; --space-12: 12px;
+    --space-16: 16px; --space-20: 20px; --space-24: 24px; --space-32: 32px; --space-40: 40px;
+    --space-48: 48px; --space-64: 64px; --space-80: 80px; --space-96: 96px;
+
+    /* ---------- Radius / border / opacity ---------- */
+    --radius-none: 0; --radius-xs: 4px; --radius-sm: 8px; --radius-md: 12px;
+    --radius-lg: 16px; --radius-xl: 24px; --radius-full: 999px;
+    --border-hairline: 1px; --border-thick: 2px; --border-heavy: 4px;
+    --opacity-disabled: .4; --opacity-muted: .64; --opacity-overlay: .72; --opacity-hover: .12;
+
+    /* ---------- Elevation ---------- */
+    --elevation-1: 0 2px 4px rgba(0, 0, 0, .24);
+    --elevation-2: 0 8px 16px rgba(0, 0, 0, .32);
+    --elevation-3: 0 24px 48px -8px rgba(0, 0, 0, .48);
+    --focus-ring: 0 0 0 3px rgba(237, 19, 32, .35);
+    --glow-primary: 0 0 24px rgba(237, 19, 32, .45);
+
+    /* ---------- Typography ---------- */
+    --font-brand: "Syncopate", sans-serif;
+    --font-display: "Barlow Condensed", sans-serif;
+    --font-body: "Inter", sans-serif;
+    --font-data: "JetBrains Mono", monospace;
+
+    /* ---------- Motion ---------- */
+    --duration-fast: 120ms;
+    --duration-base: 200ms;
+    --duration-slow: 300ms;
+    --ease-standard: cubic-bezier(.2, 0, 0, 1);
+
+    /* ---------- Breakpoints (referência) ---------- */
+    /* mobile 390 · tablet 768 · desktop 1440 */
+}
