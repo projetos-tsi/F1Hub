@@ -1,0 +1,9 @@
+{
+  "name": "F1Hub v2 Builder",
+  "id": "f1hub-v2-builder-local",
+  "api": "1.0.0",
+  "main": "code.js",
+  "editorType": ["figma"],
+  "documentAccess": "dynamic-page",
+  "networkAccess": { "allowedDomains": ["none"] }
+}

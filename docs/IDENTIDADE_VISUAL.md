@@ -2,7 +2,11 @@
 
 > Registro das decisões visuais do F1 Hub, para manter consistência entre Figma, front-end e documentação.
 
-## Arquivo Figma
+> **Versão atual: v2 — "Pit Wall Editorial"** (papel + tinta + sinal vermelho, grid suíço de 12 colunas, Anton monumental, Archivo, Instrument Serif, Inter e JetBrains Mono).
+> Arquivo: https://www.figma.com/design/cQnOljNCdb8djCTcmurjMO · para completar as seções 05–09, rode o plugin em `design/figma-plugin-v2/` (veja o README).
+> O conteúdo abaixo descreve a **v1** (tema escuro), mantida como histórico.
+
+## Arquivo Figma (v1)
 
 **F1Hub — Design System:** https://www.figma.com/design/kSC3Uyj3X9b8apaMIjf9vd
 
