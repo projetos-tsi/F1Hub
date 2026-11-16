@@ -15,6 +15,8 @@ Projeto Integrador desenvolvido para o curso de **Tecnologia em Sistemas para In
 
 O **F1 Hub** é uma loja virtual pensada para os fãs de Fórmula 1. Em vez de procurar produtos da sua equipe favorita em várias lojas diferentes, o usuário encontra tudo em um só lugar, navegando por **equipe** ou por **categoria de produto**.
 
+<a href="https://github.com/projetos-tsi/F1Hub.git">F1Hub</a> © 2026 por <a href="https://github.com/tznX">Matheus de Almeida Firmino, Murilo Calixto, Douglas Silva, Felipe Santana e Pedro Henrique Santiago</a> está licenciado sob <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a><img src="https://mirrors.creativecommons.org/presskit/icons/cc.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/by.svg" alt="" style="largura máxima: 1em;altura máxima:1em;margem esquerda: 0,2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/nc.svg" alt="" style="largura máxima: 1em;altura máxima:1em;margem esquerda: 0,2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/sa.svg" alt="" style="largura máxima: 1em;altura máxima:1em;margem esquerda: 0,2em;">
+
 ### 🎯 Objetivo
 
 Construir uma aplicação web de comércio eletrônico, aplicando na prática front-end (HTML, CSS e JavaScript), back-end (PHP) e modelagem de banco de dados (MySQL). O projeto segue o fluxo de uma loja online: do catálogo até a finalização da compra.
