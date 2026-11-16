@@ -1,25 +1,38 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página Inicial</title>
+    <meta name="description" content="F1 Hub: camisetas, polos, jaquetas e acessórios das principais equipes da Fórmula 1.">
+    <title>F1 Hub | A paixão pela Fórmula 1 veste você</title>
     <link rel="stylesheet" href="./src/style/reset.css">
     <link rel="stylesheet" href="./src/style/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Syncopate:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <a href="index.php" class="header-logo">
-            <img src="./src/assets/images/logo.svg" alt="logo f1-store">
-            <p>F1 Hub</p>
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+    <div class="announcement-bar" role="note">
+        <p><strong>5% OFF NO PIX</strong><span aria-hidden="true">•</span> Vista a paixão por velocidade</p>
+    </div>
+
+    <header class="site-header">
+        <a href="./index.php" class="header-logo" aria-label="F1 Hub — página inicial">
+            <img src="./src/assets/images/logo.svg" alt="">
+            <span>F1 Hub</span>
         </a>
-        <nav class="header-nav">
+
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-navigation">
+            <span></span><span></span><span></span>
+            <span class="sr-only">Abrir menu</span>
+        </button>
+
+        <nav class="header-nav" id="main-navigation" aria-label="Navegação principal">
             <div class="dropdown">
-                <a href="./src/pages/equipes.html" class="dropbtn">Equipes <img src="./src/assets/images/chevron-down.svg" alt="seta para baixo"></a>
-                <div class="dropdown-teams"> 
+                <a href="./src/pages/equipes.html" class="dropbtn">Equipes <img src="./src/assets/images/chevron-down.svg" alt=""></a>
+                <div class="dropdown-teams">
                     <a class="ferrari" href="./src/pages/ferrari.html">Ferrari</a>
                     <a class="mercedes" href="./src/pages/mercedes.html">Mercedes</a>
                     <a class="rbr" href="./src/pages/rbr.html">Red Bull</a>
@@ -27,246 +40,112 @@
                     <a class="williams" href="./src/pages/williams.html">Williams</a>
                 </div>
             </div>
-            <div class="dropdown">
-                <a class="dropbtn" href="">Categorias <img src="./src/assets/images/chevron-down.svg" alt="seta para baixo"></a>
-
-                <div class="dropdown-categories">
-                    <a href="">Camisas Polos</a>
-                    <a href="">Camisetas</a>
-                    <a href="">Bonés</a>
-                    <a href="">Moletons</a>
-                </div>
-            </div>
-            <a href="">Lançamentos</a>
-            <a href="">Promoções</a>
+            <a href="#categorias">Categorias</a>
+            <a href="#lancamentos">Lançamentos</a>
+            <a href="#promocoes">Promoções</a>
         </nav>
-        <div class="header-buttons">
-            <button><img src="./src/assets/images/botao-pesquisa.svg" alt="botão de pesquisa"></button>
-            <button type="button" aria-label="Acessar página de login" onclick="window.location.href='./src/pages/login.html'">
-                <img src="./src/assets/images/botao-login.svg" alt="">
-            </button>
-            <button><img src="./src/assets/images/carrinho-compras.svg" alt="carrinho de compras"></button>
+
+        <div class="header-buttons" aria-label="Ações da loja">
+            <button type="button" class="search-trigger" aria-label="Pesquisar produtos"><img src="./src/assets/images/botao-pesquisa.svg" alt=""></button>
+            <button type="button" aria-label="Acessar página de login" onclick="window.location.href='./src/pages/login.html'"><img src="./src/assets/images/botao-login.svg" alt=""></button>
+            <button type="button" aria-label="Abrir carrinho"><img src="./src/assets/images/carrinho-compras.svg" alt=""><span class="cart-count" aria-label="0 itens">0</span></button>
         </div>
     </header>
-    <a class="main-banner" href="./src/pages/ferrari.html">
-        <img class="main-img" src="./src/assets/images/imagem-promocional.png" alt="Imagem Promocional">
-    </a>
-    <p class="carroussel-title">Mais Vendidos</p>
-        <div class="carroussel-buttons-wrappers">
-            <a href="#page-1"><img src="./src/assets/images/chevron-left.svg" alt="seta para esquerda"></a>
-            <a href="#page-2"><img src="./src/assets/images/chevron-right.svg" alt="seta para direita"></a>
+
+    <div class="search-panel" hidden>
+        <form role="search" class="search-form">
+            <label class="sr-only" for="site-search">Pesquisar no catálogo</label>
+            <input id="site-search" type="search" placeholder="O que você procura?" autocomplete="off">
+            <button type="submit">Buscar</button>
+            <button type="button" class="search-close" aria-label="Fechar pesquisa">×</button>
+        </form>
+    </div>
+
+    <main id="conteudo">
+        <section class="hero" aria-labelledby="hero-title">
+            <a href="./src/pages/ferrari.html" class="hero-media" aria-label="Conheça a coleção Ferrari"><img src="./src/assets/images/imagem-promocional.png" alt="Jaqueta e camisa polo da Ferrari em promoção"></a>
+            <div class="hero-caption">
+                <p class="eyebrow">Coleção Ferrari</p>
+                <h1 id="hero-title">O grid está pronto. Escolha seu uniforme.</h1>
+                <a class="button button-light" href="./src/pages/ferrari.html">Comprar Ferrari <span aria-hidden="true">→</span></a>
+            </div>
+        </section>
+
+        <section class="benefit-strip" aria-label="Diferenciais da F1 Hub">
+            <div><strong>5 equipes</strong><span>em um só grid</span></div>
+            <div><strong>5% OFF</strong><span>em pagamentos via PIX</span></div>
+            <div><strong>Coleção 2026</strong><span>para quem vive a F1</span></div>
+        </section>
+
+        <section class="store-section" id="lancamentos" aria-labelledby="bestsellers-title">
+            <div class="section-heading">
+                <div><p class="eyebrow">Na pole position</p><h2 id="bestsellers-title">Mais vendidos</h2></div>
+                <a href="./src/pages/catalogo.html">Ver todos <span aria-hidden="true">→</span></a>
+            </div>
+
+            <div class="product-row">
+                <article class="product-card">
+                    <a href="./src/pages/produto.html?id=mercedes-polo-2025-preta" class="product-image"><span class="product-tag">Destaque</span><img src="./src/assets/images/polo-mercedes.png" alt="Camisa polo Mercedes 2025 preta"></a>
+                    <div class="product-copy"><p class="product-team mercedes-text">Mercedes</p><h3><a href="./src/pages/produto.html?id=mercedes-polo-2025-preta">Camisa Polo Mercedes 2025 Preta</a></h3><p class="product-price">R$ 159,90</p><p class="pix-note">R$ 151,91 no PIX</p></div>
+                </article>
+                <article class="product-card">
+                    <a href="./src/pages/produto.html?id=ferrari-jaqueta-driver" class="product-image"><img src="./src/assets/images/blusa-ferrari.png" alt="Jaqueta Scuderia Ferrari vermelha"></a>
+                    <div class="product-copy"><p class="product-team ferrari-text">Ferrari</p><h3><a href="./src/pages/produto.html?id=ferrari-jaqueta-driver">Jaqueta Scuderia Ferrari Replica Driver</a></h3><p class="product-price">R$ 369,90</p><p class="pix-note">R$ 351,41 no PIX</p></div>
+                </article>
+                <article class="product-card">
+                    <a href="./src/pages/produto.html?id=mercedes-bone-mechanics" class="product-image"><img src="./src/assets/images/bone-mercedes.png" alt="Boné Mercedes preto"></a>
+                    <div class="product-copy"><p class="product-team mercedes-text">Mercedes</p><h3><a href="./src/pages/produto.html?id=mercedes-bone-mechanics">Boné Trucker Mechanics Adidas Mercedes</a></h3><p class="product-price">R$ 119,90</p><p class="pix-note">R$ 113,91 no PIX</p></div>
+                </article>
+                <article class="product-card">
+                    <a href="./src/pages/produto.html?id=redbull-bone-9fifty" class="product-image"><img src="./src/assets/images/bone-redbull.png" alt="Boné Red Bull azul marinho"></a>
+                    <div class="product-copy"><p class="product-team rbr-text">Red Bull</p><h3><a href="./src/pages/produto.html?id=redbull-bone-9fifty">Boné 9FIFTY Original Fit Red Bull Racing</a></h3><p class="product-price">R$ 109,90</p><p class="pix-note">R$ 104,41 no PIX</p></div>
+                </article>
+                <article class="product-card">
+                    <a href="./src/pages/produto.html?id=mclaren-polo-equipe-2026" class="product-image"><span class="product-tag new">Novo</span><img src="./src/assets/images/polo-mclaren.png" alt="Camisa polo McLaren 2026 laranja"></a>
+                    <div class="product-copy"><p class="product-team mclaren-text">McLaren</p><h3><a href="./src/pages/produto.html?id=mclaren-polo-equipe-2026">Camisa Polo McLaren F1 Team 2026</a></h3><p class="product-price">R$ 179,90</p><p class="pix-note">R$ 170,91 no PIX</p></div>
+                </article>
+            </div>
+        </section>
+
+        <section class="store-section teams-section" id="categorias" aria-labelledby="teams-title">
+            <div class="section-heading">
+                <div><p class="eyebrow">Torça com estilo</p><h2 id="teams-title">Escolha sua equipe</h2></div>
+                <a href="./src/pages/equipes.html">Todas as equipes <span aria-hidden="true">→</span></a>
+            </div>
+            <div class="team-grid">
+                <a href="./src/pages/ferrari.html" class="team-card ferrari"><img src="./src/assets/images/ferrari-logo.png" alt=""><span>Ferrari</span><small>Ver coleção →</small></a>
+                <a href="./src/pages/mercedes.html" class="team-card mercedes"><img src="./src/assets/images/mercedes-logo.png" alt=""><span>Mercedes</span><small>Ver coleção →</small></a>
+                <a href="./src/pages/rbr.html" class="team-card rbr"><img src="./src/assets/images/rbr-logo.png" alt=""><span>Red Bull</span><small>Ver coleção →</small></a>
+                <a href="./src/pages/mclaren.html" class="team-card mclaren"><img src="./src/assets/images/mclaren-logo.png" alt=""><span>McLaren</span><small>Ver coleção →</small></a>
+                <a href="./src/pages/williams.html" class="team-card williams"><img src="./src/assets/images/williams-logo.png" alt=""><span>Williams</span><small>Ver coleção →</small></a>
+            </div>
+        </section>
+
+        <section class="store-section promo-section" id="promocoes" aria-labelledby="promo-title">
+            <div class="promo-copy">
+                <p class="eyebrow">Última volta</p>
+                <h2 id="promo-title">Seleção de peças com preço de pódio.</h2>
+                <p>Encontre produtos das principais equipes e garanta 5% de desconto no PIX.</p>
+                <a class="button button-dark" href="./src/pages/catalogo.html">Explorar produtos <span aria-hidden="true">→</span></a>
+            </div>
+            <div class="promo-products">
+                <a href="./src/pages/produto.html?id=williams-jaqueta-rp-hybrid"><img src="./src/assets/images/jaqueta-williams.png" alt="Jaqueta Williams azul marinho"><span>Williams</span></a>
+                <a href="./src/pages/produto.html?id=mclaren-moletom-retro-vermelho"><img src="./src/assets/images/moletom-mclaren.png" alt="Moletom McLaren"><span>McLaren</span></a>
+                <a href="./src/pages/produto.html?id=mercedes-jaqueta-2025-preta"><img src="./src/assets/images/jaqueta-mercedes.png" alt="Jaqueta Mercedes"><span>Mercedes</span></a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-main">
+            <div class="footer-brand"><img src="./src/assets/images/logo.svg" alt=""><p>Da largada à bandeirada, sua paixão veste F1 Hub.</p></div>
+            <div class="footer-column"><h2>Loja</h2><a href="./src/pages/equipes.html">Equipes</a><a href="#lancamentos">Lançamentos</a><a href="#promocoes">Promoções</a></div>
+            <div class="footer-column"><h2>Atendimento</h2><a href="./src/pages/login.html">Minha conta</a><a href="#">Termos de serviço</a><a href="#">Política de privacidade</a></div>
+            <div class="footer-social"><h2>Siga a F1 Hub</h2><div><a href="https://www.facebook.com/" aria-label="Facebook"><img src="./src/assets/images/facebook.png" alt=""></a><a href="https://www.instagram.com/" aria-label="Instagram"><img src="./src/assets/images/instagram.png" alt=""></a><a href="https://x.com/" aria-label="X"><img src="./src/assets/images/X.svg" alt=""></a></div></div>
         </div>
-    <section class="carroussel">
-        <article class="carroussel-pages Page" id="page-1">
-            <div class="carroussel-content">
-                <a href="./src/pages/produto.html" class="carroussel-product">
-                    <img src="./src/assets/images/polo-mercedes.png" alt="produto">
-                    <p>Camisa Polo Mercedes 2025 Preta</p>
-                    <div class="carroussel-product-prices">
-                        <p>R$ 159,90</p>
-                        <p id="pix">5% de desconto no PIX</p>
-                    </div>
-                </a>
-                <a href="" class="carroussel-product">
-                    <img src="./src/assets/images/blusa-ferrari.png" alt="produto">
-                    <p>Jaqueta Scuderia Ferrari Replica Driver Autêntica Racing</p>
-                    <div class="carroussel-product-prices">
-                        <p>R$ 369,90</p>
-                        <p id="pix">5% de desconto no PIX</p>
-                    </div>
-                </a>
-                <a href="" class="carroussel-product">
-                    <img src="./src/assets/images/bone-mercedes.png" alt="produto">
-                    <p>Boné Trucker Mechanics Adidas Mercedes</p>
-                    <div class="carroussel-product-prices">
-                        <p>R$ 119,90</p>
-                        <p id="pix">5% de desconto no PIX</p>
-                    </div>
-                </a>
-                <a href="" class="carroussel-product">
-                    <img src="./src/assets/images/bone-redbull.png" alt="produto">
-                    <p>Boné 9FIFTY Original Fit Red Bull Racing</p>
-                    <div class="carroussel-product-prices">
-                        <p>R$ 109,90</p>
-                        <p id="pix">5% de desconto no PIX</p>
-                    </div>
-                </a>
-                <a href="" class="carroussel-product">
-                    <img src="./src/assets/images/polo-mclaren.png" alt="produto">
-                    <p>Camisa Polo McLaren F1 Team 2026</p>
-                    <div class="carroussel-product-prices">
-                        <p>R$ 179,90</p>
-                        <p id="pix">5% de desconto no PIX</p>
-                    </div>
-                </a>
-            </div>
-        </article>
-        <article class="carroussel-pages" id="page-2">
-            <div class="carroussel-content">
-                <a href="" class="carroussel-product">
-                    <img src="./src/assets/images/polo-mclaren2.png" alt="produto">
-                    <p>Camisa Polo Fanwear McLaren Senna</p>
-                    <div class="carroussel-product-prices">
-                        <p>R$ 199,90</p>
-                        <p id="pix">5% de desconto no PIX</p>
-                    </div>
-                </a>
-                <a href="" class="carroussel-product">
-                    <img src="./src/assets/images/jaqueta-williams.png" alt="produto">
-                    <p>Jaqueta Williams Racing RP Hybrid Azul Marinho</p>
-                    <div class="carroussel-product-prices">
-                        <p>R$ 180,00</p>
-                        <p id="pix">5% de desconto no PIX</p>
-                    </div>
-                </a>
-                <a href="" class="carroussel-product">
-                    <img src="./src/assets/images/dryfit-williams.png" alt="produto">
-                    <p>Camiseta Dryfit Williams Carlos Sainz Azul Marinho 2025</p>
-                    <div class="carroussel-product-prices">
-                        <p>R$ 129,90</p>
-                        <p id="pix">5% de desconto no PIX</p>
-                    </div>
-                </a>
-                <a href="" class="carroussel-product">
-                    <img src="./src/assets/images/polo-ferrari.png" alt="produto">
-                    <p>Camisa Scuderia Ferrari HP Unissex</p>
-                    <div class="carroussel-product-prices">
-                        <p>R$ 209,90</p>
-                        <p id="pix">5% de desconto no PIX</p>
-                    </div>
-                </a>
-                <a href="" class="carroussel-product">
-                    <img src="./src/assets/images/polo-redbull.png" alt="produto">
-                    <p>Camiseta Polo Red Bull Equipe Azul Marinho 2025</p>
-                    <div class="carroussel-product-prices">
-                        <p>R$ 149,90</p>
-                        <p id="pix">5% de desconto no PIX</p>
-                    </div>
-                </a>
-            </div>
-        </article>
-    </section>
-    <p class="carroussel-title">Promoções</p>
-        <div class="carroussel-buttons-wrappers">
-            <a href="#page-3"><img src="./src/assets/images/chevron-left.svg" alt="seta para esquerda"></a>
-            <a href="#page-4"><img src="./src/assets/images/chevron-right.svg" alt="seta para direita"></a>
-        </div>
-    <section class="carroussel">
-        <article class="carroussel-pages Page" id="page-3">
-            <div class="carroussel-content">
-                <a href="" class="carroussel-product">
-                    <img src="./src/assets/images/blusa-ferrari.png" alt="produto">
-                    <p>Jaqueta Scuderia Ferrari Replica Driver Autêntica Racing</p>
-                    <div class="carroussel-product-prices">
-                        <p>R$ 369,90</p>
-                        <p id="pix">5% de desconto no PIX</p>
-                    </div>
-                </a>
-                <a href="" class="carroussel-product">
-                    <img src="./src/assets/images/polo-ferrari.png" alt="produto">
-                    <p>Camisa Scuderia Ferrari HP Unissex</p>
-                    <div class="carroussel-product-prices">
-                        <p>R$ 209,90</p>
-                        <p id="pix">5% de desconto no PIX</p>
-                    </div>
-                </a>
-                <a href="" class="carroussel-product">
-                    <img src="./src/assets/images/polo-ferrari2.png" alt="produto">
-                    <p>Camisa Polo Ferrari Hypercar Replica 2026</p>
-                    <div class="carroussel-product-prices">
-                        <p>R$ 139,90</p>
-                        <p id="pix">5% de desconto no PIX</p>
-                    </div>
-                </a>
-                <a href="" class="carroussel-product">
-                    <img src="./src/assets/images/polo-mercedes.png" alt="produto">
-                    <p>Camisa Polo Mercedes 2025 Preta</p>
-                    <div class="carroussel-product-prices">
-                        <p>R$ 159,90</p>
-                        <p id="pix">5% de desconto no PIX</p>
-                    </div>
-                </a>
-                <a href="" class="carroussel-product">
-                    <img src="./src/assets/images/polo-redbull.png" alt="produto">
-                    <p>Camiseta Polo Red Bull Equipe Azul Marinho 2025</p>
-                    <div class="carroussel-product-prices">
-                        <p>R$ 149,90</p>
-                        <p id="pix">5% de desconto no PIX</p>
-                    </div>
-                </a>
-            </div>
-        </article>
-        <article class="carroussel-pages" id="page-4">
-            <div class="carroussel-content">
-                <a href="" class="carroussel-product">
-                    <img src="./src/assets/images/dryfit-williams.png" alt="produto">
-                    <p>Camiseta Dryfit Williams Carlos Sainz Azul Marinho 2025</p>
-                    <div class="carroussel-product-prices">
-                        <p>R$ 129,90</p>
-                        <p id="pix">5% de desconto no PIX</p>
-                    </div>
-                </a>
-                <a href="" class="carroussel-product">
-                    <img src="./src/assets/images/polo-mclaren2.png" alt="produto">
-                    <p>Camisa Polo Fanwear McLaren Senna</p>
-                    <div class="carroussel-product-prices">
-                        <p>R$ 199,90</p>
-                        <p id="pix">5% de desconto no PIX</p>
-                    </div>
-                </a>
-                <a href="" class="carroussel-product">
-                    <img src="./src/assets/images/jaqueta-williams.png" alt="produto">
-                    <p>Jaqueta Williams Racing RP Hybrid Azul Marinho</p>
-                    <div class="carroussel-product-prices">
-                        <p>R$ 180,00</p>
-                        <p id="pix">5% de desconto no PIX</p>
-                    </div>
-                </a>
-                <a href="" class="carroussel-product">
-                    <img src="./src/assets/images/bone-mercedes.png" alt="produto">
-                    <p>Boné Trucker Mechanics Adidas Mercedes</p>
-                    <div class="carroussel-product-prices">
-                        <p>R$ 119,90</p>
-                        <p id="pix">5% de desconto no PIX</p>
-                    </div>
-                </a>
-                <a href="" class="carroussel-product">
-                    <img src="./src/assets/images/polo-mclaren.png" alt="produto">
-                    <p>Camisa Polo McLaren F1 Team 2026</p>
-                    <div class="carroussel-product-prices">
-                        <p>R$ 179,90</p>
-                        <p id="pix">5% de desconto no PIX</p>
-                    </div>
-                </a>
-            </div>
-        </article>
-    </section>
-    <footer>
-        <div class="main-footer">
-            <img src="./src/assets/images/logo.svg" alt="logo">
-            <div class="link-footer">
-                <a href="./src/pages/equipes.html">Equipes</a>
-                <a href="">Categorias</a>
-                <a href="">Lançamentos</a>
-                <a href="">Promoções</a>
-            </div>
-            <div class="media-footer">
-                <a href=""><img src="./src/assets/images/facebook.png" alt="Facebook"></a>
-                <a href=""><img src="./src/assets/images/instagram.png" alt="Instagram"></a>
-                <a href=""><img src="./src/assets/images/twitter.png" alt="twitter"></a>
-            </div>
-        </div>
-        <div class="footer-subcontent">
-            <div class="footer-text">
-                <p>© 2026 The F1 Hub. All rights reserved.</p>
-            </div>
-            <div class="footer-terms">
-                <a href="">Privacy Policy</a>
-                <a href="">Terms of Service</a>
-                <a href="">Cookies Settings</a>
-            </div>
-        </div>
+        <div class="footer-bottom"><p>© 2026 F1 Hub. Todos os direitos reservados.</p><p>Projeto acadêmico • Feito por fãs de velocidade</p></div>
     </footer>
-    <script src="./js/main.js"></script>
+
+    <script type="module" src="./js/main.js"></script>
 </body>
 </html>

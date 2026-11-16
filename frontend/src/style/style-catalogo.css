@@ -1,0 +1,20 @@
+@import url("./style-equipes.css");
+
+.catalog-page { width: var(--page); margin: 54px auto 100px; }
+.catalog-hero { max-width: 900px; margin-bottom: 48px; }
+.catalog-hero h1 { margin-bottom: 18px; font-size: clamp(48px, 7vw, 88px); line-height: .95; letter-spacing: -.065em; }
+.catalog-hero > p:last-child { color: var(--muted); font-size: 16px; line-height: 1.6; }
+.catalog-layout { display: grid; grid-template-columns: 230px minmax(0, 1fr); gap: 34px; align-items: start; }
+.catalog-filter-box { grid-column: auto; grid-row: auto; }
+.catalog-results { min-width: 0; }
+.catalog-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 22px; margin-bottom: 22px; }
+.catalog-results .catalog-status { position: static; grid-column: auto; grid-row: auto; margin: 0; }
+.catalog-toolbar label { display: flex; align-items: center; gap: 10px; color: var(--muted); font-size: 11px; font-weight: 700; }
+.catalog-toolbar select { min-width: 150px; height: 40px; padding: 0 34px 0 12px; border: 1px solid var(--line); border-radius: 8px; background: #fff; color: var(--carbon); }
+.general-product-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 34px 16px; }
+.empty-catalog { grid-column: 1 / -1; padding: 70px 20px; border-radius: 14px; background: #fff; text-align: center; }
+.empty-catalog p { margin-top: 8px; color: var(--muted); font-size: 13px; }
+
+@media (max-width: 1100px) { .general-product-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 800px) { .catalog-layout { grid-template-columns: 1fr; }.catalog-filter-box { position: static; }.general-product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 520px) { .catalog-page { width: calc(100% - 20px); margin-top: 38px; }.catalog-hero h1 { font-size: 48px; }.catalog-toolbar { align-items: flex-start; flex-direction: column; }.catalog-toolbar label { width: 100%; justify-content: space-between; }.catalog-toolbar select { flex: 1; }.general-product-grid { gap: 28px 10px; } }
