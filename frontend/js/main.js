@@ -1,69 +1,139 @@
-/**
- * JavaScript principal do front-end.
- * Adicione aqui apenas comportamentos necessários para a interface.
- */
+import { initCatalogPage } from './pages/catalog-page.js';
+import { initProductPage } from './pages/product-page.js';
+import { initCartPage } from './pages/cart-page.js';
+import { initGeneralCatalogPage } from './pages/general-catalog-page.js';
+import { initCheckoutPage } from './pages/checkout-page.js';
+import { cartService } from './services/cart-service.js';
+import { routes } from './services/catalog-service.js';
+import { initSearch } from './ui/search-controller.js';
 
-document.addEventListener('DOMContentLoaded', function () {
-    const dropdowns = document.querySelectorAll('.dropdown');
+const dropdowns = Array.from(document.querySelectorAll('.dropdown'));
+const menuToggle = document.querySelector('.menu-toggle');
+const navigation = document.querySelector('.header-nav');
 
-    function closeDropdowns(except) {
-        dropdowns.forEach(function (dropdown) {
-            if (dropdown !== except) {
-                dropdown.classList.remove('open');
-            }
-        });
-    }
+function closeDropdowns(except, releaseFocus = false) {
+    dropdowns.forEach((dropdown) => {
+        if (dropdown === except) return;
+        dropdown.classList.remove('open');
+        if (releaseFocus && dropdown.contains(document.activeElement)) document.activeElement?.blur?.();
+    });
+}
 
-    function getDropdownMenu(dropdown) {
-        return dropdown.querySelector('.dropdown-teams, .dropdown-categories');
-    }
-
-    dropdowns.forEach(function (dropdown) {
-        const toggle = dropdown.querySelector('.dropbtn');
-        const menu = getDropdownMenu(dropdown);
-
-        if (!toggle || !menu) {
-            return;
-        }
-
-        toggle.addEventListener('click', function (event) {
-            const href = toggle.getAttribute('href');
-            const hasNavigation = href && href.trim() !== '' && href.trim() !== '#';
-
-            if (hasNavigation) {
-                // Menus that point to a real page (ex.: Equipes) keep the default navigation.
-                closeDropdowns();
-                return;
-            }
-
-            event.preventDefault();
-            const isOpen = dropdown.classList.contains('open');
-            closeDropdowns(dropdown);
-            if (!isOpen) {
-                dropdown.classList.add('open');
-            }
-        });
-
-        // Close the dropdown after a navigation option is chosen.
-        menu.querySelectorAll('a').forEach(function (link) {
-            link.addEventListener('click', function () {
-                dropdown.classList.remove('open');
-            });
-        });
+dropdowns.forEach((dropdown) => {
+    const toggle = dropdown.querySelector('.dropbtn');
+    const menu = dropdown.querySelector('.dropdown-teams, .dropdown-categories');
+    if (!toggle || !menu) return;
+    toggle.addEventListener('click', (event) => {
+        const isCompact = window.matchMedia('(max-width: 800px)').matches;
+        const href = toggle.getAttribute('href');
+        const hasNavigation = href && href.trim() !== '' && href.trim() !== '#';
+        if (!isCompact && hasNavigation) { closeDropdowns(); return; }
+        event.preventDefault();
+        const willOpen = !dropdown.classList.contains('open');
+        closeDropdowns(dropdown);
+        dropdown.classList.toggle('open', willOpen);
     });
 
-    // Close open dropdowns when clicking outside the navbar.
-    document.addEventListener('click', function (event) {
-        const openDropdown = document.querySelector('.dropdown.open');
-        if (openDropdown && !openDropdown.contains(event.target)) {
-            openDropdown.classList.remove('open');
-        }
+    dropdown.addEventListener('pointerenter', () => {
+        if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+        closeDropdowns(dropdown, true);
     });
 
-    // Close open dropdowns with the Escape key.
-    document.addEventListener('keydown', function (event) {
-        if (event.key === 'Escape') {
-            closeDropdowns();
-        }
+    dropdown.addEventListener('focusin', () => {
+        closeDropdowns(dropdown);
     });
+
+    dropdown.addEventListener('pointerleave', () => {
+        if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+        dropdown.classList.remove('open');
+        if (dropdown.contains(document.activeElement)) document.activeElement?.blur?.();
+    });
+});
+
+if (menuToggle && navigation) {
+    menuToggle.addEventListener('click', () => {
+        const willOpen = !navigation.classList.contains('is-open');
+        navigation.classList.toggle('is-open', willOpen);
+        menuToggle.setAttribute('aria-expanded', String(willOpen));
+    });
+}
+
+function updateCartBadge() {
+    document.querySelectorAll('.header-buttons button:last-child').forEach((button) => {
+        let badge = button.querySelector('.cart-count');
+        if (!badge) {
+            badge = document.createElement('span');
+            badge.className = 'cart-count';
+            button.append(badge);
+        }
+        const count = cartService.count();
+        badge.textContent = count;
+        badge.setAttribute('aria-label', `${count} ${count === 1 ? 'item' : 'itens'}`);
+    });
+}
+
+document.querySelectorAll('.header-buttons button:last-child').forEach((button) => {
+    button.setAttribute('aria-label', 'Abrir carrinho');
+    button.addEventListener('click', () => { window.location.href = routes.cart; });
+});
+
+function upgradeSocialLinks() {
+    const platforms = [
+        { url: 'https://www.facebook.com/', label: 'Facebook' },
+        { url: 'https://www.instagram.com/', label: 'Instagram' },
+        { url: 'https://x.com/', label: 'X', icon: new URL('../src/assets/images/X.svg', import.meta.url).href }
+    ];
+    document.querySelectorAll('.media-footer, .footer-social > div').forEach((group) => {
+        group.querySelectorAll('a').forEach((link, index) => {
+            const platform = platforms[index];
+            if (!platform) return;
+            link.href = platform.url;
+            link.target = '_blank';
+            link.rel = 'noopener noreferrer';
+            link.setAttribute('aria-label', platform.label);
+            if (platform.icon) link.querySelector('img')?.setAttribute('src', platform.icon);
+        });
+    });
+}
+
+const search = initSearch();
+
+document.querySelectorAll('.header-nav > a, .link-footer a').forEach((link) => {
+    const label = link.textContent.trim().toLowerCase();
+    if (label === 'categorias') link.href = routes.catalog;
+    if (label === 'lançamentos') link.href = `${routes.home}#lancamentos`;
+    if (label === 'promoções') link.href = `${routes.home}#promocoes`;
+});
+
+document.querySelectorAll('.dropdown-categories').forEach((menu) => {
+    const categories = ['Camisa Polo', 'Camiseta', 'Boné', 'Moletom', 'Jaqueta'];
+    menu.innerHTML = categories.map((category) => `<a href="#" data-search-category="${category}">${category}</a>`).join('');
+    menu.addEventListener('click', (event) => {
+        const link = event.target.closest('[data-search-category]');
+        if (!link) return;
+        event.preventDefault();
+        closeDropdowns();
+        search.open(link.dataset.searchCategory);
+    });
+});
+
+initCatalogPage();
+initProductPage();
+initCartPage();
+initGeneralCatalogPage();
+initCheckoutPage();
+upgradeSocialLinks();
+updateCartBadge();
+
+window.addEventListener('f1hub:cart-updated', updateCartBadge);
+document.addEventListener('click', (event) => {
+    const openDropdown = document.querySelector('.dropdown.open');
+    if (openDropdown && !openDropdown.contains(event.target)) closeDropdowns();
+});
+document.addEventListener('keydown', (event) => {
+    if (event.key !== 'Escape') return;
+    closeDropdowns();
+    search.close();
+    navigation?.classList.remove('is-open');
+    menuToggle?.setAttribute('aria-expanded', 'false');
 });
