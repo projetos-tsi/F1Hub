@@ -9,8 +9,8 @@ const escapeHtml = (value) => String(value)
 
 export function productCardTemplate(product, className = 'team-product') {
     return `
-        <a href="${product.url}" class="${className}" data-product-id="${escapeHtml(product.id)}">
-            <img src="${product.imageUrl}" alt="${escapeHtml(product.name)}" loading="lazy">
+        <a href="${product.url}" class="${className}" data-product-id="${escapeHtml(product.id)}" data-team="${escapeHtml(product.team)}">
+            <span class="product-visual"><img src="${product.imageUrl}" alt="${escapeHtml(product.name)}" loading="lazy"></span>
             <p>${escapeHtml(product.name)}</p>
             <div class="team-product-prices">
                 <p>${catalogService.formatPrice(product.price)}</p>
