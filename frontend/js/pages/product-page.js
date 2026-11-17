@@ -23,6 +23,7 @@ export function initProductPage() {
 
     document.title = `${product.name} | F1 Hub`;
     document.querySelector('meta[name="description"]')?.setAttribute('content', product.description);
+    productMedia.dataset.team = product.team;
     productMedia.innerHTML = `<img src="${product.imageUrl}" alt="${product.name}">`;
 
     const title = productInfo.querySelector('.title');

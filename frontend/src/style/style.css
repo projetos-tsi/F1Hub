@@ -21,6 +21,11 @@
 html { scroll-behavior: smooth; }
 html.search-active { overscroll-behavior: none; }
 body { min-width: 320px; overflow-x: hidden; background: var(--canvas); color: var(--carbon); }
+[data-team="ferrari"] { --product-backdrop: url("../assets/images/product-backgrounds/ferrari.png"); }
+[data-team="mercedes"] { --product-backdrop: url("../assets/images/product-backgrounds/mercedes.png"); }
+[data-team="rbr"] { --product-backdrop: url("../assets/images/product-backgrounds/rbr.png"); }
+[data-team="mclaren"] { --product-backdrop: url("../assets/images/product-backgrounds/mclaren.png"); }
+[data-team="williams"] { --product-backdrop: url("../assets/images/product-backgrounds/williams.png"); }
 button, input { font: inherit; }
 button, a { -webkit-tap-highlight-color: transparent; }
 img { display: block; max-width: 100%; }
@@ -108,8 +113,8 @@ img { display: block; max-width: 100%; }
 .section-heading > a { flex: none; padding-bottom: 5px; border-bottom: 1px solid var(--carbon); color: var(--carbon); font-size: 14px; font-weight: 800; }
 .product-row { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; }
 .product-card { min-width: 0; }
-.product-image { position: relative; display: grid; place-items: center; aspect-ratio: 4 / 4.6; overflow: hidden; border-radius: 14px; background: #fff; }
-.product-image img { width: 86%; height: 86%; object-fit: contain; transition: transform .35s ease; }
+.product-image { position: relative; display: grid; place-items: center; aspect-ratio: 4 / 4.6; overflow: hidden; border-radius: 14px; background-color: #fff; background-image: var(--product-backdrop, none); background-position: center; background-size: cover; box-shadow: inset 0 0 0 1px rgba(255,255,255,.12); }
+.product-image img { width: 82%; height: 82%; filter: drop-shadow(0 16px 16px rgba(0,0,0,.46)) drop-shadow(0 0 1px rgba(255,255,255,.72)); object-fit: contain; transition: transform .35s ease; }
 .product-card:hover .product-image img { transform: scale(1.055); }
 .product-tag { position: absolute; z-index: 1; top: 12px; left: 12px; padding: 7px 9px; border-radius: 6px; background: var(--carbon); color: #fff; font-size: 10px; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
 .product-tag.new { background: var(--red); }
@@ -137,8 +142,8 @@ img { display: block; max-width: 100%; }
 .promo-copy h2 { margin-bottom: 20px; font-size: clamp(36px, 4.3vw, 64px); line-height: 1.02; letter-spacing: -.06em; }
 .promo-copy > p:not(.eyebrow) { max-width: 480px; margin-bottom: 28px; color: var(--muted); line-height: 1.65; }
 .promo-products { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-.promo-products a { position: relative; display: grid; place-items: center; aspect-ratio: 3 / 4; overflow: hidden; border-radius: 12px; background: var(--canvas); }
-.promo-products img { width: 88%; height: 88%; object-fit: contain; transition: transform .3s ease; }
+.promo-products a { position: relative; display: grid; place-items: center; aspect-ratio: 3 / 4; overflow: hidden; border-radius: 12px; background-color: var(--canvas); background-image: var(--product-backdrop, none); background-position: center; background-size: cover; }
+.promo-products img { width: 82%; height: 82%; filter: drop-shadow(0 14px 14px rgba(0,0,0,.45)); object-fit: contain; transition: transform .3s ease; }
 .promo-products a:hover img { transform: scale(1.06); }
 .promo-products span { position: absolute; right: 12px; bottom: 12px; left: 12px; padding: 10px; border-radius: 8px; background: rgba(31,31,31,.88); color: #fff; font-size: 12px; font-weight: 800; text-align: center; }
 
