@@ -1,0 +1,2 @@
+# Arquivos de apoio do admin: só são usados pelo PHP, nunca abertos no navegador.
+Require all denied

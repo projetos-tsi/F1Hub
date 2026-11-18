@@ -54,6 +54,8 @@ teams      (1) ──< (N) subscriptions   (equipe favorita; NULL = Surpresa)
 
 Conta criada para a avaliação da área administrativa no ambiente local. **Não use estas credenciais fora do computador de desenvolvimento**; em qualquer outro ambiente, troque a senha.
 
+Área administrativa: `http://localhost/F1Hub/frontend/pages/admin/` — ao entrar com esta conta pela tela de login, o painel abre automaticamente. Contas comuns (`role = user`) recebem "Acesso restrito"; visitantes são levados ao login.
+
 ## Regras
 
 - Não exporte dados pessoais reais;

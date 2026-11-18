@@ -8,6 +8,8 @@
 .account-hero h1 { margin-bottom: 10px; font-size: clamp(42px, 6vw, 74px); line-height: 1; letter-spacing: -.06em; }
 .account-hero p:not(.eyebrow) { color: var(--muted); font-size: 15px; }
 .account-badge { padding: 3px 8px; border-radius: 99px; background: var(--carbon); color: #fff; letter-spacing: .08em; }
+.account-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.account-actions .button { min-height: 46px; }
 .account-logout { min-height: 46px; padding: 0 22px; border: 1.5px solid var(--carbon); border-radius: 10px; background: transparent; color: var(--carbon); font-size: 13px; font-weight: 800; cursor: pointer; transition: background .2s, color .2s; }
 .account-logout:hover { background: var(--carbon); color: #fff; }
 .account-logout:disabled { cursor: default; opacity: .6; }

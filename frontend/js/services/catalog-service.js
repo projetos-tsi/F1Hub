@@ -18,6 +18,7 @@ export const routes = {
     account: new URL('src/pages/conta.html', frontendRoot).href,
     login: new URL('src/pages/login.html', frontendRoot).href,
     register: new URL('src/pages/cadastro.html', frontendRoot).href,
+    admin: new URL('pages/admin/index.php', frontendRoot).href,
     team: (team) => new URL(`src/pages/${team}.html`, frontendRoot).href
 };
 

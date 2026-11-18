@@ -5,7 +5,9 @@ import { routes } from '../services/catalog-service.js';
 const form = document.querySelector('.login-form');
 const status = document.getElementById('form-status');
 const submitButton = form.querySelector('.submit-button');
-const destination = safeRedirectTarget(routes.account);
+// Destino após entrar: o ?redirect= da página (se for do próprio site) ou, sem ele,
+// o painel para administradores e "Minha conta" para clientes.
+const destinationFor = (user) => safeRedirectTarget(user.role === 'admin' ? routes.admin : routes.account);
 
 // Mantém o destino ao trocar para a tela de cadastro.
 const registerLink = form.querySelector('.create-account a');
@@ -19,7 +21,7 @@ function showStatus(message, type) {
 
 // Quem já está logado não precisa ver o login.
 authService.me().then((user) => {
-    if (user) window.location.replace(destination);
+    if (user) window.location.replace(destinationFor(user));
 });
 
 form.addEventListener('submit', async (event) => {
@@ -40,7 +42,7 @@ form.addEventListener('submit', async (event) => {
     try {
         const user = await authService.login(email, password, form.elements.remember.checked);
         showStatus(`Olá, ${user.firstName}! Entrando na sua conta...`, 'success');
-        window.location.assign(destination);
+        window.location.assign(destinationFor(user));
     } catch (error) {
         showStatus(error.message, 'error');
         form.elements.password.value = '';
