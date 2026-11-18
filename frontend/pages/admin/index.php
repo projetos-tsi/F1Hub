@@ -71,7 +71,7 @@ admin_page_start('Painel', 'index.php', $adminUser);
             <ul class="admin-mini-list">
                 <?php foreach ($latestOrders as $order): ?>
                     <li>
-                        <div class="admin-person"><strong>#<?= (int) $order['id'] ?> · <?= View::e($order['user_name']) ?></strong><small><?= View::dateTime($order['created_at']) ?></small></div>
+                        <div class="admin-person"><strong><a class="admin-code" href="pedido.php?id=<?= (int) $order['id'] ?>">#<?= (int) $order['id'] ?></a> · <?= View::e($order['user_name']) ?></strong><small><?= View::dateTime($order['created_at']) ?></small></div>
                         <span class="admin-mini-value"><?= View::money($order['total_cents']) ?></span>
                     </li>
                 <?php endforeach; ?>

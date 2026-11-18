@@ -117,6 +117,8 @@
 .admin-person small, .admin-plan-name small { display: block; margin-top: 3px; color: var(--muted); font-size: 12px; overflow-wrap: anywhere; }
 .admin-plan-name { min-width: 220px; }
 .admin-code { font-size: 15px; letter-spacing: -.01em; }
+a.admin-code { color: var(--carbon); font-weight: 900; text-decoration: underline; text-decoration-color: var(--red); text-underline-offset: 3px; }
+a.admin-code:hover { color: var(--red); }
 .admin-tag { display: inline-block; margin-left: 6px; padding: 3px 7px; border-radius: 6px; background: var(--red); color: #fff; font-size: 10px; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; vertical-align: 2px; }
 .admin-cell-note { display: block; margin-top: 4px; color: var(--muted); font-size: 11px; }
 .team-badge { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; white-space: nowrap; }
@@ -279,3 +281,61 @@ fieldset.admin-card[aria-invalid="true"] { box-shadow: inset 0 0 0 1.5px var(--r
     .admin-store-link { font-size: 12px; }
     .admin-form-actions .button { flex: 1; }
 }
+
+/* Detalhe do pedido (pedido.php) */
+.admin-hero h1 .status-pill { font-size: 13px; letter-spacing: .06em; vertical-align: middle; }
+.admin-order-layout { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; align-items: start; }
+.admin-order-items { grid-column: 1 / -1; }
+.admin-card-heading .admin-hint { margin: 0; }
+.admin-steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin: 6px 0 22px; list-style: none; }
+.admin-steps li { position: relative; display: grid; justify-items: center; gap: 6px; color: #9a9a9a; font-size: 12px; font-weight: 800; text-align: center; }
+.admin-steps li::before { position: absolute; z-index: 0; top: 14px; right: 50%; left: -50%; height: 3px; background: #e2e2e2; content: ""; }
+.admin-steps li:first-child::before { display: none; }
+.admin-steps li > span { position: relative; z-index: 1; display: grid; place-items: center; width: 30px; height: 30px; border: 2px solid #e2e2e2; border-radius: 50%; background: #fff; }
+.admin-steps li.is-done, .admin-steps li.is-current { color: var(--carbon); }
+.admin-steps li.is-done::before, .admin-steps li.is-current::before { background: var(--green); }
+.admin-steps li.is-done > span { border-color: var(--green); background: var(--green); color: #fff; }
+.admin-steps li.is-current > span { border-color: var(--carbon); background: var(--carbon); color: #fff; }
+.admin-status-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-bottom: 12px; }
+.admin-status-actions .button { min-height: 46px; }
+.admin-order-cancelled { padding: 14px 16px; border-left: 4px solid var(--red); border-radius: 10px; background: #fff5f5; color: var(--red-dark); font-size: 14px; font-weight: 700; }
+.admin-dl { display: grid; gap: 12px; }
+.admin-dl div { display: grid; gap: 3px; padding-bottom: 12px; border-bottom: 1px solid #ececec; }
+.admin-dl div:last-child { padding-bottom: 0; border-bottom: 0; }
+.admin-dl dt { color: var(--muted); font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+.admin-dl dd { font-size: 15px; font-weight: 700; overflow-wrap: anywhere; }
+.admin-totals { display: grid; gap: 6px; max-width: 360px; margin: 16px 0 0 auto; }
+.admin-totals div { display: flex; justify-content: space-between; gap: 20px; font-size: 14px; }
+.admin-totals dt { color: var(--muted); }
+.admin-totals .is-discount dd { color: var(--green); }
+.admin-totals .is-total { padding-top: 10px; border-top: 1px solid #ececec; font-size: 18px; font-weight: 900; }
+.admin-totals .is-total dt { color: var(--carbon); }
+.admin-order-items .admin-mini-list small { display: block; color: var(--muted); font-size: 12px; }
+
+@media (max-width: 900px) {
+    .admin-order-layout { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+    .admin-steps li { font-size: 10px; }
+    .admin-status-actions > form, .admin-status-actions .button, .admin-status-actions .admin-action { width: 100%; }
+    .admin-status-actions .admin-action { justify-content: center; text-align: center; }
+    .admin-totals { max-width: none; }
+}
+
+/* Instalador local (instalar.php) */
+.installer-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; align-items: start; }
+.installer-checks { display: grid; gap: 12px; margin-bottom: 16px; list-style: none; }
+.installer-checks li { display: flex; align-items: flex-start; gap: 12px; }
+.installer-checks li > span { display: grid; place-items: center; flex: none; width: 26px; height: 26px; border-radius: 50%; color: #fff; font-size: 13px; font-weight: 900; }
+.installer-checks .is-ok > span { background: var(--green); }
+.installer-checks .is-pending > span { background: #d98a00; }
+.installer-checks strong { display: block; font-size: 14px; }
+.installer-checks small { display: block; margin-top: 2px; color: var(--muted); font-size: 12px; }
+.installer-links { display: flex; flex-wrap: wrap; gap: 10px; margin: 16px 0 12px; }
+.installer-form { display: grid; gap: 16px; }
+.installer-form .button { justify-self: start; }
+.installer-reset { display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; border-radius: 10px; background: #fff5f5; cursor: pointer; }
+.installer-reset input { margin-top: 3px; accent-color: var(--red); }
+.installer-reset strong { display: block; color: var(--red-dark); font-size: 13px; }
+.installer-reset small { display: block; margin-top: 2px; color: var(--muted); font-size: 12px; }
+@media (max-width: 900px) { .installer-grid { grid-template-columns: 1fr; } }

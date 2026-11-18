@@ -1,15 +1,21 @@
-import { subscriptionPlans, surpriseTeam } from '../data/subscription-plans.js';
+import { api } from './api-client.js';
 import { catalogService } from './catalog-service.js';
 
-// Camada de acesso aos planos. Na fase B5 os planos passam a vir da API (tabela `plans`).
-// As equipes já vêm do banco, junto com o catálogo (catalogService.load()).
-export const subscriptionService = {
-    plans() {
-        return subscriptionPlans.map((plan) => ({ ...plan, priceLabel: catalogService.formatPrice(plan.price) }));
-    },
+// Assinatura F1Hub Box. Planos e assinatura vêm do banco pela API (backend/api/subscriptions.php);
+// as equipes vêm junto com o catálogo (catalogService.load()).
 
-    byId(id) {
-        return this.plans().find((plan) => plan.id === id) || null;
+/** Opção para quem não quer escolher uma única equipe (gravada como "sem equipe" no banco). */
+export const surpriseTeam = { id: 'surpresa', name: 'Surpresa', label: 'Todas as equipes' };
+
+let plansRequest = null;
+
+export const subscriptionService = {
+    /** Planos ativos (uma requisição por página). Resolve null se o servidor não respondeu. */
+    loadPlans() {
+        plansRequest ??= api.get('subscriptions.php?action=plans')
+            .then((data) => data.plans.map((plan) => ({ ...plan, priceLabel: catalogService.formatPrice(plan.price) })))
+            .catch(() => null);
+        return plansRequest;
     },
 
     teams() {
@@ -21,5 +27,18 @@ export const subscriptionService = {
 
     shirtSizes() {
         return ['P', 'M', 'G', 'GG'];
+    },
+
+    /** { subscription, lastCancelled } do cliente logado. */
+    mine() {
+        return api.get('subscriptions.php?action=mine');
+    },
+
+    subscribe(choice) {
+        return api.post('subscriptions.php?action=subscribe', choice);
+    },
+
+    cancel() {
+        return api.post('subscriptions.php?action=cancel');
     }
 };

@@ -97,10 +97,14 @@ export const catalogService = {
         return products.filter((item) => item.team === team);
     },
 
+    /** Busca sem diferenciar acentos/maiúsculas; com várias palavras, o produto precisa ter todas (em qualquer ordem). */
     search(query) {
-        const term = normalize(query);
-        if (!term) return [];
-        return products.filter((item) => normalize(`${item.name} ${item.category} ${item.pilot} ${item.teamName}`).includes(term));
+        const words = normalize(query).split(/\s+/).filter(Boolean);
+        if (!words.length) return [];
+        return products.filter((item) => {
+            const text = normalize(`${item.name} ${item.category} ${item.pilot} ${item.teamName} ${item.teamLabel}`);
+            return words.every((word) => text.includes(word));
+        });
     },
 
     filter(team, filters = {}) {

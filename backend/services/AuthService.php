@@ -9,8 +9,6 @@ declare(strict_types=1);
  */
 final class AuthService
 {
-    private const MAX_ATTEMPTS = 5;            // tentativas de login erradas...
-    private const LOCK_SECONDS = 5 * 60;       // ...bloqueiam novas tentativas por 5 minutos
     private const INVALID_LOGIN = 'E-mail ou senha incorretos.';
     // Letras (inclusive acentuadas), espaço, apóstrofo, hífen e ponto. Ex.: "Ana D'Ávila", "José da Silva-Neto Jr."
     private const NAME_PATTERN = "/^[\\p{L}\\p{M}'’.\\- ]+$/u";
@@ -27,14 +25,8 @@ final class AuthService
         $confirm = Response::text($input, 'confirmPassword');
         $errors = [];
 
-        if ($name === '') {
-            $errors['name'] = 'Informe seu nome completo.';
-        } elseif (!preg_match(self::NAME_PATTERN, $name)) {
-            $errors['name'] = 'Use apenas letras, espaços, apóstrofo, hífen ou ponto no nome.';
-        } elseif (count(explode(' ', $name)) < 2) {
-            $errors['name'] = 'Informe nome e sobrenome.';
-        } elseif (mb_strlen($name) > 120) {
-            $errors['name'] = 'O nome pode ter no máximo 120 caracteres.';
+        if ($error = self::nameError($name)) {
+            $errors['name'] = $error;
         }
 
         if ($email === '') {
@@ -43,13 +35,8 @@ final class AuthService
             $errors['email'] = 'Digite um e-mail válido, como nome@exemplo.com.';
         }
 
-        if ($password === '') {
-            $errors['password'] = 'Crie uma senha.';
-        } elseif (mb_strlen($password) < 8 || !preg_match('/\p{L}/u', $password) || !preg_match('/\d/', $password)) {
-            $errors['password'] = 'A senha precisa ter 8 ou mais caracteres, com letras e números.';
-        } elseif (strlen($password) > 72) {
-            // Limite do algoritmo bcrypt usado por password_hash().
-            $errors['password'] = 'A senha pode ter no máximo 72 caracteres.';
+        if ($error = self::passwordError($password, 'Crie uma senha.')) {
+            $errors['password'] = $error;
         }
 
         if ($confirm === '') {
@@ -90,13 +77,16 @@ final class AuthService
     public static function login(string $email, string $password): array
     {
         Session::start();
-        $lockedUntil = $_SESSION['login_locked_until'] ?? 0;
-        if ($lockedUntil > time()) {
-            $minutes = (int) ceil(($lockedUntil - time()) / 60);
+        $email = self::normalizeEmail($email);
+        $ip = $_SERVER['REMOTE_ADDR'] ?? 'cli';
+        // Limite guardado no servidor (por e-mail + IP e por IP): apagar o cookie não zera as tentativas.
+        $locked = LoginThrottle::lockedFor($email, $ip);
+        if ($locked > 0) {
+            $minutes = (int) ceil($locked / 60);
             throw new AuthException("Muitas tentativas. Tente novamente em {$minutes} min.", 429);
         }
 
-        $user = User::findByEmail(self::normalizeEmail($email));
+        $user = User::findByEmail($email);
 
         // Mesma mensagem e mesmo tempo de resposta para e-mail inexistente e senha errada:
         // a senha é sempre conferida (contra um hash fictício quando o e-mail não existe).
@@ -104,15 +94,11 @@ final class AuthService
         $passwordOk = password_verify($password, $hash);
 
         if (!$user || !$passwordOk) {
-            $_SESSION['login_failures'] = ($_SESSION['login_failures'] ?? 0) + 1;
-            if ($_SESSION['login_failures'] >= self::MAX_ATTEMPTS) {
-                $_SESSION['login_locked_until'] = time() + self::LOCK_SECONDS;
-                $_SESSION['login_failures'] = 0;
-            }
+            LoginThrottle::fail($email, $ip);
             throw new AuthException(self::INVALID_LOGIN, 401);
         }
 
-        unset($_SESSION['login_failures'], $_SESSION['login_locked_until']);
+        LoginThrottle::clear($email, $ip);
 
         // Se o PHP passar a usar um algoritmo mais forte, a senha é atualizada no próximo login.
         if (password_needs_rehash($user['password_hash'], PASSWORD_DEFAULT)) {
@@ -150,6 +136,79 @@ final class AuthService
             'role' => $user['role'],
             'memberSince' => substr((string) $user['created_at'], 0, 10),
         ];
+    }
+
+    /**
+     * Altera o nome do cliente logado ("Minha conta").
+     * @throws ValidationException
+     */
+    public static function updateProfile(array $user, array $input): array
+    {
+        $name = trim(preg_replace('/\s+/u', ' ', Response::text($input, 'name')));
+        if ($error = self::nameError($name)) {
+            throw new ValidationException('Confira os campos destacados.', ['name' => $error]);
+        }
+        User::updateName((int) $user['id'], $name);
+        $updated = User::findById((int) $user['id']);
+        Session::refreshUser($updated);
+        return $updated;
+    }
+
+    /**
+     * Troca a senha do cliente logado: exige a senha atual; a nova segue as regras do cadastro.
+     * A sessão ganha um ID novo depois da troca.
+     * @throws ValidationException
+     */
+    public static function changePassword(array $user, array $input): void
+    {
+        $current = Response::text($input, 'currentPassword');
+        $new = Response::text($input, 'newPassword');
+        $confirm = Response::text($input, 'confirmPassword');
+        $stored = User::findByEmail($user['email']);
+        $errors = [];
+
+        if ($current === '' || !$stored || !password_verify($current, $stored['password_hash'])) {
+            $errors['currentPassword'] = 'Senha atual incorreta.';
+        }
+        if ($error = self::passwordError($new, 'Crie a nova senha.')) {
+            $errors['newPassword'] = $error;
+        } elseif ($current !== '' && hash_equals($current, $new)) {
+            $errors['newPassword'] = 'A nova senha precisa ser diferente da atual.';
+        }
+        if ($confirm === '') {
+            $errors['confirmPassword'] = 'Repita a nova senha para confirmar.';
+        } elseif (!hash_equals($new, $confirm)) {
+            $errors['confirmPassword'] = 'As senhas não coincidem.';
+        }
+        if ($errors) {
+            throw new ValidationException('Confira os campos destacados.', $errors);
+        }
+
+        User::updatePasswordHash((int) $user['id'], password_hash($new, PASSWORD_DEFAULT));
+        Session::login(User::findById((int) $user['id']), (bool) ($_SESSION['remember'] ?? false));
+    }
+
+    /** Mensagem de erro do nome (ou null): letras, 2+ palavras, até 120 caracteres. */
+    private static function nameError(string $name): ?string
+    {
+        return match (true) {
+            $name === '' => 'Informe seu nome completo.',
+            !preg_match(self::NAME_PATTERN, $name) => 'Use apenas letras, espaços, apóstrofo, hífen ou ponto no nome.',
+            count(explode(' ', $name)) < 2 => 'Informe nome e sobrenome.',
+            mb_strlen($name) > 120 => 'O nome pode ter no máximo 120 caracteres.',
+            default => null,
+        };
+    }
+
+    /** Mensagem de erro da senha (ou null): 8+ caracteres com letras e números, até 72 (limite do bcrypt). */
+    private static function passwordError(string $password, string $emptyMessage): ?string
+    {
+        return match (true) {
+            $password === '' => $emptyMessage,
+            mb_strlen($password) < 8 || !preg_match('/\p{L}/u', $password) || !preg_match('/\d/', $password) => 'A senha precisa ter 8 ou mais caracteres, com letras e números.',
+            strlen($password) > 72 => 'A senha pode ter no máximo 72 caracteres.',
+            default => null,
+        };
     }
 
     private static function normalizeEmail(string $email): string

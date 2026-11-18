@@ -44,6 +44,12 @@ final class User
         $statement->execute([$passwordHash, $id]);
     }
 
+    public static function updateName(int $id, string $name): void
+    {
+        $statement = Database::connection()->prepare('UPDATE users SET name = ? WHERE id = ?');
+        $statement->execute([$name, $id]);
+    }
+
     /**
      * Lista da área administrativa (somente leitura), do cadastro mais recente ao mais antigo.
      * Filtros: q (nome ou e-mail) e role (user|admin). Inclui pedidos e plano da assinatura ativa.

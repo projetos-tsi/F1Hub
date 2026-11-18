@@ -20,6 +20,26 @@ final class Plan
         )->fetchAll();
     }
 
+    /** Planos ATIVOS para a página da assinatura, do mais barato ao mais caro. */
+    public static function storefront(): array
+    {
+        return Database::connection()->query(
+            'SELECT slug, name, tagline, price_cents, items, includes_shirt, highlight
+             FROM plans WHERE active = 1
+             ORDER BY price_cents, name'
+        )->fetchAll();
+    }
+
+    /** Plano ativo pelo slug (ou null). */
+    public static function activeBySlug(string $slug): ?array
+    {
+        $statement = Database::connection()->prepare(
+            'SELECT id, slug, name, price_cents, includes_shirt FROM plans WHERE slug = ? AND active = 1'
+        );
+        $statement->execute([$slug]);
+        return $statement->fetch() ?: null;
+    }
+
     public static function find(int $id): ?array
     {
         $statement = Database::connection()->prepare(

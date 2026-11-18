@@ -11,24 +11,31 @@ final class Response
 {
     public static function json(mixed $data, int $status = 200): never
     {
-        http_response_code($status);
-        header('Content-Type: application/json; charset=utf-8');
-        header('Cache-Control: no-store');
+        self::headers($status);
         echo json_encode(['ok' => true, 'data' => $data], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
         exit;
     }
 
     public static function error(string $message, int $status = 400, array $fields = []): never
     {
-        http_response_code($status);
-        header('Content-Type: application/json; charset=utf-8');
-        header('Cache-Control: no-store');
+        self::headers($status);
         $body = ['ok' => false, 'error' => $message];
         if ($fields) {
             $body['fields'] = $fields;
         }
         echo json_encode($body, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
         exit;
+    }
+
+    /** Status, tipo JSON, sem cache (dados do usuário) e cabeçalhos de segurança. */
+    private static function headers(int $status): void
+    {
+        http_response_code($status);
+        header('Content-Type: application/json; charset=utf-8');
+        header('Cache-Control: no-store');
+        header('X-Content-Type-Options: nosniff');
+        header('Referrer-Policy: same-origin');
+        header('X-Frame-Options: DENY');
     }
 
     /** Aceita somente os métodos HTTP informados (ex.: ['GET'] ou ['POST']). */
