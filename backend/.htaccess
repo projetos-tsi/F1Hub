@@ -1,0 +1,3 @@
+# Bloqueia o acesso direto pelo navegador às pastas internas do backend
+# (configuração, classes, regras de negócio). Somente backend/api/ é pública.
+Require all denied

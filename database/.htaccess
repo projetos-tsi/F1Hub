@@ -1,0 +1,2 @@
+# Scripts SQL não devem ser baixados pelo navegador.
+Require all denied
