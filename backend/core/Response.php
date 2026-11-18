@@ -40,6 +40,16 @@ final class Response
         }
     }
 
+    /**
+     * Lê um campo de texto do corpo da requisição.
+     * Qualquer outro tipo (lista, objeto, número, booleano) é tratado como vazio.
+     */
+    public static function text(array $input, string $key): string
+    {
+        $value = $input[$key] ?? '';
+        return is_string($value) ? $value : '';
+    }
+
     /** Lê o corpo JSON enviado pelo front-end (fetch). */
     public static function input(): array
     {

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sua conta F1 Hub: dados, pedidos e assinatura F1Hub Box.">
+    <title>Minha conta | F1 Hub</title>
+    <link rel="stylesheet" href="../style/reset.css"><link rel="stylesheet" href="../style/style-conta.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Syncopate:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+    <div class="announcement-bar" role="note">
+        <p><strong>5% OFF NO PIX</strong><span aria-hidden="true">•</span> Vista a paixão por velocidade</p>
+    </div>
+
+    <header class="site-header">
+        <a href="../../index.php" class="header-logo" aria-label="F1 Hub — página inicial">
+            <img src="../assets/images/logo.svg" alt="">
+            <span>F1 Hub</span>
+        </a>
+
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-navigation">
+            <span></span><span></span><span></span>
+            <span class="sr-only">Abrir menu</span>
+        </button>
+
+        <nav class="header-nav" id="main-navigation" aria-label="Navegação principal">
+            <div class="dropdown">
+                <a href="./equipes.html" class="dropbtn">Equipes <img src="../assets/images/chevron-down.svg" alt=""></a>
+                <div class="dropdown-teams">
+                    <a class="ferrari" href="./ferrari.html">Ferrari</a>
+                    <a class="mercedes" href="./mercedes.html">Mercedes</a>
+                    <a class="rbr" href="./rbr.html">Red Bull</a>
+                    <a class="mclaren" href="./mclaren.html">McLaren</a>
+                    <a class="williams" href="./williams.html">Williams</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <a href="./catalogo.html" class="dropbtn">Categorias <img src="../assets/images/chevron-down.svg" alt=""></a>
+                <div class="dropdown-categories"></div>
+            </div>
+            <a href="../../index.php#lancamentos">Lançamentos</a>
+            <a href="../../index.php#promocoes">Promoções</a>
+            <a href="./assinatura.html" class="nav-highlight">Assinatura</a>
+        </nav>
+
+        <div class="header-buttons" aria-label="Ações da loja">
+            <button type="button" class="search-trigger" aria-label="Pesquisar produtos"><img src="../assets/images/botao-pesquisa.svg" alt=""></button>
+            <button type="button" aria-label="Acessar minha conta" onclick="window.location.href='./login.html'"><img src="../assets/images/botao-login.svg" alt=""></button>
+            <button type="button" aria-label="Abrir carrinho"><img src="../assets/images/carrinho-compras.svg" alt=""><span class="cart-count" aria-label="0 itens">0</span></button>
+        </div>
+    </header>
+
+    <main id="conteudo" class="account-page" data-account-page>
+        <p class="account-loading">Carregando sua conta...</p>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-main">
+            <div class="footer-brand"><img src="../assets/images/logo.svg" alt="F1 Hub"><p>Da largada à bandeirada, sua paixão veste F1 Hub.</p></div>
+            <div class="footer-column"><h2>Loja</h2><a href="./equipes.html">Equipes</a><a href="./catalogo.html">Catálogo completo</a><a href="../../index.php#lancamentos">Lançamentos</a><a href="../../index.php#promocoes">Promoções</a><a href="./assinatura.html">Assinatura F1Hub Box</a></div>
+            <div class="footer-column"><h2>Atendimento</h2><a href="./conta.html">Minha conta</a><a href="./carrinho.html">Carrinho</a><a href="./termos.html">Termos de serviço</a><a href="./privacidade.html">Política de privacidade</a></div>
+            <div class="footer-social"><h2>Siga a F1 Hub</h2><div><a href="https://www.facebook.com/" aria-label="Facebook"><img src="../assets/images/facebook.png" alt=""></a><a href="https://www.instagram.com/" aria-label="Instagram"><img src="../assets/images/instagram.png" alt=""></a><a href="https://x.com/" aria-label="X"><img src="../assets/images/X.svg" alt=""></a></div></div>
+        </div>
+        <div class="footer-payments"><p>Formas de pagamento</p><ul><li><strong>PIX</strong><span>5% OFF</span></li><li><strong>Cartão de crédito</strong><span>em breve</span></li></ul></div>
+        <div class="footer-bottom"><p>© 2026 F1 Hub. Todos os direitos reservados.</p><p>Projeto acadêmico • Feito por fãs de velocidade</p></div>
+    </footer>
+    <script type="module" src="../../js/main.js"></script>
+</body>
+</html>

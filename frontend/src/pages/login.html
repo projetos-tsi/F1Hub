@@ -31,7 +31,7 @@
         <section class="login-panel">
             <a class="back-link" href="../../index.php">← Voltar para a loja</a>
 
-            <form class="login-form" action="#" method="post">
+            <form class="login-form" action="#" method="post" novalidate>
                 <div class="form-heading">
                     <h2>Bem-vindo de volta</h2>
                     <p>Entre na sua conta para continuar.</p>
@@ -56,6 +56,8 @@
 
                 <button class="submit-button" type="submit">Entrar</button>
 
+                <p class="form-status" id="form-status" role="status" aria-live="polite" hidden></p>
+
                 <div class="divider"><span>ou</span></div>
 
                 <button class="social-button" type="button" disabled aria-describedby="google-soon">
@@ -79,5 +81,6 @@
             togglePassword.setAttribute('aria-label', hidden ? 'Ocultar senha' : 'Mostrar senha');
         });
     </script>
+    <script type="module" src="../../js/pages/login-page.js"></script>
 </body>
 </html>

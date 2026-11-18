@@ -115,6 +115,11 @@ body {
 .social-button { display: flex; align-items: center; justify-content: center; gap: 10px; border: 1px solid var(--gray-200); background: #fff; color: var(--carbon); font-size: 14px; }
 .social-button:hover { background: var(--gray-100); }
 .google-icon { color: #4285f4; font-size: 17px; font-weight: 800; }
+.login-form .form-status { margin-top: 14px; padding: 12px 14px; border: 1px solid var(--gray-200); border-left: 4px solid var(--red); border-radius: 8px; background: var(--gray-100); color: var(--carbon); font-size: 13px; font-weight: 600; line-height: 1.5; }
+.login-form .form-status[hidden] { display: none; }
+.login-form .form-status.is-success { border-left-color: #268f3d; }
+.login-form .form-status.is-error { color: #bd0d17; }
+.submit-button:disabled { cursor: default; opacity: .7; }
 .social-button:disabled { cursor: not-allowed; opacity: .6; }
 .social-button:disabled:hover { background: #fff; }
 .soon-badge { padding: 3px 7px; border-radius: 99px; background: var(--gray-100); color: var(--carbon); font-size: 10px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
