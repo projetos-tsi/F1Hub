@@ -157,6 +157,8 @@ img { display: block; max-width: 100%; }
 
 /* ---------- Vitrines em carrossel ---------- */
 .store-section { scroll-margin-top: 110px; }
+/* position: relative faz o carrossel recortar também os textos ocultos (sr-only) dos cards, evitando largura extra na página. */
+.hero-track, .product-carousel, .pilot-row, .category-tabs { position: relative; }
 .product-carousel { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
 .product-carousel::-webkit-scrollbar, .pilot-row::-webkit-scrollbar, .category-tabs::-webkit-scrollbar { display: none; }
 .product-carousel > .product-card { flex: 0 0 calc((100% - 64px) / 5); scroll-snap-align: start; }

@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Crie sua conta na F1 Hub e acompanhe lançamentos, pedidos e a assinatura F1Hub Box.">
     <title>Criar conta | F1 Hub</title>
     <link rel="stylesheet" href="../style/reset.css">
     <link rel="stylesheet" href="../style/login.css">
@@ -70,7 +71,7 @@
                 <div class="field terms-field">
                     <label class="terms" for="terms">
                         <input id="terms" name="terms" type="checkbox" data-rule="terms" aria-describedby="terms-message" required>
-                        <span>Li e aceito os <a href="#">Termos de uso</a> e a <a href="#">Política de privacidade</a>.</span>
+                        <span>Li e aceito os <a href="./termos.html" target="_blank" rel="noopener">Termos de uso</a> e a <a href="./privacidade.html" target="_blank" rel="noopener">Política de privacidade</a>.</span>
                     </label>
                     <p class="field-message" id="terms-message" aria-live="polite"></p>
                 </div>
@@ -81,9 +82,9 @@
 
                 <div class="divider"><span>ou</span></div>
 
-                <button class="social-button" type="button">
+                <button class="social-button" type="button" disabled aria-describedby="google-soon">
                     <span class="google-icon">G</span>
-                    Continuar com Google
+                    Continuar com Google <span class="soon-badge" id="google-soon">em breve</span>
                 </button>
 
                 <p class="create-account">Já possui conta? <a href="login.html">Entrar</a></p>

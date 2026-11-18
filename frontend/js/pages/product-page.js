@@ -1,6 +1,31 @@
 import { cartService } from '../services/cart-service.js';
 import { catalogService, routes } from '../services/catalog-service.js';
 import { priceTemplate, productCardTemplate } from '../ui/product-card.js';
+import { sizeGuide } from '../data/products.js';
+
+// Guia de medidas em uma janela modal nativa (<dialog>): fecha com Esc, com o botão ou clicando fora.
+function initSizeGuide(trigger, product) {
+    const dialog = document.createElement('dialog');
+    dialog.className = 'size-guide';
+    dialog.setAttribute('aria-labelledby', 'size-guide-title');
+    dialog.innerHTML = `
+        <div class="size-guide-header">
+            <div><p class="eyebrow">${product.category}</p><h2 id="size-guide-title">Guia de medidas</h2></div>
+            <button type="button" class="size-guide-close" aria-label="Fechar guia de medidas">×</button>
+        </div>
+        <table>
+            <caption class="sr-only">Medidas da peça em centímetros por tamanho</caption>
+            <thead><tr><th scope="col">Tamanho</th><th scope="col">Largura (cm)</th><th scope="col">Comprimento (cm)</th></tr></thead>
+            <tbody>${sizeGuide.rows.filter((row) => product.sizes.includes(row.size)).map((row) => `<tr><th scope="row">${row.size}</th><td>${row.chest}</td><td>${row.length}</td></tr>`).join('')}</tbody>
+        </table>
+        <p class="size-guide-tip"><strong>Como medir:</strong> largura de axila a axila, com a peça esticada; comprimento do ombro até a barra.</p>
+        <p class="size-guide-note">${sizeGuide.note}</p>`;
+    document.body.append(dialog);
+
+    trigger.addEventListener('click', () => dialog.showModal());
+    dialog.querySelector('.size-guide-close').addEventListener('click', () => dialog.close());
+    dialog.addEventListener('click', (event) => { if (event.target === dialog) dialog.close(); });
+}
 
 export function initProductPage() {
     const productMedia = document.querySelector('.product-media');
@@ -18,6 +43,7 @@ export function initProductPage() {
                 <p>Este item não está disponível no catálogo atual.</p>
                 <a class="button button-dark" href="${routes.home}">Voltar para a loja</a>
             </section>`;
+        document.querySelectorAll('.carroussel-title, .carroussel-buttons-wrappers, .carroussel').forEach((element) => { element.hidden = true; });
         return;
     }
 
@@ -37,9 +63,13 @@ export function initProductPage() {
             <p class="pix">${catalogService.pixPrice(product.price)} com 5% de desconto no PIX</p>
         </div>`;
 
+    const hasSizeGuide = product.sizes.some((size) => sizeGuide.rows.some((row) => row.size === size));
     const sizes = productInfo.querySelector('.sizes');
     sizes.innerHTML = `
-        <p class="size-label">Escolha o tamanho</p>
+        <div class="size-label-row">
+            <p class="size-label">Escolha o tamanho</p>
+            ${hasSizeGuide ? '<button type="button" class="size-guide-button" aria-haspopup="dialog">Guia de medidas</button>' : ''}
+        </div>
         <div class="size-buttons">${product.sizes.map((size) => `<button type="button" data-size="${size}" aria-pressed="false">${size}</button>`).join('')}</div>
         <button type="button" class="add-to-cart">Adicionar ao carrinho</button>
         <p class="purchase-status" role="status" aria-live="polite"></p>`;
@@ -48,6 +78,8 @@ export function initProductPage() {
     description.innerHTML = `
         <div class="product-description"><h2>${product.category} ${product.teamName}: identidade das pistas para o seu estilo</h2><p>${product.description}</p></div>
         <div class="product-info"><ul>${product.details.map((detail) => `<li>${detail}</li>`).join('')}</ul></div>`;
+
+    if (hasSizeGuide) initSizeGuide(sizes.querySelector('.size-guide-button'), product);
 
     let selectedSize = null;
     sizes.querySelectorAll('.size-buttons button').forEach((button) => {
