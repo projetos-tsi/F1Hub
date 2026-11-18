@@ -52,6 +52,50 @@ final class Product
         return $statement->fetchAll();
     }
 
+    /**
+     * Produtos ATIVOS para a loja (catálogo, busca, páginas de equipe e produto, carrinho), na ordem de cadastro.
+     * Tamanhos vêm na ordem do ENUM (P, M, G, GG, Único).
+     */
+    public static function storefront(): array
+    {
+        return Database::connection()->query(
+            "SELECT p.slug, p.name, p.pilot, p.image, p.price_cents, p.old_price_cents,
+                    t.slug AS team_slug, c.name AS category_name,
+                    (SELECT GROUP_CONCAT(s.size ORDER BY s.size SEPARATOR ',') FROM product_sizes s WHERE s.product_id = p.id) AS sizes
+             FROM products p
+             JOIN teams t ON t.id = p.team_id
+             JOIN categories c ON c.id = p.category_id
+             WHERE p.active = 1 AND EXISTS (SELECT 1 FROM product_sizes s WHERE s.product_id = p.id)
+             ORDER BY p.id"
+        )->fetchAll();
+    }
+
+    /**
+     * Produtos ativos pelos slugs informados (usado ao fechar o pedido), indexados pelo slug.
+     * Com $lock = true, as linhas ficam travadas até o fim da transação (o admin não altera o preço no meio do pedido).
+     */
+    public static function activeBySlugs(array $slugs, bool $lock = false): array
+    {
+        if (!$slugs) {
+            return [];
+        }
+        $marks = implode(', ', array_fill(0, count($slugs), '?'));
+        $statement = Database::connection()->prepare(
+            "SELECT p.id, p.slug, p.name, p.price_cents,
+                    (SELECT GROUP_CONCAT(s.size ORDER BY s.size SEPARATOR ',') FROM product_sizes s WHERE s.product_id = p.id) AS sizes
+             FROM products p
+             WHERE p.active = 1 AND p.slug IN ({$marks})"
+            . ($lock ? ' FOR UPDATE' : '')
+        );
+        $statement->execute(array_values($slugs));
+        $products = [];
+        foreach ($statement->fetchAll() as $row) {
+            $row['sizes'] = $row['sizes'] === null ? [] : explode(',', $row['sizes']);
+            $products[$row['slug']] = $row;
+        }
+        return $products;
+    }
+
     public static function find(int $id): ?array
     {
         $statement = Database::connection()->prepare(

@@ -1,5 +1,5 @@
 import { catalogService, routes } from '../services/catalog-service.js';
-import { escapeHtml, homeProductCardTemplate } from '../ui/product-card.js';
+import { catalogErrorTemplate, escapeHtml, homeProductCardTemplate, showcaseEmptyTemplate } from '../ui/product-card.js';
 import { initProductCarousel } from '../ui/product-carousel.js';
 
 const HERO_INTERVAL = 6000;
@@ -93,7 +93,9 @@ function tagsFor(container) {
 }
 
 function renderCards(container, items, tags = {}) {
-    container.innerHTML = items.map((item) => homeProductCardTemplate(item, tags[item.id])).join('');
+    container.innerHTML = items.length
+        ? items.map((item) => homeProductCardTemplate(item, tags[item.id])).join('')
+        : showcaseEmptyTemplate();
 }
 
 function initProductSections() {
@@ -120,6 +122,10 @@ function initCategoryTabs(section) {
     const link = section.querySelector('[data-tab-link]');
     const refresh = initProductCarousel(track, section.querySelector('[data-carousel-controls]'));
     const available = CATEGORY_TABS.filter(([category]) => catalogService.byCategory(category).length);
+    if (!available.length) {
+        track.innerHTML = showcaseEmptyTemplate();
+        return;
+    }
 
     tabs.innerHTML = available.map(([category, label], position) => `
         <button type="button" role="tab" id="tab-${position}" aria-controls="${track.id}" aria-selected="${position === 0}" data-category="${escapeHtml(category)}">${label}</button>`).join('');
@@ -154,7 +160,12 @@ function initCategoryTabs(section) {
 
 // ---------- Escolha seu piloto ----------
 function initPilots(container) {
-    container.innerHTML = catalogService.pilots().map((pilot) => `
+    const pilots = catalogService.pilots();
+    if (!pilots.length) {
+        container.innerHTML = showcaseEmptyTemplate();
+        return;
+    }
+    container.innerHTML = pilots.map((pilot) => `
         <a class="pilot-card" href="${routes.catalog}?pilot=${encodeURIComponent(pilot.name)}">
             <span class="pilot-avatar" data-team="${escapeHtml(pilot.team)}"><img src="${pilot.imageUrl}" alt="" loading="lazy"></span>
             <strong>${escapeHtml(pilot.name)}</strong>
@@ -163,9 +174,19 @@ function initPilots(container) {
     initProductCarousel(container, container.closest('section')?.querySelector('[data-carousel-controls]'));
 }
 
-export function initHomePage() {
+export async function initHomePage(catalogReady) {
     const hero = document.querySelector('[data-hero-carousel]');
     if (hero) initHeroCarousel(hero);
+
+    const showcases = document.querySelectorAll('[data-home-query], [data-home-products], [data-home-pilots], [data-category-tabs] .product-carousel');
+    if (!showcases.length) return;
+    if (!(await catalogReady)) {
+        // Sem catálogo: um aviso no lugar de cada vitrine (as setas dos carrosséis ficam ocultas).
+        showcases.forEach((container) => { container.innerHTML = catalogErrorTemplate(); });
+        document.querySelectorAll('[data-carousel-controls]').forEach((controls) => { controls.hidden = true; });
+        return;
+    }
+
     initProductSections();
     document.querySelectorAll('[data-category-tabs]').forEach(initCategoryTabs);
     document.querySelectorAll('[data-home-pilots]').forEach(initPilots);

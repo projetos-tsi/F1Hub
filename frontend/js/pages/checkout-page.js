@@ -1,9 +1,14 @@
 import { cartService } from '../services/cart-service.js';
 import { catalogService, routes } from '../services/catalog-service.js';
+import { catalogErrorTemplate, escapeHtml } from '../ui/product-card.js';
 
-export function initCheckoutPage() {
+export async function initCheckoutPage(catalogReady) {
     const root = document.querySelector('[data-checkout-page]');
     if (!root) return;
+    if (!(await catalogReady)) {
+        root.innerHTML = catalogErrorTemplate();
+        return;
+    }
     const items = cartService.getItems().map((entry) => ({ ...entry, product: catalogService.byId(entry.productId) })).filter((entry) => entry.product);
 
     if (!items.length) {
@@ -22,6 +27,6 @@ export function initCheckoutPage() {
                 <p class="checkout-form-status">A conclusão do pedido será disponibilizada somente apó a integração segura com o backend.</p>
                 <button class="review-order" type="button" disabled>Finalização indisponível</button>
             </form>
-            <aside class="checkout-summary"><h2>Resumo</h2>${items.map((item) => `<article><img src="${item.product.imageUrl}" alt=""><div><strong>${item.product.name}</strong><span>${item.size} · ${item.quantity} un.</span></div><b>${catalogService.formatPrice(item.product.price * item.quantity)}</b></article>`).join('')}<div class="summary-row"><span>Subtotal</span><strong>${catalogService.formatPrice(subtotal)}</strong></div><div class="summary-row pix-total"><span>Total no PIX</span><strong>${catalogService.pixPrice(subtotal)}</strong></div><a href="${routes.cart}">Editar carrinho</a></aside>
+            <aside class="checkout-summary"><h2>Resumo</h2>${items.map((item) => `<article><img src="${item.product.imageUrl}" alt=""><div><strong>${escapeHtml(item.product.name)}</strong><span>${escapeHtml(item.size)} · ${item.quantity} un.</span></div><b>${catalogService.formatPrice(item.product.price * item.quantity)}</b></article>`).join('')}<div class="summary-row"><span>Subtotal</span><strong>${catalogService.formatPrice(subtotal)}</strong></div><div class="summary-row pix-total"><span>Total no PIX</span><strong>${catalogService.pixPrice(subtotal)}</strong></div><a href="${routes.cart}">Editar carrinho</a></aside>
         </div>`;
 }

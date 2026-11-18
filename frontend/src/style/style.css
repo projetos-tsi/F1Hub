@@ -165,6 +165,12 @@ img { display: block; max-width: 100%; }
 .product-carousel > .product-card { flex: 0 0 calc((100% - 64px) / 5); scroll-snap-align: start; }
 .carousel-controls { display: flex; flex: none; gap: 8px; }
 .carousel-controls[hidden] { display: none; }
+/* Aviso no lugar dos produtos: catálogo fora do ar ou vitrine sem produtos no momento. */
+.catalog-notice { flex: 0 0 100%; grid-column: 1 / -1; width: 100%; padding: 56px 20px; border-radius: 14px; background: #fff; text-align: center; }
+.catalog-notice strong { display: block; font-size: 16px; }
+.catalog-notice p { margin-top: 8px; color: var(--muted); font-size: 13px; line-height: 1.6; }
+/* Aviso do carrinho e da finalização (ex.: item que deixou de ser vendido foi removido). */
+.cart-notice { margin-bottom: 24px; padding: 14px 18px; border-left: 4px solid var(--red); border-radius: 10px; background: #fff; color: var(--carbon); font-size: 13px; font-weight: 700; line-height: 1.5; }
 .carousel-arrow { display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid var(--line); border-radius: 50%; background: #fff; color: var(--carbon); cursor: pointer; transition: border-color .2s, transform .2s, opacity .2s; }
 .carousel-arrow:hover:not(:disabled) { border-color: var(--carbon); transform: translateY(-2px); }
 .carousel-arrow:disabled { cursor: default; opacity: .35; }

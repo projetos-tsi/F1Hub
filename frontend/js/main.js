@@ -10,6 +10,7 @@ import { initSubscriptionPage } from './pages/subscription-page.js';
 import { initAccountPage } from './pages/account-page.js';
 import { authService } from './services/auth-service.js';
 import { initSearch } from './ui/search-controller.js';
+import { escapeHtml } from './ui/product-card.js';
 
 const dropdowns = Array.from(document.querySelectorAll('.dropdown'));
 const menuToggle = document.querySelector('.menu-toggle');
@@ -118,12 +119,22 @@ const categoryLabels = {
     'Blusa': 'Blusas'
 };
 
-document.querySelectorAll('.dropdown-categories').forEach((menu) => {
-    const categories = catalogService.allFacets().categories;
-    menu.innerHTML = categories
-        .map((category) => `<a href="${routes.catalog}?category=${encodeURIComponent(category)}">${categoryLabels[category] || category}</a>`)
-        .join('') + `<a class="dropdown-all" href="${routes.catalog}">Ver todos os produtos</a>`;
+// Catálogo vindo do banco (uma requisição por página). Assim que chega:
+// - itens do carrinho que deixaram de ser vendidos são removidos (com aviso no carrinho);
+// - o menu "Categorias" é montado com as categorias que têm produtos ativos.
+const catalogReady = catalogService.load().then((loaded) => {
+    if (loaded) cartService.prune((productId, size) => catalogService.isAvailable(productId, size));
+    return loaded;
 });
+
+function fillCategoryMenus(loaded) {
+    const categories = loaded ? catalogService.allFacets().categories : [];
+    document.querySelectorAll('.dropdown-categories').forEach((menu) => {
+        menu.innerHTML = categories
+            .map((category) => `<a href="${routes.catalog}?category=${encodeURIComponent(category)}">${escapeHtml(categoryLabels[category] || category)}</a>`)
+            .join('') + `<a class="dropdown-all" href="${routes.catalog}">Ver todos os produtos</a>`;
+    });
+}
 
 // Botão de conta do cabeçalho: "Minha conta" para quem está logado; login (voltando a esta página) para os demais.
 function initAccountButton() {
@@ -146,16 +157,17 @@ function initAccountButton() {
 }
 
 initAccountButton();
-initHomePage();
-initSubscriptionPage();
+initHomePage(catalogReady);
+initSubscriptionPage(catalogReady);
 initAccountPage();
-initCatalogPage();
-initProductPage();
-initCartPage();
-initGeneralCatalogPage();
-initCheckoutPage();
+initCatalogPage(catalogReady);
+initProductPage(catalogReady);
+initCartPage(catalogReady);
+initGeneralCatalogPage(catalogReady);
+initCheckoutPage(catalogReady);
 upgradeSocialLinks();
 updateCartBadge();
+catalogReady.then(fillCategoryMenus);
 
 window.addEventListener('f1hub:cart-updated', updateCartBadge);
 document.addEventListener('click', (event) => {

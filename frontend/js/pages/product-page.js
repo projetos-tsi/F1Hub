@@ -1,7 +1,7 @@
-import { cartService } from '../services/cart-service.js';
+import { CART_LIMITS, cartService } from '../services/cart-service.js';
 import { catalogService, routes } from '../services/catalog-service.js';
-import { priceTemplate, productCardTemplate } from '../ui/product-card.js';
-import { sizeGuide } from '../data/products.js';
+import { escapeHtml, priceTemplate, productCardTemplate } from '../ui/product-card.js';
+import { sizeGuide } from '../data/size-guide.js';
 
 // Guia de medidas em uma janela modal nativa (<dialog>): fecha com Esc, com o botão ou clicando fora.
 function initSizeGuide(trigger, product) {
@@ -10,7 +10,7 @@ function initSizeGuide(trigger, product) {
     dialog.setAttribute('aria-labelledby', 'size-guide-title');
     dialog.innerHTML = `
         <div class="size-guide-header">
-            <div><p class="eyebrow">${product.category}</p><h2 id="size-guide-title">Guia de medidas</h2></div>
+            <div><p class="eyebrow">${escapeHtml(product.category)}</p><h2 id="size-guide-title">Guia de medidas</h2></div>
             <button type="button" class="size-guide-close" aria-label="Fechar guia de medidas">×</button>
         </div>
         <table>
@@ -27,20 +27,22 @@ function initSizeGuide(trigger, product) {
     dialog.addEventListener('click', (event) => { if (event.target === dialog) dialog.close(); });
 }
 
-export function initProductPage() {
+export async function initProductPage(catalogReady) {
     const productMedia = document.querySelector('.product-media');
     const productInfo = document.querySelector('.product-infos');
     if (!productMedia || !productInfo) return;
 
+    const loaded = await catalogReady;
     const requestedId = new URLSearchParams(window.location.search).get('id') || 'mercedes-polo-2025-preta';
-    const product = catalogService.byId(requestedId);
+    // Produto desativado ou excluído no admin não vem na API: a página mostra "não encontrado".
+    const product = loaded ? catalogService.byId(requestedId) : null;
 
     if (!product) {
-        document.title = 'Produto não encontrado | F1 Hub';
+        document.title = loaded ? 'Produto não encontrado | F1 Hub' : 'Catálogo indisponível | F1 Hub';
         document.querySelector('body > main').innerHTML = `
             <section class="product-not-found">
-                <p class="eyebrow">Fora do grid</p><h1>Produto não encontrado</h1>
-                <p>Este item não está disponível no catálogo atual.</p>
+                <p class="eyebrow">Fora do grid</p><h1>${loaded ? 'Produto não encontrado' : 'Catálogo indisponível'}</h1>
+                <p>${loaded ? 'Este item não está disponível no catálogo atual.' : 'Não foi possível carregar os produtos. Verifique se o Apache e o MySQL do XAMPP estão ativos e recarregue a página.'}</p>
                 <a class="button button-dark" href="${routes.home}">Voltar para a loja</a>
             </section>`;
         document.querySelectorAll('.carroussel-title, .carroussel-buttons-wrappers, .carroussel').forEach((element) => { element.hidden = true; });
@@ -50,13 +52,13 @@ export function initProductPage() {
     document.title = `${product.name} | F1 Hub`;
     document.querySelector('meta[name="description"]')?.setAttribute('content', product.description);
     productMedia.dataset.team = product.team;
-    productMedia.innerHTML = `<img src="${product.imageUrl}" alt="${product.name}">`;
+    productMedia.innerHTML = `<img src="${product.imageUrl}" alt="${escapeHtml(product.name)}">`;
 
     const title = productInfo.querySelector('.title');
     title.style.setProperty('--team-color', product.teamColor);
     title.innerHTML = `
-        <p class="product-team-label">${product.teamLabel}</p>
-        <h1>${product.name}</h1>
+        <p class="product-team-label">${escapeHtml(product.teamLabel)}</p>
+        <h1>${escapeHtml(product.name)}</h1>
         <div class="prices">
             <p>${priceTemplate(product)}</p>
             ${product.discount ? `<span class="discount-chip">-${product.discount}%</span>` : ''}
@@ -76,8 +78,8 @@ export function initProductPage() {
 
     const description = productInfo.querySelector('.description');
     description.innerHTML = `
-        <div class="product-description"><h2>${product.category} ${product.teamName}: identidade das pistas para o seu estilo</h2><p>${product.description}</p></div>
-        <div class="product-info"><ul>${product.details.map((detail) => `<li>${detail}</li>`).join('')}</ul></div>`;
+        <div class="product-description"><h2>${escapeHtml(product.category)} ${escapeHtml(product.teamName)}: identidade das pistas para o seu estilo</h2><p>${escapeHtml(product.description)}</p></div>
+        <div class="product-info"><ul>${product.details.map((detail) => `<li>${escapeHtml(detail)}</li>`).join('')}</ul></div>`;
 
     if (hasSizeGuide) initSizeGuide(sizes.querySelector('.size-guide-button'), product);
 
@@ -101,7 +103,14 @@ export function initProductPage() {
             status.classList.add('is-error');
             return;
         }
-        cartService.add(product.id, selectedSize);
+        const result = cartService.add(product.id, selectedSize);
+        if (!result.added) {
+            status.textContent = result.reason === 'quantity'
+                ? `Você já tem o máximo de ${CART_LIMITS.quantity} unidades deste item no carrinho.`
+                : `O carrinho aceita até ${CART_LIMITS.lines} itens diferentes por pedido.`;
+            status.classList.add('is-error');
+            return;
+        }
         status.classList.remove('is-error');
         status.innerHTML = `Produto adicionado. <a href="${routes.cart}">Ver carrinho</a>`;
     });

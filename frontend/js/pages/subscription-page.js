@@ -23,9 +23,11 @@ function optionTemplate(name, value, content, extraClass = '', attributes = '') 
         </label>`;
 }
 
-export function initSubscriptionPage() {
+export async function initSubscriptionPage(catalogReady) {
     const root = document.querySelector('[data-subscription-page]');
     if (!root) return;
+    // As equipes da caixa vêm do banco (junto com o catálogo). Se o servidor não responder, sobra a opção "Surpresa".
+    await catalogReady;
 
     const plans = subscriptionService.plans();
     const teams = subscriptionService.teams();
