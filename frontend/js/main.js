@@ -6,6 +6,7 @@ import { initCheckoutPage } from './pages/checkout-page.js';
 import { cartService } from './services/cart-service.js';
 import { catalogService, routes } from './services/catalog-service.js';
 import { initHomePage } from './pages/home-page.js';
+import { initSubscriptionPage } from './pages/subscription-page.js';
 import { initSearch } from './ui/search-controller.js';
 
 const dropdowns = Array.from(document.querySelectorAll('.dropdown'));
@@ -123,6 +124,7 @@ document.querySelectorAll('.dropdown-categories').forEach((menu) => {
 });
 
 initHomePage();
+initSubscriptionPage();
 initCatalogPage();
 initProductPage();
 initCartPage();
