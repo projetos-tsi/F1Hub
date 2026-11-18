@@ -1,12 +1,20 @@
-import { categoryMeta, products, promotions, teamMeta } from '../data/products.js';
+import { api } from './api-client.js';
 
-const normalize = (value) => value
+// Catálogo da loja. A fonte da verdade é o banco: os produtos ATIVOS chegam pela API
+// (backend/api/products.php) uma única vez por página, em catalogService.load().
+// Depois de carregado, todos os métodos abaixo respondem na hora, sem novas requisições.
+
+const normalize = (value) => String(value ?? '')
     .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[̀-ͯ]/g, '')
     .toLowerCase()
     .trim();
 
 const frontendRoot = new URL('../../', import.meta.url);
+
+/** Desconto do PIX: 5%, arredondado ao centavo — a mesma conta do servidor (OrderService). */
+export const PIX_DISCOUNT_PERCENT = 5;
+export const pixDiscount = (cents) => Math.round((cents * PIX_DISCOUNT_PERCENT) / 100);
 
 export const routes = {
     home: new URL('index.php', frontendRoot).href,
@@ -22,43 +30,77 @@ export const routes = {
     team: (team) => new URL(`src/pages/${team}.html`, frontendRoot).href
 };
 
+// Dados carregados da API.
+let products = [];
+let teamsBySlug = new Map();
+let categoriesByName = new Map();
+let loading = null;
+
+function enrich(item) {
+    const team = teamsBySlug.get(item.team) || { name: item.team, label: item.team, color: '#1f1f1f' };
+    const category = categoriesByName.get(item.category) || { description: '', details: [] };
+    const oldPrice = item.oldPrice > item.price ? item.oldPrice : null;
+    return {
+        ...item,
+        // No front-end, produto sem piloto aparece como "Equipe" (filtros e vitrines).
+        pilot: item.pilot || 'Equipe',
+        oldPrice,
+        discount: oldPrice ? Math.round((1 - item.price / oldPrice) * 100) : 0,
+        isNew: /\b2026\b/.test(item.name),
+        teamName: team.name,
+        teamLabel: team.label,
+        teamColor: team.color,
+        description: category.description,
+        details: category.details,
+        imageUrl: new URL(`../../src/assets/images/${encodeURIComponent(item.image)}`, import.meta.url).href,
+        url: routes.product(item.id)
+    };
+}
+
 export const catalogService = {
-    all() {
-        return products.map((item) => this.enrich(item));
+    /**
+     * Carrega o catálogo da API (uma vez por página). Resolve true quando os produtos chegaram
+     * e false quando o servidor não respondeu — nesse caso as páginas mostram um aviso.
+     */
+    load() {
+        if (!loading) {
+            loading = api.get('products.php')
+                .then((data) => {
+                    teamsBySlug = new Map(data.teams.map((team) => [team.slug, team]));
+                    categoriesByName = new Map(data.categories.map((category) => [category.name, category]));
+                    products = data.products.map(enrich);
+                    return true;
+                })
+                .catch(() => false);
+        }
+        return loading;
     },
 
-    enrich(item) {
-        const oldPrice = promotions[item.id] > item.price ? promotions[item.id] : null;
-        return {
-            ...item,
-            oldPrice,
-            discount: oldPrice ? Math.round((1 - item.price / oldPrice) * 100) : 0,
-            isNew: /\b2026\b/.test(item.name),
-            teamName: teamMeta[item.team].name,
-            teamLabel: teamMeta[item.team].label,
-            teamColor: teamMeta[item.team].color,
-            description: categoryMeta[item.category].description,
-            details: categoryMeta[item.category].details,
-            imageUrl: new URL(`../../src/assets/images/${item.image}`, import.meta.url).href,
-            url: routes.product(item.id)
-        };
+    all() {
+        return [...products];
+    },
+
+    teams() {
+        return [...teamsBySlug.values()];
     },
 
     byId(id) {
-        const item = products.find((productItem) => productItem.id === id);
-        return item ? this.enrich(item) : null;
+        return products.find((item) => item.id === id) || null;
+    },
+
+    /** O item do carrinho ainda pode ser comprado (produto ativo e tamanho oferecido)? */
+    isAvailable(id, size) {
+        return Boolean(this.byId(id)?.sizes.includes(size));
     },
 
     byTeam(team) {
-        return products.filter((item) => item.team === team).map((item) => this.enrich(item));
+        return products.filter((item) => item.team === team);
     },
 
     search(query) {
         const term = normalize(query);
         if (!term) return [];
-        return products
-            .filter((item) => normalize(`${item.name} ${item.category} ${item.pilot} ${teamMeta[item.team].name}`).includes(term))
-            .map((item) => this.enrich(item));
+        return products.filter((item) => normalize(`${item.name} ${item.category} ${item.pilot} ${item.teamName}`).includes(term));
     },
 
     filter(team, filters = {}) {
@@ -133,7 +175,8 @@ export const catalogService = {
         return (price / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
     },
 
+    /** Preço com o desconto do PIX, já formatado. */
     pixPrice(price) {
-        return this.formatPrice(Math.round(price * .95));
+        return this.formatPrice(price - pixDiscount(price));
     }
 };

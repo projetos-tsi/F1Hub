@@ -29,6 +29,11 @@ export function initSearch() {
     const results = panel.querySelector('.search-results');
     const form = panel.querySelector('form');
     const backgroundScrollKeys = new Set(['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', ' ']);
+    let catalogLoaded = null; // null = carregando; true/false = resposta da API
+    catalogService.load().then((loaded) => {
+        catalogLoaded = loaded;
+        if (!panel.hidden) render(input.value);
+    });
 
     function setPageScrollLocked(locked) {
         document.documentElement.classList.toggle('search-active', locked);
@@ -67,6 +72,13 @@ export function initSearch() {
     }
 
     function render(query) {
+        // O catálogo vem da API: enquanto não chega (ou se o servidor não respondeu), avisa no painel.
+        if (catalogLoaded !== true) {
+            results.innerHTML = catalogLoaded === null
+                ? '<p class="search-hint">Carregando produtos...</p>'
+                : '<p class="search-empty"><strong>Não foi possível carregar os produtos.</strong><span>Verifique se o Apache e o MySQL do XAMPP estão ativos e recarregue a página.</span></p>';
+            return [];
+        }
         const matches = catalogService.search(query);
         if (!query.trim()) {
             results.innerHTML = '<p class="search-hint">Digite um produto, equipe ou piloto.</p>';

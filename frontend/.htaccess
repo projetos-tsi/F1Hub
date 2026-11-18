@@ -1,0 +1,9 @@
+# Loja (HTML, CSS e JavaScript): o navegador sempre confere com o servidor se o arquivo mudou
+# (resposta 304, sem baixar de novo quando nada mudou). Evita misturar arquivos novos com cópias
+# antigas do cache depois de uma atualização do site (os scripts são módulos que importam uns aos outros).
+# As páginas PHP do admin definem o próprio cabeçalho (no-store) e não entram nesta regra.
+<IfModule mod_headers.c>
+    <FilesMatch "\.(html|css|js)$">
+        Header set Cache-Control "no-cache"
+    </FilesMatch>
+</IfModule>

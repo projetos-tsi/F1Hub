@@ -7,6 +7,20 @@ export const escapeHtml = (value) => String(value)
     .replaceAll('"', '&quot;')
     .replaceAll("'", '&#039;');
 
+/** Aviso exibido no lugar dos produtos quando a API do catálogo não respondeu. */
+export const catalogErrorTemplate = () => `
+    <div class="catalog-notice" role="alert">
+        <strong>Não foi possível carregar os produtos.</strong>
+        <p>Verifique se o Apache e o MySQL do XAMPP estão ativos e recarregue a página.</p>
+    </div>`;
+
+/** Vitrine sem produtos no momento (ex.: nenhuma promoção ativa). */
+export const showcaseEmptyTemplate = () => `
+    <div class="catalog-notice">
+        <strong>Nenhum produto nesta vitrine no momento.</strong>
+        <p>Confira o catálogo completo para ver todas as peças disponíveis.</p>
+    </div>`;
+
 // Selo do card: um selo manual tem prioridade; depois promoção (-X%) e, por fim, lançamento 2026.
 export function productBadgeTemplate(product, manualTag = '') {
     if (manualTag) return `<span class="product-tag">${escapeHtml(manualTag)}</span>`;

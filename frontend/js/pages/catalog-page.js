@@ -1,5 +1,5 @@
 import { catalogService } from '../services/catalog-service.js';
-import { productCardTemplate } from '../ui/product-card.js';
+import { catalogErrorTemplate, escapeHtml, productCardTemplate } from '../ui/product-card.js';
 import { enhanceFilterPanel, filterHeadingTemplate } from '../ui/filter-panel.js';
 
 const LOAD_MORE_ENABLED = false;
@@ -27,18 +27,26 @@ function filterGroupTemplate(key, values) {
             <div class="filter-options">
                 ${values.map((value) => `
                     <label>
-                        <input type="checkbox" name="${key}" value="${value}">
-                        <span>${facetOptionLabel(key, value)}</span>
+                        <input type="checkbox" name="${key}" value="${escapeHtml(value)}">
+                        <span>${escapeHtml(facetOptionLabel(key, value))}</span>
                     </label>`).join('')}
             </div>
         </details>`;
 }
 
-export function initCatalogPage() {
+export async function initCatalogPage(catalogReady) {
     const team = teamFromPage();
     const filterBox = document.querySelector('.filter-box');
     const grid = document.querySelector('.main-container > section');
     if (!team || !filterBox || !grid) return;
+
+    if (!(await catalogReady)) {
+        filterBox.style.display = 'none';
+        grid.style.gridColumn = '1 / -1';
+        grid.classList.add('catalog-grid');
+        grid.innerHTML = catalogErrorTemplate();
+        return;
+    }
 
     const facets = catalogService.facets(team);
     filterBox.innerHTML = `
