@@ -29,6 +29,8 @@ final class Csrf
     /** Token enviado pelo formulário (campo) ou pelo fetch (cabeçalho). */
     public static function fromRequest(): ?string
     {
-        return $_POST['csrf_token'] ?? $_SERVER['HTTP_X_CSRF_TOKEN'] ?? null;
+        $token = $_POST['csrf_token'] ?? $_SERVER['HTTP_X_CSRF_TOKEN'] ?? null;
+        // Um campo enviado como lista (csrf_token[]=...) é tratado como ausente.
+        return is_string($token) ? $token : null;
     }
 }

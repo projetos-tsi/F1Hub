@@ -22,7 +22,10 @@ export async function initAccountPage() {
                 <h1>Olá, ${escapeHtml(user.firstName)}!</h1>
                 <p>Cliente F1 Hub desde ${formatDate(user.memberSince)}.</p>
             </div>
-            <button type="button" class="account-logout" data-logout>Sair da conta</button>
+            <div class="account-actions">
+                ${user.role === 'admin' ? `<a class="button button-dark" href="${routes.admin}">Área administrativa <span aria-hidden="true">→</span></a>` : ''}
+                <button type="button" class="account-logout" data-logout>Sair da conta</button>
+            </div>
         </section>
 
         <div class="account-grid">
