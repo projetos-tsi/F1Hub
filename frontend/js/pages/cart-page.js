@@ -13,6 +13,8 @@ export function initCartPage() {
         }
 
         const subtotal = cartItems.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
+        // Economia com produtos em promoção (diferença entre o preço "de" e o preço de venda).
+        const savings = cartItems.reduce((sum, item) => sum + (item.product.oldPrice ? (item.product.oldPrice - item.product.price) * item.quantity : 0), 0);
         root.innerHTML = `
             <div class="cart-layout">
                 <section class="cart-list" aria-labelledby="cart-title">
@@ -25,7 +27,7 @@ export function initCartPage() {
                             <strong class="cart-item-price">${catalogService.formatPrice(item.product.price * item.quantity)}</strong>
                         </article>`).join('')}
                 </section>
-                <aside class="cart-summary"><h2>Resumo do pedido</h2><div><span>Subtotal</span><strong>${catalogService.formatPrice(subtotal)}</strong></div><div class="pix-total"><span>Total no PIX</span><strong>${catalogService.pixPrice(subtotal)}</strong></div><p>A finalização atual é uma demonstração front-end e não processa pedidos ou pagamentos reais.</p><a class="checkout-button" href="${routes.checkout}">Ir para finalização</a><a href="${routes.home}">Continuar comprando</a></aside>
+                <aside class="cart-summary"><h2>Resumo do pedido</h2><div><span>Subtotal</span><strong>${catalogService.formatPrice(subtotal)}</strong></div>${savings ? `<div class="cart-savings"><span>Você economiza</span><strong>${catalogService.formatPrice(savings)}</strong></div>` : ''}<div class="pix-total"><span>Total no PIX</span><strong>${catalogService.pixPrice(subtotal)}</strong></div><p>A finalização atual é uma demonstração front-end e não processa pedidos ou pagamentos reais.</p><a class="checkout-button" href="${routes.checkout}">Ir para finalização</a><a href="${routes.home}">Continuar comprando</a></aside>
             </div>`;
     }
 

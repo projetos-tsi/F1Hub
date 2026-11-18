@@ -21,6 +21,7 @@
 .cart-summary h2 { margin-bottom: 24px; font-size: 22px; }
 .cart-summary > div { display: flex; justify-content: space-between; gap: 18px; padding: 13px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
 .cart-summary .pix-total { color: var(--green); }
+.cart-summary .cart-savings { color: var(--red); font-weight: 700; }
 .cart-summary > p { margin: 18px 0; color: var(--muted); font-size: 11px; line-height: 1.55; }
 .cart-summary .checkout-button { display: grid; place-items: center; width: 100%; min-height: 50px; margin-top: 18px; border-radius: 9px; background: var(--red); color: #fff; font-size: 13px; font-weight: 800; }
 .cart-summary .checkout-button:hover { background: var(--red-dark); }

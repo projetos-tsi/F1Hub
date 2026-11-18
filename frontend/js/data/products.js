@@ -92,9 +92,25 @@ export const products = [
     product('williams-moletom-rothmans-retro', 'williams', 'Moletom', 'Equipe', 'moletom-williams.png', 'Moletom Williams Retrô Rothmans Racing Branco', 18990)
 ];
 
+// Guia de medidas exibido na página de produto (peças com tamanhos P–GG).
+// Medidas APROXIMADAS da peça, em centímetros, a serem validadas pela equipe.
+export const sizeGuide = {
+    note: 'Medidas aproximadas da peça, com variação de até 2 cm. Meça uma peça que você já usa e compare.',
+    rows: [
+        { size: 'P', chest: 50, length: 70 },
+        { size: 'M', chest: 53, length: 72 },
+        { size: 'G', chest: 56, length: 74 },
+        { size: 'GG', chest: 59, length: 76 }
+    ]
+};
+
 // Preço "de" (exibido riscado) dos produtos em promoção, em centavos.
 // O preço de venda continua sendo o campo `price` de cada produto.
 export const promotions = {
+    // Ferrari: sustenta o banner "Produtos até 50% OFF" da home.
+    'ferrari-polo-hypercar-2026': 27980,
+    'ferrari-camiseta-replica': 18990,
+    'ferrari-jaqueta-hypercar-2026': 39990,
     'ferrari-jaqueta-driver': 42990,
     'mercedes-jaqueta-2025-preta': 29990,
     'redbull-moletom-turquia-black': 24990,

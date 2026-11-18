@@ -115,6 +115,9 @@ body {
 .social-button { display: flex; align-items: center; justify-content: center; gap: 10px; border: 1px solid var(--gray-200); background: #fff; color: var(--carbon); font-size: 14px; }
 .social-button:hover { background: var(--gray-100); }
 .google-icon { color: #4285f4; font-size: 17px; font-weight: 800; }
+.social-button:disabled { cursor: not-allowed; opacity: .6; }
+.social-button:disabled:hover { background: #fff; }
+.soon-badge { padding: 3px 7px; border-radius: 99px; background: var(--gray-100); color: var(--carbon); font-size: 10px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
 .create-account { margin-top: 26px; color: var(--gray-500); text-align: center; font-size: 13px; }
 .create-account a { color: #a10e16; font-weight: 800; text-decoration: none; }
 

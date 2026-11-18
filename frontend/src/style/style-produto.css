@@ -36,6 +36,22 @@ body > main {
 
 .sizes { padding: 28px 0; border-bottom: 1px solid var(--line); }
 .size-label { margin-bottom: 12px; font-size: 13px; font-weight: 800; }
+.size-label-row { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; }
+.size-guide-button { padding: 0; border: 0; border-bottom: 1px solid currentColor; background: none; color: var(--carbon); font-size: 12px; font-weight: 800; cursor: pointer; }
+.size-guide-button:hover { color: var(--red); }
+.size-guide { width: min(460px, calc(100% - 28px)); max-height: calc(100dvh - 28px); margin: auto; padding: 0; border: 0; border-radius: 18px; background: #fff; box-shadow: var(--shadow); color: var(--carbon); }
+.size-guide::backdrop { background: rgba(31,31,31,.6); backdrop-filter: blur(2px); }
+.size-guide-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; padding: 24px 24px 8px; }
+.size-guide-header .eyebrow { margin-bottom: 6px; }
+.size-guide-header h2 { font-size: 26px; letter-spacing: -.04em; }
+.size-guide-close { display: grid; place-items: center; width: 38px; height: 38px; border: 0; border-radius: 50%; background: var(--canvas); font-size: 22px; cursor: pointer; }
+.size-guide table { width: calc(100% - 48px); margin: 12px 24px 0; border-collapse: collapse; font-size: 14px; }
+.size-guide th, .size-guide td { padding: 12px 10px; border-bottom: 1px solid var(--line); text-align: center; }
+.size-guide thead th { color: var(--muted); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+.size-guide tbody th { font-weight: 900; }
+.size-guide-tip, .size-guide-note { padding: 0 24px; font-size: 12px; line-height: 1.55; }
+.size-guide-tip { margin-top: 16px; color: var(--carbon); }
+.size-guide-note { margin: 6px 0 24px; color: var(--muted); }
 .size-buttons { display: flex; gap: 8px; margin-bottom: 22px; }
 .size-buttons button { display: grid; place-items: center; width: 52px; height: 48px; border: 1px solid #bcbcbc; border-radius: 8px; background: #fff; color: var(--carbon); font-size: 13px; font-weight: 800; cursor: pointer; transition: .2s ease; }
 .size-buttons button:hover, .size-buttons button.is-selected { border-color: var(--carbon); background: var(--carbon); color: #fff; }
@@ -57,7 +73,7 @@ body > main {
 .carroussel-buttons-wrappers button { display: grid; place-items: center; width: 42px; height: 42px; border: 1px solid var(--line); border-radius: 50%; background: #fff; cursor: pointer; transition: transform .2s, border-color .2s; }
 .carroussel-buttons-wrappers button:hover { border-color: var(--carbon); transform: translateY(-2px); }
 .carroussel-buttons-wrappers img { width: 8px; }
-.carroussel { width: var(--page); margin: auto; overflow-x: auto; scroll-behavior: smooth; scroll-snap-type: x mandatory; scrollbar-width: none; }
+.carroussel { position: relative; width: var(--page); margin: auto; overflow-x: auto; scroll-behavior: smooth; scroll-snap-type: x mandatory; scrollbar-width: none; }
 .carroussel-track { display: flex; gap: 16px; min-width: 100%; }
 .carroussel-product { display: flex; flex: 0 0 clamp(230px, 20vw, 285px); min-width: 0; flex-direction: column; color: var(--carbon); scroll-snap-align: start; }
 .carroussel-product > .product-visual { position: relative; display: grid; place-items: center; width: 100%; aspect-ratio: 4 / 4.5; overflow: hidden; border-radius: 14px; background-color: #fff; background-image: var(--product-backdrop, none); background-position: center; background-size: cover; box-shadow: inset 0 0 0 1px rgba(255,255,255,.12); }
