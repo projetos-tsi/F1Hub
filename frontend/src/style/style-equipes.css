@@ -1,27 +1,5 @@
 @import url("./style.css");
 
-body > header {
-    position: sticky;
-    z-index: 100;
-    top: 0;
-    display: grid;
-    grid-template-columns: 230px 1fr 230px;
-    align-items: center;
-    min-height: 84px;
-    padding: 0 32px;
-    background: rgba(31,31,31,.97);
-    box-shadow: 0 8px 28px rgba(0,0,0,.12);
-    backdrop-filter: blur(14px);
-}
-
-body > header .header-logo p {
-    color: var(--red);
-    font-family: "Syncopate", sans-serif;
-    font-size: 15px;
-    font-weight: 700;
-    white-space: nowrap;
-}
-
 body > h1 {
     width: var(--page);
     margin: 72px auto 12px;
@@ -110,6 +88,9 @@ body > h1 + main > .team-button:last-child { grid-column: 1 / -1; min-height: 29
     box-shadow: 0 10px 32px rgba(31,31,31,.07);
 }
 .filter-heading { margin-bottom: 9px; color: var(--muted); font-size: 10px !important; font-weight: 900 !important; letter-spacing: .15em; text-transform: uppercase; }
+.filter-toggle { display: flex; align-items: center; gap: 8px; width: 100%; padding: 0; border: 0; background: none; text-align: left; cursor: default; }
+.filter-count { display: inline-grid; place-items: center; min-width: 18px; height: 18px; padding: 0 5px; border-radius: 99px; background: var(--red); color: #fff; font-size: 10px; letter-spacing: 0; }
+.filter-count[hidden] { display: none; }
 .filter-group { border-bottom: 1px solid var(--line); }
 .filter-group summary { display: flex; align-items: center; justify-content: space-between; min-height: 54px; font-size: 14px; font-weight: 700; cursor: pointer; list-style: none; }
 .filter-group summary::-webkit-details-marker { display: none; }
@@ -137,57 +118,37 @@ body > h1 + main > .team-button:last-child { grid-column: 1 / -1; min-height: 29
 .more-button { min-width: 190px; min-height: 50px; padding: 0 24px; border: 0; border-radius: 10px; color: #fff; font-weight: 800; cursor: pointer; transition: transform .2s, filter .2s; }
 .more-button:hover { filter: brightness(.9); transform: translateY(-2px); }
 
-body > footer { margin-top: 80px; padding: 60px max(32px, calc((100% - 1440px) / 2)) 32px; background: var(--carbon); color: #fff; }
-.main-footer { display: grid; grid-template-columns: 1fr auto auto; align-items: start; gap: 50px; padding-bottom: 42px; }
-.main-footer > img { width: 126px; }
-.link-footer { display: grid; grid-template-columns: repeat(2, auto); gap: 14px 34px; }
-.link-footer a { color: #bcbcbc; font-size: 13px; font-weight: 600; }
-.link-footer a:hover { color: #fff; }
-.media-footer { display: flex; gap: 8px; }
-.media-footer a { display: grid; place-items: center; width: 38px; height: 38px; border: 1px solid #4b4b4b; border-radius: 50%; }
-.media-footer img { width: 17px; height: 17px; object-fit: contain; }
-.media-footer img[src$="X.svg"] { filter: invert(1); }
-.footer-subcontent { display: flex; justify-content: space-between; gap: 24px; padding-top: 24px; border-top: 1px solid #444; color: #969696; font-size: 11px; }
-.footer-terms { display: flex; gap: 20px; }
-.footer-terms a { color: #969696; }
-
 @media (max-width: 1000px) {
-    body > header { grid-template-columns: 170px 1fr 170px; padding: 0 20px; }
-    body > header .header-logo p { display: none; }
     .main-container { grid-template-columns: 1fr; }
-    .filter-box { position: static; grid-column: 1; grid-row: 1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 18px; }
+    .main-container > .filter-box { position: static; grid-column: 1; grid-row: 1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 18px; }
     .filter-heading { grid-column: 1 / -1; }
     .catalog-status { grid-column: 1; grid-row: 2; margin-bottom: -16px; }
     .main-container > section { grid-column: 1; grid-row: 3; }
 }
 
 @media (max-width: 800px) {
-    body > header { grid-template-columns: auto 1fr; grid-template-rows: 66px auto; min-height: auto; padding: 0 14px; }
-    body > header .header-logo { grid-column: 1; }
-    body > header .header-logo img { width: 96px; }
-    body > header .header-buttons { grid-column: 2; grid-row: 1; }
-    body > header .header-nav { position: static; grid-column: 1 / -1; grid-row: 2; display: flex; justify-content: flex-start; gap: 24px; overflow-x: auto; padding: 0 0 8px; box-shadow: none; scrollbar-width: none; }
-    body > header .header-nav > a, body > header .dropbtn { flex: none; padding: 12px 0; font-size: 13px; }
-    body > header .dropdown-teams, body > header .dropdown-categories { display: none; }
+    .filter-box, .main-container > .filter-box { display: block; padding: 0; overflow: hidden; }
+    .filter-box .filter-toggle { justify-content: space-between; min-height: 54px; margin: 0; padding: 0 18px; color: var(--carbon); font-size: 13px !important; font-weight: 800 !important; letter-spacing: .02em; text-transform: none; cursor: pointer; }
+    .filter-box .filter-toggle::after { width: 9px; height: 9px; margin-left: auto; border-right: 2px solid var(--carbon); border-bottom: 2px solid var(--carbon); content: ""; transform: rotate(45deg); transition: transform .2s; }
+    .filter-box.is-open .filter-toggle::after { transform: rotate(225deg); }
+    .filter-box:not(.is-open) > :not(.filter-toggle) { display: none !important; }
+    .filter-box.is-open { padding-bottom: 16px; }
+    .filter-box.is-open > .filter-group, .filter-box.is-open > .clear-filters { width: calc(100% - 36px); margin-right: 18px; margin-left: 18px; }
     body > h1 { margin-top: 52px; }
     body > h1 + main { grid-template-columns: 1fr; margin-top: 32px; }
     .team-button, body > h1 + main > .team-button:last-child { grid-column: auto; min-height: 250px; }
     .main-title-container { margin-top: 22px; }
     .main-title { min-height: 130px; }
     .main-container > section { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .main-footer { grid-template-columns: 1fr; gap: 32px; }
 }
 
 @media (max-width: 520px) {
-    body > header .header-buttons button:first-child { display: none; }
     .main-title h1 { font-size: 38px; }
     .main-title img { width: 70px; }
-    .filter-box { grid-template-columns: 1fr; gap: 0; }
     .main-container { width: calc(100% - 20px); gap: 20px; }
     .main-container > section { gap: 28px 10px; }
     .team-product > p { min-height: 62px; font-size: 12px; }
     .team-product-prices { display: block; }
     .team-product-prices > p:first-child { font-size: 16px; }
     .team-product-prices #pix, .team-product-prices .pix-note { margin-top: 4px; font-size: 10px; }
-    .footer-subcontent, .footer-terms { flex-direction: column; }
 }

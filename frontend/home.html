@@ -40,14 +40,17 @@
                     <a class="williams" href="./src/pages/williams.html">Williams</a>
                 </div>
             </div>
-            <a href="#categorias">Categorias</a>
+            <div class="dropdown">
+                <a href="./src/pages/catalogo.html" class="dropbtn">Categorias <img src="./src/assets/images/chevron-down.svg" alt=""></a>
+                <div class="dropdown-categories"></div>
+            </div>
             <a href="#lancamentos">Lançamentos</a>
             <a href="#promocoes">Promoções</a>
         </nav>
 
         <div class="header-buttons" aria-label="Ações da loja">
             <button type="button" class="search-trigger" aria-label="Pesquisar produtos"><img src="./src/assets/images/botao-pesquisa.svg" alt=""></button>
-            <button type="button" aria-label="Acessar página de login" onclick="window.location.href='./src/pages/login.html'"><img src="./src/assets/images/botao-login.svg" alt=""></button>
+            <button type="button" aria-label="Acessar minha conta" onclick="window.location.href='./src/pages/login.html'"><img src="./src/assets/images/botao-login.svg" alt=""></button>
             <button type="button" aria-label="Abrir carrinho"><img src="./src/assets/images/carrinho-compras.svg" alt=""><span class="cart-count" aria-label="0 itens">0</span></button>
         </div>
     </header>
@@ -77,34 +80,15 @@
             <div><strong>Coleção 2026</strong><span>para quem vive a F1</span></div>
         </section>
 
-        <section class="store-section" id="lancamentos" aria-labelledby="bestsellers-title">
+        <section class="store-section" id="lancamentos" aria-labelledby="releases-title">
             <div class="section-heading">
-                <div><p class="eyebrow">Na pole position</p><h2 id="bestsellers-title">Mais vendidos</h2></div>
+                <div><p class="eyebrow">Na pole position</p><h2 id="releases-title">Lançamentos</h2></div>
                 <a href="./src/pages/catalogo.html">Ver todos <span aria-hidden="true">→</span></a>
             </div>
 
-            <div class="product-row">
-                <article class="product-card">
-                    <a href="./src/pages/produto.html?id=mercedes-polo-2025-preta" class="product-image" data-team="mercedes"><span class="product-tag">Destaque</span><img src="./src/assets/images/polo-mercedes.png" alt="Camisa polo Mercedes 2025 preta"></a>
-                    <div class="product-copy"><p class="product-team mercedes-text">Mercedes</p><h3><a href="./src/pages/produto.html?id=mercedes-polo-2025-preta">Camisa Polo Mercedes 2025 Preta</a></h3><p class="product-price">R$ 159,90</p><p class="pix-note">R$ 151,91 no PIX</p></div>
-                </article>
-                <article class="product-card">
-                    <a href="./src/pages/produto.html?id=ferrari-jaqueta-driver" class="product-image" data-team="ferrari"><img src="./src/assets/images/blusa-ferrari.png" alt="Jaqueta Scuderia Ferrari vermelha"></a>
-                    <div class="product-copy"><p class="product-team ferrari-text">Ferrari</p><h3><a href="./src/pages/produto.html?id=ferrari-jaqueta-driver">Jaqueta Scuderia Ferrari Replica Driver</a></h3><p class="product-price">R$ 369,90</p><p class="pix-note">R$ 351,41 no PIX</p></div>
-                </article>
-                <article class="product-card">
-                    <a href="./src/pages/produto.html?id=mercedes-bone-mechanics" class="product-image" data-team="mercedes"><img src="./src/assets/images/bone-mercedes.png" alt="Boné Mercedes preto"></a>
-                    <div class="product-copy"><p class="product-team mercedes-text">Mercedes</p><h3><a href="./src/pages/produto.html?id=mercedes-bone-mechanics">Boné Trucker Mechanics Adidas Mercedes</a></h3><p class="product-price">R$ 119,90</p><p class="pix-note">R$ 113,91 no PIX</p></div>
-                </article>
-                <article class="product-card">
-                    <a href="./src/pages/produto.html?id=redbull-bone-9fifty" class="product-image" data-team="rbr"><img src="./src/assets/images/bone-redbull.png" alt="Boné Red Bull azul marinho"></a>
-                    <div class="product-copy"><p class="product-team rbr-text">Red Bull</p><h3><a href="./src/pages/produto.html?id=redbull-bone-9fifty">Boné 9FIFTY Original Fit Red Bull Racing</a></h3><p class="product-price">R$ 109,90</p><p class="pix-note">R$ 104,41 no PIX</p></div>
-                </article>
-                <article class="product-card">
-                    <a href="./src/pages/produto.html?id=mclaren-polo-equipe-2026" class="product-image" data-team="mclaren"><span class="product-tag new">Novo</span><img src="./src/assets/images/polo-mclaren.png" alt="Camisa polo McLaren 2026 laranja"></a>
-                    <div class="product-copy"><p class="product-team mclaren-text">McLaren</p><h3><a href="./src/pages/produto.html?id=mclaren-polo-equipe-2026">Camisa Polo McLaren F1 Team 2026</a></h3><p class="product-price">R$ 179,90</p><p class="pix-note">R$ 170,91 no PIX</p></div>
-                </article>
-            </div>
+            <div class="product-row"
+                data-home-products="mercedes-polo-2025-preta, ferrari-jaqueta-driver, mercedes-bone-mechanics, redbull-bone-9fifty, mclaren-polo-equipe-2026"
+                data-home-tags="mercedes-polo-2025-preta:Destaque, mclaren-polo-equipe-2026:Novo"></div>
         </section>
 
         <section class="store-section teams-section" id="categorias" aria-labelledby="teams-title">
@@ -139,8 +123,8 @@
     <footer class="site-footer">
         <div class="footer-main">
             <div class="footer-brand"><img src="./src/assets/images/logo.svg" alt=""><p>Da largada à bandeirada, sua paixão veste F1 Hub.</p></div>
-            <div class="footer-column"><h2>Loja</h2><a href="./src/pages/equipes.html">Equipes</a><a href="#lancamentos">Lançamentos</a><a href="#promocoes">Promoções</a></div>
-            <div class="footer-column"><h2>Atendimento</h2><a href="./src/pages/login.html">Minha conta</a><a href="#">Termos de serviço</a><a href="#">Política de privacidade</a></div>
+            <div class="footer-column"><h2>Loja</h2><a href="./src/pages/equipes.html">Equipes</a><a href="./src/pages/catalogo.html">Catálogo completo</a><a href="#lancamentos">Lançamentos</a><a href="#promocoes">Promoções</a></div>
+            <div class="footer-column"><h2>Atendimento</h2><a href="./src/pages/login.html">Minha conta</a><a href="./src/pages/carrinho.html">Carrinho</a><a href="#">Termos de serviço</a><a href="#">Política de privacidade</a></div>
             <div class="footer-social"><h2>Siga a F1 Hub</h2><div><a href="https://www.facebook.com/" aria-label="Facebook"><img src="./src/assets/images/facebook.png" alt=""></a><a href="https://www.instagram.com/" aria-label="Instagram"><img src="./src/assets/images/instagram.png" alt=""></a><a href="https://x.com/" aria-label="X"><img src="./src/assets/images/X.svg" alt=""></a></div></div>
         </div>
         <div class="footer-bottom"><p>© 2026 F1 Hub. Todos os direitos reservados.</p><p>Projeto acadêmico • Feito por fãs de velocidade</p></div>
