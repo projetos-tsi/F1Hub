@@ -1,5 +1,6 @@
 import { catalogService } from '../services/catalog-service.js';
 import { productCardTemplate } from '../ui/product-card.js';
+import { enhanceFilterPanel, filterHeadingTemplate } from '../ui/filter-panel.js';
 
 const LOAD_MORE_ENABLED = false;
 
@@ -41,9 +42,10 @@ export function initCatalogPage() {
 
     const facets = catalogService.facets(team);
     filterBox.innerHTML = `
-        <p class="filter-heading">Filtrar por</p>
+        ${filterHeadingTemplate()}
         ${Object.entries(facets).map(([key, values]) => filterGroupTemplate(key, values)).join('')}
         <button class="clear-filters" type="button" hidden>Limpar filtros</button>`;
+    const updateFilterCount = enhanceFilterPanel(filterBox);
 
     grid.classList.add('catalog-grid');
     const resultStatus = document.createElement('p');
@@ -71,6 +73,7 @@ export function initCatalogPage() {
 
         resultStatus.textContent = `${filtered.length} ${filtered.length === 1 ? 'produto encontrado' : 'produtos encontrados'}`;
         filterBox.querySelector('.clear-filters').hidden = !hasFilters;
+        updateFilterCount();
         grid.innerHTML = filtered.length
             ? filtered.map((item) => productCardTemplate(item)).join('')
             : '<div class="empty-catalog"><strong>Nenhum produto encontrado.</strong><p>Remova algum filtro para ampliar os resultados.</p></div>';

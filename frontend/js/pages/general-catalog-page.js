@@ -1,5 +1,6 @@
 import { catalogService } from '../services/catalog-service.js';
 import { productCardTemplate } from '../ui/product-card.js';
+import { enhanceFilterPanel, filterHeadingTemplate } from '../ui/filter-panel.js';
 
 const labels = { teams: 'Equipe', sizes: 'Tamanho', categories: 'Produto', pilots: 'Piloto' };
 
@@ -22,7 +23,8 @@ export function initGeneralCatalogPage() {
     const sort = root.querySelector('#catalog-sort');
     const facets = catalogService.allFacets();
 
-    filters.innerHTML = `<p class="filter-heading">Filtrar por</p>${Object.entries(facets).map(([key, values]) => groupTemplate(key, values)).join('')}<button class="clear-filters" type="button" hidden>Limpar filtros</button>`;
+    filters.innerHTML = `${filterHeadingTemplate()}${Object.entries(facets).map(([key, values]) => groupTemplate(key, values)).join('')}<button class="clear-filters" type="button" hidden>Limpar filtros</button>`;
+    const updateFilterCount = enhanceFilterPanel(filters);
 
     const initialCategory = new URLSearchParams(window.location.search).get('category');
     if (initialCategory) {
@@ -45,6 +47,7 @@ export function initGeneralCatalogPage() {
         if (sort.value === 'name') items.sort((a, b) => a.name.localeCompare(b.name, 'pt-BR'));
         status.textContent = `${items.length} ${items.length === 1 ? 'produto encontrado' : 'produtos encontrados'}`;
         filters.querySelector('.clear-filters').hidden = !hasFilters;
+        updateFilterCount();
         grid.innerHTML = items.length ? items.map((item) => productCardTemplate(item)).join('') : '<div class="empty-catalog"><strong>Nenhum produto encontrado.</strong><p>Remova algum filtro para ampliar os resultados.</p></div>';
     }
 

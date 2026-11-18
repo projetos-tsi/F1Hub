@@ -19,6 +19,20 @@ export function productCardTemplate(product, className = 'team-product') {
         </a>`;
 }
 
+export function homeProductCardTemplate(product, tag = '') {
+    const tagMarkup = tag ? `<span class="product-tag${tag.toLowerCase() === 'novo' ? ' new' : ''}">${escapeHtml(tag)}</span>` : '';
+    return `
+        <article class="product-card">
+            <a href="${product.url}" class="product-image" data-team="${escapeHtml(product.team)}">${tagMarkup}<img src="${product.imageUrl}" alt="${escapeHtml(product.name)}" loading="lazy"></a>
+            <div class="product-copy">
+                <p class="product-team ${escapeHtml(product.team)}-text">${escapeHtml(product.teamName)}</p>
+                <h3><a href="${product.url}">${escapeHtml(product.name)}</a></h3>
+                <p class="product-price">${catalogService.formatPrice(product.price)}</p>
+                <p class="pix-note">${catalogService.pixPrice(product.price)} no PIX</p>
+            </div>
+        </article>`;
+}
+
 export function searchResultTemplate(product) {
     return `
         <a class="search-result" href="${product.url}" data-product-id="${escapeHtml(product.id)}">

@@ -54,6 +54,7 @@ img { display: block; max-width: 100%; }
 .dropdown-teams a, .dropdown-categories a { padding: 12px 14px; border-radius: 8px; color: var(--carbon); font-size: 14px; font-weight: 700; transition: background .2s, color .2s; }
 .dropdown-teams a:hover, .dropdown-teams a:focus-visible, .dropdown-categories a:hover, .dropdown-categories a:focus-visible { background: var(--carbon); color: #fff; }
 .dropdown-categories a:hover, .dropdown-categories a:focus-visible { background: var(--carbon); }
+.dropdown-categories .dropdown-all { margin-top: 4px; border-top: 1px solid var(--line); border-radius: 0 0 8px 8px; color: var(--red); }
 .dropdown-teams :is(.ferrari, .ferraria):hover, .dropdown-teams :is(.ferrari, .ferraria):focus-visible { background: var(--ferrari); }
 .dropdown-teams :is(.mercedes, .mercedesa):hover, .dropdown-teams :is(.mercedes, .mercedesa):focus-visible { background: #078d84; }
 .dropdown-teams :is(.rbr, .rbra):hover, .dropdown-teams :is(.rbr, .rbra):focus-visible { background: var(--redbull); }
@@ -120,7 +121,7 @@ img { display: block; max-width: 100%; }
 .product-tag.new { background: var(--red); }
 .product-copy { padding: 16px 4px 0; }
 .product-team { margin-bottom: 7px; font-size: 10px; font-weight: 900; letter-spacing: .14em; text-transform: uppercase; }
-.ferrari-text { color: var(--ferrari); }.mercedes-text { color: #078d84; }.rbr-text { color: #0b497d; }.mclaren-text { color: #b86400; }
+.ferrari-text { color: var(--ferrari); }.mercedes-text { color: #078d84; }.rbr-text { color: #0b497d; }.mclaren-text { color: #b86400; }.williams-text { color: var(--williams); }
 .product-copy h3 { min-height: 42px; margin-bottom: 12px; font-size: 14px; line-height: 1.45; }
 .product-copy h3 a { color: var(--carbon); }
 .product-price { font-size: 18px; font-weight: 800; }
@@ -169,6 +170,7 @@ img { display: block; max-width: 100%; }
     .site-header { grid-template-columns: 170px 1fr 170px; padding: 0 20px; }
     .header-logo span { display: none; }
     .header-nav { gap: 20px; }
+    .footer-main { grid-template-columns: repeat(2, 1fr); }
     .product-row { grid-template-columns: repeat(4, minmax(210px, 1fr)); overflow-x: auto; padding-bottom: 12px; scroll-snap-type: x mandatory; scrollbar-width: thin; }
     .product-card { scroll-snap-align: start; }
     .team-grid { grid-template-columns: repeat(3, 1fr); }
@@ -186,19 +188,23 @@ img { display: block; max-width: 100%; }
     .menu-toggle[aria-expanded="true"] > span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
     .menu-toggle[aria-expanded="true"] > span:nth-child(2) { opacity: 0; }
     .menu-toggle[aria-expanded="true"] > span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
-    .header-nav { position: absolute; top: 68px; right: 0; left: 0; display: none; align-items: stretch; padding: 12px 18px 22px; background: var(--carbon); box-shadow: 0 18px 30px rgba(0,0,0,.18); }
-    .header-nav.is-open { display: grid; }
+    .header-nav { position: absolute; top: 68px; right: 0; left: 0; display: none; align-items: stretch; max-height: calc(100dvh - 68px); overflow-y: auto; overscroll-behavior: contain; padding: 12px 18px 22px; background: var(--carbon); box-shadow: 0 18px 30px rgba(0,0,0,.18); }
+    .header-nav.is-open { display: grid; grid-template-columns: minmax(0, 1fr); justify-content: stretch; }
     .header-nav > a, .dropbtn { justify-content: space-between; padding: 13px 0; border-bottom: 1px solid #3b3b3b; }
     .header-nav > a::after, .dropbtn::after { display: none; }
     .dropdown-teams, .dropdown-categories { position: static; display: none; visibility: visible; width: 100%; padding: 8px 0; box-shadow: none; opacity: 1; transform: none; }
     .dropdown.open .dropdown-teams, .dropdown.open .dropdown-categories { display: grid; }
-    .header-buttons { grid-column: 3; }
-    .header-buttons .search-trigger, .header-buttons button:nth-child(2) { display: none; }
-    .header-buttons button { width: 40px; height: 40px; }
+    .header-nav .dropdown :is(.dropdown-teams, .dropdown-categories) { left: auto; padding: 6px 0 10px; border-radius: 0; background: transparent; transform: none; }
+    .header-nav .dropdown :is(.dropdown-teams, .dropdown-categories) a { padding: 11px 14px; color: #d6d6d6; font-weight: 600; }
+    .header-nav .dropdown .dropdown-categories a.dropdown-all { margin-top: 0; border-top: 0; color: #ff8b92; }
+    .header-buttons { grid-column: 3; gap: 0; }
+    .header-buttons button { width: 38px; height: 38px; }
+    .header-buttons img { width: 20px; height: 20px; }
     .search-panel { --search-panel-top: 98px; padding: 14px; }
+    .search-form { grid-template-columns: 1fr auto; }
+    .search-form button[type="submit"] { display: none; }
     .hero { grid-template-columns: 1fr; min-height: 0; margin-top: 14px; }
-    .hero-media { aspect-ratio: 16 / 9; }
-    .hero-media img { height: 100%; aspect-ratio: auto; object-fit: cover; object-position: 64% center; }
+    .hero-media img { aspect-ratio: 12 / 5; object-fit: cover; object-position: 16% center; }
     .hero-caption { display: flex; flex-direction: column; align-items: flex-start; gap: 0; padding: 28px; }
     .hero h1 { margin-bottom: 22px; font-size: 34px; }
     .benefit-strip { grid-template-columns: 1fr; }
@@ -220,8 +226,6 @@ img { display: block; max-width: 100%; }
 @media (max-width: 520px) {
     .announcement-bar p span { display: none; }
     .announcement-bar p { display: block; }
-    .hero-media { aspect-ratio: 4 / 3; }
-    .hero-media img { object-position: 64% center; }
     .hero h1 { font-size: 30px; }
     .section-heading { align-items: flex-start; }
     .section-heading > a { font-size: 12px; }

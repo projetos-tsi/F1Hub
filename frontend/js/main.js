@@ -4,7 +4,8 @@ import { initCartPage } from './pages/cart-page.js';
 import { initGeneralCatalogPage } from './pages/general-catalog-page.js';
 import { initCheckoutPage } from './pages/checkout-page.js';
 import { cartService } from './services/cart-service.js';
-import { routes } from './services/catalog-service.js';
+import { catalogService, routes } from './services/catalog-service.js';
+import { initHomePage } from './pages/home-page.js';
 import { initSearch } from './ui/search-controller.js';
 
 const dropdowns = Array.from(document.querySelectorAll('.dropdown'));
@@ -105,18 +106,23 @@ document.querySelectorAll('.header-nav > a, .link-footer a').forEach((link) => {
     if (label === 'promoções') link.href = `${routes.home}#promocoes`;
 });
 
+const categoryLabels = {
+    'Camisa Polo': 'Camisas polo',
+    'Camiseta': 'Camisetas',
+    'Boné': 'Bonés',
+    'Moletom': 'Moletons',
+    'Jaqueta': 'Jaquetas',
+    'Blusa': 'Blusas'
+};
+
 document.querySelectorAll('.dropdown-categories').forEach((menu) => {
-    const categories = ['Camisa Polo', 'Camiseta', 'Boné', 'Moletom', 'Jaqueta'];
-    menu.innerHTML = categories.map((category) => `<a href="#" data-search-category="${category}">${category}</a>`).join('');
-    menu.addEventListener('click', (event) => {
-        const link = event.target.closest('[data-search-category]');
-        if (!link) return;
-        event.preventDefault();
-        closeDropdowns();
-        search.open(link.dataset.searchCategory);
-    });
+    const categories = catalogService.allFacets().categories;
+    menu.innerHTML = categories
+        .map((category) => `<a href="${routes.catalog}?category=${encodeURIComponent(category)}">${categoryLabels[category] || category}</a>`)
+        .join('') + `<a class="dropdown-all" href="${routes.catalog}">Ver todos os produtos</a>`;
 });
 
+initHomePage();
 initCatalogPage();
 initProductPage();
 initCartPage();
