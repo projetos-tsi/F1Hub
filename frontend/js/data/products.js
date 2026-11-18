@@ -91,3 +91,14 @@ export const products = [
     product('williams-dryfit-sainz-branco-2025', 'williams', 'Camiseta', 'Carlos Sainz', 'camisa-williams3.png', 'Camiseta Dryfit Williams Carlos Sainz Branco 2025', 10990),
     product('williams-moletom-rothmans-retro', 'williams', 'Moletom', 'Equipe', 'moletom-williams.png', 'Moletom Williams Retrô Rothmans Racing Branco', 18990)
 ];
+
+// Preço "de" (exibido riscado) dos produtos em promoção, em centavos.
+// O preço de venda continua sendo o campo `price` de cada produto.
+export const promotions = {
+    'ferrari-jaqueta-driver': 42990,
+    'mercedes-jaqueta-2025-preta': 29990,
+    'redbull-moletom-turquia-black': 24990,
+    'mclaren-moletom-retro-vermelho': 23990,
+    'mclaren-dryfit-marlboro-retro': 13990,
+    'williams-jaqueta-rp-hybrid': 22990
+};

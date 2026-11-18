@@ -32,6 +32,7 @@ body > main {
 .prices { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 15px; }
 .prices > p:first-child { font-size: 28px; font-weight: 900; }
 .prices .pix { color: var(--green); font-size: 13px; font-weight: 600; }
+.discount-chip { padding: 5px 9px; border-radius: 6px; background: var(--red); color: #fff; font-size: 12px; font-weight: 900; letter-spacing: .04em; }
 
 .sizes { padding: 28px 0; border-bottom: 1px solid var(--line); }
 .size-label { margin-bottom: 12px; font-size: 13px; font-weight: 800; }
