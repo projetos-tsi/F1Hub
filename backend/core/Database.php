@@ -19,12 +19,7 @@ final class Database
             return self::$connection;
         }
 
-        $configFile = __DIR__ . '/../config/database.php';
-        if (!is_file($configFile)) {
-            throw new RuntimeException('Arquivo backend/config/database.php não encontrado. Copie database.example.php.');
-        }
-
-        $config = require $configFile;
+        $config = self::config();
         $dsn = sprintf(
             'mysql:host=%s;port=%s;dbname=%s;charset=%s',
             $config['host'],
@@ -44,5 +39,31 @@ final class Database
         $pdo->exec("SET SESSION sql_mode = '" . self::STRICT_SQL_MODE . "', time_zone = '-03:00'");
 
         return self::$connection = $pdo;
+    }
+
+    /**
+     * Configuração da conexão:
+     * 1. backend/config/database.php (XAMPP; criado pelo instalador ou copiado do exemplo);
+     * 2. senão, variáveis de ambiente F1HUB_DB_HOST, F1HUB_DB_PORT, F1HUB_DB_NAME, F1HUB_DB_USER e
+     *    F1HUB_DB_PASSWORD (hospedagens que configuram o banco pelo painel, sem arquivo).
+     */
+    private static function config(): array
+    {
+        $configFile = __DIR__ . '/../config/database.php';
+        if (is_file($configFile)) {
+            return require $configFile;
+        }
+        $host = getenv('F1HUB_DB_HOST');
+        if ($host === false || $host === '') {
+            throw new RuntimeException('Configuração do banco não encontrada: crie backend/config/database.php (instalar.php) ou defina as variáveis F1HUB_DB_*.');
+        }
+        return [
+            'host' => $host,
+            'port' => getenv('F1HUB_DB_PORT') ?: '3306',
+            'database' => getenv('F1HUB_DB_NAME') ?: 'f1hub',
+            'username' => getenv('F1HUB_DB_USER') ?: 'root',
+            'password' => getenv('F1HUB_DB_PASSWORD') ?: '',
+            'charset' => 'utf8mb4',
+        ];
     }
 }

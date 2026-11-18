@@ -8,6 +8,7 @@ Estrutura MySQL/MariaDB do F1 Hub, versionada para que qualquer integrante (ou o
 |---|---|
 | `database.sql` | Cria o banco `f1hub` e as 9 tabelas, com chaves primárias, estrangeiras e regras (`CHECK`). |
 | `seeds/dados_iniciais.sql` | 5 equipes, 6 categorias, 45 produtos (com tamanhos e promoções), 3 planos da F1Hub Box e 1 administrador de teste. Pode ser importado mais de uma vez: só insere o que **ainda não existe** e nunca altera nem apaga dados já cadastrados (inclusive os editados no admin). |
+| `f1hub_hospedagem.sql` | Estrutura + dados iniciais em um arquivo só, **sem** `CREATE DATABASE`/`USE`, para importar no banco que a hospedagem criou (ver `docs/PUBLICACAO.md`). Gerado a partir dos dois arquivos acima. |
 
 Requisitos: XAMPP com MySQL/MariaDB e **PHP 8.1 ou superior**. Os scripts e a conexão do PHP ativam o **modo estrito** do MySQL (o XAMPP vem sem ele), para que valores inválidos sejam recusados em vez de gravados "consertados".
 
@@ -26,7 +27,16 @@ teams      (1) ──< (N) subscriptions   (equipe favorita; NULL = Surpresa)
 - Produtos e planos já usados em pedidos ou assinaturas não podem ser apagados, apenas desativados. Usuários com pedidos ou assinaturas também não podem ser apagados (histórico preservado).
 - O banco confere sozinho regras como preço maior que zero, preço "de" maior que o preço e total do pedido = subtotal − desconto.
 
-## Instalação no XAMPP
+## Instalação rápida (recomendada)
+
+1. Inicie **Apache** e **MySQL** no painel do XAMPP.
+2. Abra **`http://localhost/F1Hub/instalar.php`** e clique em **Instalar banco de dados**.
+
+O instalador cria `backend/config/database.php`, executa `database.sql` e `seeds/dados_iniciais.sql` e mostra a verificação (PHP, extensão `pdo_mysql`, conexão, quantidade de registros). No XAMPP padrão (usuário `root` sem senha) não é preciso preencher nada. Pode ser usado de novo com segurança: só cria o que ainda não existe. A opção **"Apagar o banco f1hub atual e recriar do zero"** serve para quem tem um banco de uma versão antiga.
+
+> O instalador só responde a acessos do próprio computador (`localhost`). Em uma hospedagem online, apague o arquivo `instalar.php`.
+
+## Instalação manual no XAMPP (alternativa)
 
 1. Inicie **Apache** e **MySQL** no painel do XAMPP.
 2. Abra `http://localhost/phpmyadmin`, aba **Importar**:

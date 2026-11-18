@@ -169,6 +169,8 @@ img { display: block; max-width: 100%; }
 .catalog-notice { flex: 0 0 100%; grid-column: 1 / -1; width: 100%; padding: 56px 20px; border-radius: 14px; background: #fff; text-align: center; }
 .catalog-notice strong { display: block; font-size: 16px; }
 .catalog-notice p { margin-top: 8px; color: var(--muted); font-size: 13px; line-height: 1.6; }
+/* Texto exibido enquanto a página busca os dados no servidor (carrinho, finalização). */
+.page-loading { padding: 40px 0; color: var(--muted); font-size: 14px; }
 /* Aviso do carrinho e da finalização (ex.: item que deixou de ser vendido foi removido). */
 .cart-notice { margin-bottom: 24px; padding: 14px 18px; border-left: 4px solid var(--red); border-radius: 10px; background: #fff; color: var(--carbon); font-size: 13px; font-weight: 700; line-height: 1.5; }
 .carousel-arrow { display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid var(--line); border-radius: 50%; background: #fff; color: var(--carbon); cursor: pointer; transition: border-color .2s, transform .2s, opacity .2s; }

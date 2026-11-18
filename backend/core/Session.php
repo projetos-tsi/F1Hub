@@ -66,6 +66,16 @@ final class Session
         }
     }
 
+    /** Atualiza os dados guardados na sessão (ex.: nome alterado em "Minha conta"), sem trocar o ID. */
+    public static function refreshUser(array $user): void
+    {
+        self::start();
+        if (isset($_SESSION['user']) && (int) $_SESSION['user']['id'] === (int) $user['id']) {
+            $_SESSION['user']['name'] = $user['name'];
+            $_SESSION['user']['email'] = $user['email'];
+        }
+    }
+
     public static function logout(): void
     {
         self::start();

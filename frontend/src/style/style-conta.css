@@ -27,6 +27,108 @@
 .account-card-box { background: radial-gradient(circle at 90% 10%, rgba(237,19,32,.35), transparent 55%), linear-gradient(145deg, #2b2b2b, var(--carbon)); color: #fff; }
 .account-card-box > p { color: #cfcfcf; }
 .account-status { margin-top: 16px; color: var(--red-dark); font-size: 13px; font-weight: 700; }
+.account-status:empty { display: none; }
+.account-card .account-number { color: var(--carbon); font-size: 15px; }
+.account-card .account-number strong { font-size: 34px; letter-spacing: -.04em; }
+.account-card > div > p, .account-orders-summary p { color: var(--muted); font-size: 14px; line-height: 1.6; }
+.account-orders-summary { display: grid; flex: 1; align-content: start; gap: 8px; width: 100%; }
+.account-orders-summary .button-outline { margin-top: auto; justify-self: start; }
+
+/* Meus dados: alterar nome e trocar senha */
+.account-data-actions { display: flex; flex-wrap: wrap; gap: 18px; margin-top: auto; }
+.account-data-actions[hidden] { display: none; }
+.account-link-button { padding: 4px 0; border: 0; border-bottom: 1.5px solid var(--carbon); background: none; color: var(--carbon); font-size: 13px; font-weight: 800; cursor: pointer; }
+.account-link-button:hover { border-color: var(--red); color: var(--red); }
+.account-forms { width: 100%; }
+.account-forms:empty { display: none; }
+.account-form { display: grid; gap: 12px; width: 100%; }
+.account-form label { display: grid; gap: 6px; font-size: 12px; font-weight: 800; }
+.account-form input { width: 100%; height: 46px; padding: 0 12px; border: 1px solid var(--line); border-radius: 8px; background: #fafafa; color: var(--carbon); font: inherit; font-size: 15px; font-weight: 500; }
+.account-form input:focus { border-color: var(--red); outline: 0; box-shadow: 0 0 0 3px rgba(237,19,32,.11); }
+.account-form input[aria-invalid="true"] { border-color: var(--red-dark); background: #fff6f6; }
+.account-field-error { color: var(--red-dark); font-size: 12px; font-weight: 700; }
+.account-field-error::before { content: "⚠ "; }
+.account-form-hint { color: var(--muted); font-size: 12px; }
+.account-form-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; }
+.account-form-actions .button { min-height: 44px; }
+.account-form-status { color: var(--green); font-size: 13px; font-weight: 700; }
+.account-form-status:empty { display: none; }
+
+/* F1Hub Box (card escuro) */
+.account-card-box { scroll-margin-top: 110px; }
+.account-card-box:focus { outline: 0; }
+.account-box { display: flex; flex: 1; flex-direction: column; align-items: flex-start; gap: 14px; width: 100%; }
+.account-box > p { color: #cfcfcf; font-size: 14px; line-height: 1.6; }
+.account-box .button { margin-top: auto; }
+.account-box-plan { color: #fff !important; font-size: 16px !important; }
+.account-box-plan strong { font-size: 20px; letter-spacing: -.02em; }
+.account-card .account-box-details { gap: 8px; }
+.account-card .account-box-details div { display: flex; justify-content: space-between; gap: 16px; padding-bottom: 8px; border-color: #444; }
+.account-card .account-box-details dt { color: #a8a8a8; }
+.account-card .account-box-details dd { display: flex; align-items: center; gap: 8px; color: #fff; font-size: 14px; }
+.account-box .team-dot { width: 14px; height: 14px; border: 2px solid #fff; border-radius: 50%; background: var(--dot); }
+.account-box-warning { padding: 10px 12px; border-radius: 10px; background: rgba(255,210,122,.15); color: #ffd27a !important; font-size: 13px !important; }
+.account-box-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; width: 100%; margin-top: auto; }
+.account-box-actions .button { min-height: 44px; margin-top: 0; }
+.account-box-cancel { min-height: 44px; padding: 0 16px; border: 1.5px solid #6a6a6a; border-radius: 10px; background: transparent; color: #e6e6e6; font-size: 13px; font-weight: 800; cursor: pointer; transition: border-color .2s, color .2s; }
+.account-box-cancel:hover { border-color: #ff8b92; color: #ff8b92; }
+.account-box-cancel.is-confirm { border-color: var(--red); background: var(--red); color: #fff; }
+.account-box-cancel:disabled { cursor: progress; opacity: .7; }
+.account-box-confirm { width: 100%; color: #ffd27a; font-size: 14px; font-weight: 700; line-height: 1.5; }
+.account-box-status { color: #b8f0c4; font-size: 13px; font-weight: 700; }
+.account-box-status:empty { display: none; }
+
+/* Histórico de pedidos */
+.account-orders { margin: 56px 0 100px; scroll-margin-top: 110px; }
+.account-orders:focus { outline: 0; }
+.account-section-heading { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px; margin-bottom: 22px; }
+.account-section-heading h2 { font-size: clamp(30px, 4vw, 44px); letter-spacing: -.05em; }
+.account-empty { padding: 44px 24px; border-radius: 18px; background: #fff; text-align: center; }
+.account-empty strong { font-size: 17px; }
+.account-empty p { margin-top: 8px; color: var(--muted); font-size: 14px; }
+.order-list { display: grid; gap: 16px; }
+.order-card { display: grid; gap: 16px; padding: 24px 28px; border-radius: 18px; background: #fff; }
+.order-card.is-cancelled { background: #fbfbfb; }
+.order-card-header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; }
+.order-card-header h3 { font-size: 21px; letter-spacing: -.03em; }
+.order-card-header p { margin-top: 4px; color: var(--muted); font-size: 13px; }
+.order-status { padding: 6px 12px; border-radius: 99px; font-size: 12px; font-weight: 900; letter-spacing: .06em; text-transform: uppercase; }
+.order-status.is-recebido { background: #fff3d6; color: #8a5a00; }
+.order-status.is-pago, .order-status.is-enviado { background: #e3eeff; color: #1747a6; }
+.order-status.is-entregue { background: #e2f5e6; color: #1c6b2e; }
+.order-status.is-cancelado { background: #fde4e5; color: var(--red-dark); }
+.order-status-text { color: var(--muted); font-size: 14px; }
+
+/* Linha do tempo: Recebido → Pago → Enviado → Entregue */
+.order-steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); counter-reset: step; }
+.order-steps li { position: relative; display: grid; justify-items: center; gap: 6px; color: #9a9a9a; font-size: 12px; font-weight: 800; text-align: center; }
+.order-steps li::before { position: absolute; z-index: 0; top: 14px; right: 50%; left: -50%; height: 3px; background: var(--line); content: ""; }
+.order-steps li:first-child::before { display: none; }
+.order-steps li > span { position: relative; z-index: 1; display: grid; place-items: center; width: 30px; height: 30px; border: 2px solid var(--line); border-radius: 50%; background: #fff; }
+.order-steps li.is-done, .order-steps li.is-current { color: var(--carbon); }
+.order-steps li.is-done::before, .order-steps li.is-current::before { background: var(--green); }
+.order-steps li.is-done > span { border-color: var(--green); background: var(--green); color: #fff; }
+.order-steps li.is-current > span { border-color: var(--carbon); background: var(--carbon); color: #fff; }
+
+.order-details summary { width: fit-content; color: var(--carbon); font-size: 13px; font-weight: 800; text-decoration: underline; cursor: pointer; }
+.order-items { display: grid; margin-top: 14px; border-top: 1px solid var(--line); }
+.order-items li { display: grid; grid-template-columns: 58px minmax(0, 1fr) auto; gap: 14px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.order-thumb { display: grid; place-items: center; width: 58px; height: 58px; overflow: hidden; border-radius: 10px; background: var(--product-backdrop, var(--canvas)) center / cover; }
+.order-thumb img { width: 88%; height: 88%; object-fit: contain; }
+.order-item-copy { display: grid; gap: 4px; }
+.order-item-copy a, .order-item-copy strong { color: var(--carbon); font-size: 14px; font-weight: 700; line-height: 1.35; overflow-wrap: anywhere; }
+.order-item-copy a:hover { color: var(--red); }
+.order-item-copy small { color: var(--muted); font-size: 12px; }
+.order-items b { font-size: 14px; white-space: nowrap; }
+.order-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 20px; padding-top: 16px; }
+.order-address { color: var(--muted); font-size: 13px; line-height: 1.6; overflow-wrap: anywhere; }
+.order-address strong { display: block; color: var(--carbon); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; }
+.order-totals { display: grid; gap: 6px; min-width: 230px; }
+.order-totals div { display: flex; justify-content: space-between; gap: 20px; font-size: 13px; }
+.order-totals dt { color: var(--muted); }
+.order-totals .is-discount dd { color: var(--green); }
+.order-totals .is-total { padding-top: 8px; border-top: 1px solid var(--line); font-size: 16px; font-weight: 900; }
+.order-totals .is-total dt { color: var(--carbon); }
 
 @media (max-width: 1000px) {
     .account-grid { grid-template-columns: 1fr; }
@@ -35,4 +137,18 @@
 @media (max-width: 520px) {
     .account-page { width: calc(100% - 20px); margin-top: 34px; }
     .account-card { padding: 24px 20px; }
+    .order-card { padding: 20px 16px; }
+    .order-steps li { font-size: 10px; }
+    .order-steps li > span { width: 26px; height: 26px; }
+    .order-steps li::before { top: 12px; }
+    .order-items li { grid-template-columns: 48px minmax(0, 1fr); }
+    .order-thumb { width: 48px; height: 48px; }
+    .order-items b { grid-column: 2; }
+    .order-totals { width: 100%; min-width: 0; }
 }
+
+/* "Comprar de novo" (histórico de pedidos) */
+.order-again { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--line); }
+.order-again-status { color: var(--green); font-size: 13px; font-weight: 700; line-height: 1.5; }
+.order-again-status:empty { display: none; }
+.order-again-status a { color: var(--carbon); text-decoration: underline; }

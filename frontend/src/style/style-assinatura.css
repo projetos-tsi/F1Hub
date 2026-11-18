@@ -83,8 +83,22 @@
 .builder-summary dd { font-weight: 800; text-align: right; }
 .builder-summary li { color: #e2e2e2; font-size: 13px; }
 .summary-status { margin-bottom: 12px; color: #ffd27a; font-size: 13px; font-weight: 700; }
-.summary-cta { width: 100%; min-height: 52px; border: 0; border-radius: 10px; background: #4a4a4a; color: #d0d0d0; font-size: 14px; font-weight: 900; cursor: not-allowed; }
-.summary-note { margin-top: 12px; color: #9a9a9a; font-size: 11px; line-height: 1.5; }
+.summary-cta { display: grid; place-items: center; width: 100%; min-height: 52px; border: 0; border-radius: 10px; background: #4a4a4a; color: #d0d0d0; font-size: 14px; font-weight: 900; text-align: center; cursor: not-allowed; }
+.summary-cta.is-ready { background: var(--red); color: #fff; cursor: pointer; transition: background .2s, transform .2s; }
+.summary-cta.is-ready:hover { background: var(--red-dark); transform: translateY(-2px); }
+.summary-note { margin-top: 12px; color: #a8a8a8; font-size: 12px; line-height: 1.5; }
+.summary-note a, .summary-message a { color: #fff; font-weight: 800; text-decoration: underline; }
+.summary-message { margin-bottom: 12px; padding: 12px 14px; border-radius: 10px; font-size: 13px; font-weight: 700; line-height: 1.5; }
+.summary-message.is-success { background: rgba(38,143,61,.22); color: #b8f0c4; }
+.summary-message.is-error { background: rgba(237,19,32,.2); color: #ffc2c5; }
+
+/* Assinatura atual (cliente logado que já assina) */
+.box-current { display: flex; align-items: flex-start; gap: 14px; margin: -8px 0 24px; padding: 18px 20px; border-left: 4px solid var(--green); border-radius: 14px; background: #fff; }
+.box-current p { color: var(--muted); font-size: 14px; line-height: 1.6; }
+.box-current strong { color: var(--carbon); }
+.box-current a { margin-left: 4px; color: var(--carbon); font-weight: 800; text-decoration: underline; }
+.box-current-icon { display: grid; place-items: center; flex: none; width: 28px; height: 28px; border-radius: 50%; background: var(--green); color: #fff; font-weight: 900; }
+.plan-card.is-current { outline: 3px solid var(--green); outline-offset: -3px; }
 
 /* ---------- FAQ ---------- */
 .box-faq { display: grid; gap: 10px; max-width: 900px; }

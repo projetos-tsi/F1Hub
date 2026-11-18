@@ -142,6 +142,13 @@ function admin_status_pill(string $label, string $tone): string
     return '<span class="status-pill is-' . View::e($tone) . '">' . View::e($label) . '</span>';
 }
 
+/** Selo da situação de um pedido (mesmas cores na lista, no detalhe e no painel). */
+function admin_order_pill(string $status): string
+{
+    $tones = ['recebido' => 'warn', 'pago' => 'info', 'enviado' => 'info', 'entregue' => 'on', 'cancelado' => 'danger'];
+    return admin_status_pill(Order::STATUSES[$status] ?? $status, $tones[$status] ?? 'off');
+}
+
 /** Mensagem de sucesso/erro deixada pela ação anterior. */
 function admin_flash(): void
 {

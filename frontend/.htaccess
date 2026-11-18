@@ -6,4 +6,11 @@
     <FilesMatch "\.(html|css|js)$">
         Header set Cache-Control "no-cache"
     </FilesMatch>
+
+    # Cabeçalhos de segurança em todas as respostas da loja ("setifempty": não substitui os que
+    # as páginas do admin já enviam, como X-Frame-Options: DENY).
+    Header setifempty X-Content-Type-Options "nosniff"
+    Header setifempty Referrer-Policy "same-origin"
+    Header setifempty X-Frame-Options "SAMEORIGIN"
+    Header setifempty Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
 </IfModule>

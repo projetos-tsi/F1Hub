@@ -6,6 +6,8 @@
  *   POST auth.php?action=register  → cria a conta e já entra
  *   POST auth.php?action=login     → entra (campos: email, password, remember)
  *   POST auth.php?action=logout    → sai
+ *   POST auth.php?action=profile   → altera o nome (campo: name)
+ *   POST auth.php?action=password  → troca a senha (currentPassword, newPassword, confirmPassword)
  *
  * Requisições POST exigem o cabeçalho X-CSRF-Token (recebido em "me").
  */
@@ -43,6 +45,18 @@ try {
         case 'logout':
             Session::logout();
             Response::json(['user' => null]);
+
+        case 'profile':
+        case 'password':
+            $user = AuthService::currentUser();
+            if (!$user) {
+                Response::error('Entre na sua conta para continuar.', 401);
+            }
+            if ($action === 'profile') {
+                Response::json(['user' => AuthService::publicView(AuthService::updateProfile($user, $input))]);
+            }
+            AuthService::changePassword($user, $input);
+            Response::json(['changed' => true, 'csrfToken' => Csrf::token()]);
 
         default:
             Response::error('Ação desconhecida.', 404);
