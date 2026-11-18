@@ -262,12 +262,19 @@ img { display: block; max-width: 100%; }
     .promo-section { grid-template-columns: 1fr; }
     .promo-carousel > .product-card { flex-basis: calc((100% - 48px) / 4); }
     :root { --page: min(100% - 40px, 1080px); }
-    .site-header { grid-template-columns: 170px 1fr 170px; padding: 0 20px; }
+    /* Colunas do logo e dos botões no tamanho do conteúdo: o menu nunca empurra o carrinho para fora da tela. */
+    .site-header { grid-template-columns: auto minmax(0, 1fr) auto; column-gap: 16px; padding: 0 20px; }
     .header-logo span { display: none; }
     .header-nav { gap: 20px; }
     .footer-main { grid-template-columns: repeat(2, 1fr); }
     .team-grid { grid-template-columns: repeat(3, 1fr); }
     .team-card { min-height: 240px; }
+}
+
+/* Telas entre 801 e 960 px: menu um pouco mais compacto para caber ao lado do logo e dos botões. */
+@media (min-width: 801px) and (max-width: 960px) {
+    .header-nav { gap: 14px; }
+    .header-nav > a, .dropbtn { gap: 5px; font-size: 14px; }
 }
 
 @media (max-width: 800px) {
@@ -298,7 +305,10 @@ img { display: block; max-width: 100%; }
     .search-form button[type="submit"] { display: none; }
     .hero { grid-template-columns: 1fr; min-height: 0; margin-top: 14px; }
     .hero-slide { aspect-ratio: 12 / 5; }
-    .hero-slide-image img { object-position: 16% center; }
+    /* Banner-imagem (texto já dentro da arte): inteiro, sem recorte; as faixas de cima e de baixo
+       são preenchidas com a própria arte desfocada, e as bolinhas ficam na faixa de baixo. */
+    .hero-slide-image::before { position: absolute; inset: -24px; background: url("../assets/images/imagem-promocional.png") center / cover; filter: blur(16px) brightness(.85); content: ""; }
+    .hero-slide-image img { position: relative; object-fit: contain; }
     .hero-slide-tagline { display: none; }
     .hero-arrow { display: none; }
     .hero-dots { bottom: 8px; }
