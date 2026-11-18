@@ -178,6 +178,20 @@ img { display: block; max-width: 100%; }
 .pilot-card strong { font-size: 15px; letter-spacing: -.01em; }
 .pilot-card small { color: var(--muted); font-size: 12px; }
 
+/* ---------- Assinatura F1Hub Box ---------- */
+.header-nav > a.nav-highlight { color: #ff8b92; }
+.box-banner { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(30px, 5vw, 70px); align-items: center; padding: clamp(32px, 5vw, 70px); overflow: hidden; border-radius: var(--radius); background: radial-gradient(circle at 90% 10%, rgba(237,19,32,.35), transparent 50%), linear-gradient(145deg, #2b2b2b, var(--carbon)); color: #fff; }
+.box-banner .eyebrow { color: #ff8b92; }
+.box-banner h2 { margin-bottom: 18px; font-size: clamp(34px, 4vw, 58px); line-height: 1; letter-spacing: -.055em; }
+.box-banner-copy > p:not(.eyebrow) { max-width: 460px; margin-bottom: 28px; color: #cfcfcf; line-height: 1.65; }
+.box-banner-visual { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; transform: rotate(-3deg); }
+.box-banner-visual > span { display: grid; place-items: center; aspect-ratio: 3 / 4; overflow: hidden; border-radius: 16px; background-image: var(--product-backdrop); background-position: center; background-size: cover; box-shadow: 0 18px 40px rgba(0,0,0,.35); }
+.box-banner-visual > span:nth-child(2) { transform: translateY(22px); }
+.box-banner-visual img { width: 80%; height: 80%; filter: drop-shadow(0 12px 12px rgba(0,0,0,.45)); object-fit: contain; }
+.box-banner-surprise { align-content: center; gap: 4px; background: var(--red); text-align: center; }
+.box-banner-surprise strong { font-size: clamp(48px, 6vw, 84px); font-weight: 900; line-height: 1; }
+.box-banner-surprise small { font-size: 11px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+
 /* ---------- Abas por modelagem ---------- */
 .category-tabs { display: flex; gap: 8px; margin-bottom: 24px; overflow-x: auto; scrollbar-width: none; }
 .category-tabs button { flex: none; min-height: 42px; padding: 0 20px; border: 0; border-radius: 8px; background: #fff; color: var(--carbon); font-size: 12px; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; cursor: pointer; transition: background .2s, color .2s; }
@@ -295,6 +309,8 @@ img { display: block; max-width: 100%; }
     .team-grid { grid-template-columns: repeat(2, 1fr); }
     .team-card { min-height: 220px; }
     .promo-section { grid-template-columns: 1fr; gap: 36px; }
+    .box-banner { grid-template-columns: 1fr; padding-bottom: 54px; }
+    .box-banner-visual { max-width: 420px; }
     .footer-main { grid-template-columns: repeat(2, 1fr); }
 }
 

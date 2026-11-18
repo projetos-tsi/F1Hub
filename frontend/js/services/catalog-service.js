@@ -14,6 +14,7 @@ export const routes = {
     cart: new URL('src/pages/carrinho.html', frontendRoot).href,
     catalog: new URL('src/pages/catalogo.html', frontendRoot).href,
     checkout: new URL('src/pages/checkout.html', frontendRoot).href,
+    subscription: new URL('src/pages/assinatura.html', frontendRoot).href,
     team: (team) => new URL(`src/pages/${team}.html`, frontendRoot).href
 };
 
