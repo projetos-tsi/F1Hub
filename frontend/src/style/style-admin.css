@@ -51,7 +51,7 @@
 .admin-link { color: var(--carbon); font-size: 13px; font-weight: 800; text-decoration: underline; text-underline-offset: 4px; }
 .admin-link:hover { color: var(--red); }
 
-.admin-alert { margin-bottom: 22px; padding: 14px 18px; border: 1px solid var(--line); border-left: 4px solid var(--green); border-radius: 10px; background: #fff; font-size: 14px; font-weight: 600; line-height: 1.5; }
+.admin-alert { margin-bottom: 22px; padding: 14px 18px; border: 1px solid var(--line); border-left: 4px solid var(--green); border-radius: 10px; background: #fff; font-size: 14px; font-weight: 600; line-height: 1.5; overflow-wrap: anywhere; }
 .admin-alert.is-error { border-left-color: var(--red); color: var(--red-dark); }
 
 /* ---------- Painel ---------- */
@@ -60,12 +60,18 @@
 .admin-stat:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
 .admin-stat span { color: var(--muted); font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
 .admin-stat strong { font-size: 44px; line-height: 1; letter-spacing: -.05em; }
+.admin-stat strong.admin-stat-money { font-size: clamp(26px, 2.3vw, 34px); letter-spacing: -.04em; white-space: nowrap; }
 .admin-stat small { color: var(--muted); font-size: 13px; }
 .admin-stat-dark { background: radial-gradient(circle at 90% 10%, rgba(237,19,32,.35), transparent 55%), linear-gradient(145deg, #2b2b2b, var(--carbon)); color: #fff; }
 .admin-stat-dark span, .admin-stat-dark small { color: #cfcfcf; }
-.admin-shortcuts { margin-top: 36px; }
-.admin-shortcuts h2 { margin-bottom: 14px; font-size: 22px; letter-spacing: -.03em; }
-.admin-shortcuts div { display: flex; flex-wrap: wrap; gap: 12px; }
+.admin-hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.admin-panels { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 16px; }
+.admin-card-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 8px; }
+.admin-card-heading h2 { margin-bottom: 0; }
+.admin-mini-list { display: grid; list-style: none; }
+.admin-mini-list li { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 0; border-bottom: 1px solid #ececec; }
+.admin-mini-list li:last-child { border-bottom: 0; }
+.admin-mini-value { font-weight: 800; white-space: nowrap; }
 
 /* ---------- Filtros ---------- */
 .admin-filters { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 14px; padding: 20px; border-radius: var(--radius); background: #fff; }
@@ -100,12 +106,19 @@
 .admin-table tbody tr:hover { background: #fafafa; }
 .admin-table tr.is-inactive .admin-product, .admin-table tr.is-inactive .admin-price { opacity: .55; }
 .admin-product { display: flex; align-items: center; gap: 14px; min-width: 260px; }
-.admin-product strong { display: block; font-size: 14px; line-height: 1.35; }
+.admin-product > span:last-child { min-width: 0; }
+.admin-product strong { display: block; font-size: 14px; line-height: 1.35; overflow-wrap: anywhere; }
 .admin-product small { display: block; margin-top: 3px; color: var(--muted); font-size: 12px; overflow-wrap: anywhere; }
 .admin-thumb { display: grid; flex: none; place-items: center; width: 58px; height: 58px; overflow: hidden; border-radius: 10px; background-color: var(--canvas); background-image: var(--product-backdrop, none); background-position: center; background-size: cover; }
 .admin-thumb img { width: 84%; height: 84%; filter: drop-shadow(0 6px 6px rgba(0,0,0,.35)); object-fit: contain; }
 .admin-price, .admin-nowrap { white-space: nowrap; }
-.admin-price s { display: block; color: var(--muted); font-size: 12px; }
+.admin-price s, .admin-price small { display: block; color: var(--muted); font-size: 12px; }
+.admin-person strong, .admin-plan-name strong { display: block; font-size: 14px; line-height: 1.35; overflow-wrap: anywhere; }
+.admin-person small, .admin-plan-name small { display: block; margin-top: 3px; color: var(--muted); font-size: 12px; overflow-wrap: anywhere; }
+.admin-plan-name { min-width: 220px; }
+.admin-code { font-size: 15px; letter-spacing: -.01em; }
+.admin-tag { display: inline-block; margin-left: 6px; padding: 3px 7px; border-radius: 6px; background: var(--red); color: #fff; font-size: 10px; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; vertical-align: 2px; }
+.admin-cell-note { display: block; margin-top: 4px; color: var(--muted); font-size: 11px; }
 .team-badge { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; white-space: nowrap; }
 .team-badge::before { width: 10px; height: 10px; border-radius: 50%; background: var(--team, var(--muted)); content: ""; }
 .status-pill { display: inline-block; padding: 5px 10px; border-radius: 99px; font-size: 11px; font-weight: 900; letter-spacing: .06em; text-transform: uppercase; white-space: nowrap; }
@@ -113,6 +126,8 @@
 .status-pill.is-off { background: #ececec; color: var(--muted); }
 .status-pill.is-warn { background: #fff1dc; color: #8a4b00; }
 .status-pill.is-danger { background: #fde4e5; color: var(--red-dark); }
+.status-pill.is-info { background: #e4ecfd; color: #1f45a8; }
+.status-pill.is-dark { background: var(--carbon); color: #fff; }
 .admin-actions { white-space: nowrap; text-align: right; }
 .admin-actions form { display: inline; }
 .admin-action { display: inline-flex; align-items: center; min-height: 34px; padding: 0 12px; border: 1px solid var(--line); border-radius: 8px; background: #fff; color: var(--carbon); font-size: 12px; font-weight: 800; cursor: pointer; transition: border-color .2s, background .2s, color .2s; }
@@ -153,6 +168,7 @@ fieldset.admin-card[aria-invalid="true"] { box-shadow: inset 0 0 0 1.5px var(--r
 .image-option:has(input:checked)::after { position: absolute; top: 6px; right: 6px; display: grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: var(--red); color: #fff; content: "✓"; font-size: 11px; font-weight: 900; }
 .image-option:has(input:focus-visible) { outline: 3px solid rgba(237,19,32,.45); outline-offset: 2px; }
 
+.admin-switches { display: grid; gap: 18px; }
 .admin-switch { position: relative; display: flex; align-items: center; gap: 14px; font-size: 15px; font-weight: 700; cursor: pointer; }
 .admin-switch small { display: block; margin-top: 3px; color: var(--muted); font-size: 12px; font-weight: 500; }
 .admin-switch-track { position: relative; flex: none; width: 48px; height: 28px; border-radius: 99px; background: #cfcfcf; transition: background .2s; }
@@ -169,6 +185,22 @@ fieldset.admin-card[aria-invalid="true"] { box-shadow: inset 0 0 0 1.5px var(--r
 .admin-preview h3 { margin-top: 6px; font-size: 16px; line-height: 1.35; overflow-wrap: anywhere; }
 .admin-preview-price { margin-top: 8px; font-size: 18px; }
 .admin-preview-price s { color: var(--muted); font-size: 13px; }
+
+/* ---------- Abas de situação e paginação ---------- */
+.admin-tabs { display: flex; gap: 8px; margin-bottom: 4px; overflow-x: auto; scrollbar-width: none; }
+.admin-tabs::-webkit-scrollbar { display: none; }
+.admin-tabs a { flex: none; padding: 10px 16px; border: 1px solid var(--line); border-radius: 99px; background: #fff; color: var(--carbon); font-size: 13px; font-weight: 800; transition: border-color .2s, background .2s, color .2s; }
+.admin-tabs a:hover { border-color: var(--carbon); }
+.admin-tabs a[aria-current="page"] { border-color: var(--carbon); background: var(--carbon); color: #fff; }
+.admin-pager { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 14px; margin-top: 20px; color: var(--muted); font-size: 13px; font-weight: 700; }
+
+/* ---------- Prévia do plano (card real da página da assinatura) ---------- */
+.admin-plan-preview { background: transparent; padding: 0; }
+.admin-plan-preview .eyebrow { margin-bottom: 22px; }
+.admin-plan-preview .plan-card { min-height: 0; }
+.admin-plan-preview .plan-card h3 { overflow-wrap: anywhere; }
+.admin-plan-preview .plan-cta { display: grid; place-items: center; cursor: default; }
+.admin-plan-preview .plan-cta:hover { transform: none; }
 
 /* ---------- Janela de confirmação (excluir) ---------- */
 .admin-dialog { width: min(440px, calc(100% - 32px)); max-width: none; margin: auto; padding: 0; border: 0; border-radius: var(--radius); background: #fff; color: var(--carbon); box-shadow: 0 30px 80px rgba(0,0,0,.35); }
@@ -200,6 +232,9 @@ fieldset.admin-card[aria-invalid="true"] { box-shadow: inset 0 0 0 1.5px var(--r
     .admin-preview .eyebrow { grid-column: span 2; }
     .admin-preview .product-image { grid-row: span 3; }
     .admin-preview-team { margin-top: 0; }
+    .admin-plan-preview { display: block; order: 0; }
+    .admin-plan-preview .plan-card { max-width: 520px; }
+    .admin-panels { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 800px) {

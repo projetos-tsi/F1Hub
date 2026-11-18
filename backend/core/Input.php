@@ -69,8 +69,8 @@ final class Input
         return (int) $reais * 100 + (int) str_pad($fraction, 2, '0');
     }
 
-    /** "Camisa Polo Ferrari 2026" → "camisa-polo-ferrari-2026" */
-    public static function slug(string $text): string
+    /** "Camisa Polo Ferrari 2026" → "camisa-polo-ferrari-2026"; com $maxLength, corta no limite sem terminar em hífen. */
+    public static function slug(string $text, int $maxLength = 0): string
     {
         $map = [
             'á' => 'a', 'à' => 'a', 'â' => 'a', 'ã' => 'a', 'ä' => 'a', 'é' => 'e', 'è' => 'e', 'ê' => 'e', 'ë' => 'e',
@@ -79,6 +79,7 @@ final class Input
         ];
         $text = strtr(mb_strtolower($text), $map);
         $text = (string) preg_replace('/[^a-z0-9]+/', '-', $text);
-        return trim($text, '-');
+        $text = trim($text, '-');
+        return $maxLength > 0 ? rtrim(substr($text, 0, $maxLength), '-') : $text;
     }
 }

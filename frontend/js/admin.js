@@ -1,5 +1,9 @@
-// Área administrativa: confirmação de ações irreversíveis e prévia do produto.
+// Área administrativa: confirmação de ações irreversíveis e prévias de produto e plano.
 // As páginas funcionam sem este script; ele apenas melhora a experiência.
+
+// No celular o menu rola para o lado: mostra a seção atual mesmo quando ela fica no fim do menu.
+const currentSection = document.querySelector('.admin-nav [aria-current="page"]');
+if (currentSection) currentSection.parentElement.scrollLeft = Math.max(0, currentSection.offsetLeft - 16);
 
 // Formulários com data-confirm pedem confirmação antes de enviar (ex.: excluir).
 // Usa uma janela própria (<dialog>) no visual do site, e não o confirm() do navegador:
@@ -24,7 +28,13 @@ let pending = null; // { form, submitter } aguardando a resposta
 
 document.addEventListener('submit', (event) => {
     const form = event.target;
-    if (!form.dataset.confirm) return;
+    if (!form.dataset.confirm) {
+        // Clique duplo em "Salvar"/"Ativar" não envia o formulário duas vezes.
+        if (form.method.toLowerCase() !== 'post') return;
+        if (form.dataset.sending) event.preventDefault();
+        form.dataset.sending = 'true';
+        return;
+    }
     event.preventDefault();
     pending = { form, submitter: event.submitter };
     confirmDialog.querySelector('#admin-dialog-title').textContent = form.dataset.confirmTitle || 'Tem certeza?';
@@ -58,6 +68,7 @@ confirmDialog.addEventListener('close', () => {
 // Ao voltar para a página pelo histórico, os botões desabilitados voltam a funcionar.
 window.addEventListener('pageshow', (event) => {
     if (!event.persisted) return;
+    document.querySelectorAll('form[data-sending]').forEach((form) => delete form.dataset.sending);
     document.querySelectorAll('[data-confirmed-action]').forEach((field) => field.remove());
     document.querySelectorAll('form[data-confirm] [disabled]:not([data-locked])').forEach((button) => button.removeAttribute('disabled'));
 });
@@ -110,9 +121,7 @@ if (productForm) {
 
     // Slug sugerido a partir do nome (o servidor gera o mesmo se o campo ficar vazio).
     const updateSlugHint = () => {
-        const suggestion = nameInput.value.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase()
-            .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
-        slugInput.placeholder = suggestion || 'gerado a partir do nome';
+        slugInput.placeholder = suggestSlug(nameInput.value, slugInput.maxLength) || 'gerado a partir do nome';
     };
 
     // "Único" não se combina com P, M, G e GG.
@@ -133,4 +142,47 @@ if (productForm) {
     const picker = field('.image-picker');
     const chosen = productForm.querySelector('[data-preview-image]:checked')?.closest('label');
     if (picker && chosen) picker.scrollTop = Math.max(0, chosen.offsetTop - 8);
+}
+
+// Slug sugerido a partir do nome, com o mesmo limite do campo (o servidor gera o mesmo se o campo ficar vazio).
+function suggestSlug(text, maxLength = 0) {
+    const slug = text.normalize('NFD').replace(/\p{M}/gu, '').toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+    return maxLength > 0 ? slug.slice(0, maxLength).replace(/-+$/, '') : slug;
+}
+
+// Formulário de plano: prévia ao vivo do card exibido na página da assinatura.
+const planForm = document.querySelector('[data-plan-form]');
+if (planForm) {
+    const field = (selector) => planForm.querySelector(selector);
+    const nameInput = field('[data-preview-name]');
+    const list = field('[data-preview-list]');
+    const check = list.dataset.check;
+
+    const updatePlanPreview = () => {
+        const name = nameInput.value.trim();
+        field('[data-preview-title]').textContent = name || 'Nome do plano';
+        field('[data-preview-cta]').textContent = name || 'plano';
+        field('[data-preview-tagline-text]').textContent = field('[data-preview-tagline]').value.trim() || 'Frase de apoio';
+        const price = toCents(field('[data-preview-price]').value);
+        field('[data-preview-price-text]').textContent = price ? formatPrice(price) : 'R$ —';
+
+        const highlight = field('[data-preview-highlight]').checked;
+        field('[data-preview-card]').classList.toggle('is-highlight', highlight);
+        field('[data-preview-badge]').hidden = !highlight;
+
+        // Benefícios: o texto entra com textContent (nunca como HTML).
+        const items = field('[data-preview-items]').value.split(/\r?\n/).map((item) => item.trim()).filter(Boolean);
+        list.replaceChildren(...items.map((item) => {
+            const li = document.createElement('li');
+            li.innerHTML = check;
+            li.append(item);
+            return li;
+        }));
+        field('[data-slug]').placeholder = suggestSlug(name, field('[data-slug]').maxLength) || 'gerado a partir do nome';
+    };
+
+    planForm.addEventListener('input', updatePlanPreview);
+    planForm.addEventListener('change', updatePlanPreview);
+    updatePlanPreview();
 }

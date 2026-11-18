@@ -113,7 +113,7 @@ final class ProductService
             $errors['name'] = 'Já existe um produto com este nome.';
         }
 
-        $slug = mb_strtolower($form['slug']) ?: Input::slug($name);
+        $slug = mb_strtolower($form['slug']) ?: Input::slug($name, 80);
         if ($slug === '') {
             if ($name !== '') {
                 $errors['slug'] = 'Informe o identificador (slug) do produto.';

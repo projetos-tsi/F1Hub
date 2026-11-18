@@ -43,4 +43,58 @@ final class User
         $statement = Database::connection()->prepare('UPDATE users SET password_hash = ? WHERE id = ?');
         $statement->execute([$passwordHash, $id]);
     }
+
+    /**
+     * Lista da área administrativa (somente leitura), do cadastro mais recente ao mais antigo.
+     * Filtros: q (nome ou e-mail) e role (user|admin). Inclui pedidos e plano da assinatura ativa.
+     */
+    public static function search(string $q, string $role, int $limit, int $offset): array
+    {
+        [$where, $params] = self::filter($q, $role);
+        $statement = Database::connection()->prepare(
+            "SELECT u.id, u.name, u.email, u.role, u.created_at,
+                    (SELECT COUNT(*) FROM orders o WHERE o.user_id = u.id) AS order_count,
+                    (SELECT p.name FROM subscriptions s JOIN plans p ON p.id = s.plan_id
+                     WHERE s.user_id = u.id AND s.status = 'ativa' ORDER BY s.started_at DESC LIMIT 1) AS active_plan
+             FROM users u
+             {$where}
+             ORDER BY u.created_at DESC, u.id DESC
+             LIMIT {$limit} OFFSET {$offset}"
+        );
+        $statement->execute($params);
+        return $statement->fetchAll();
+    }
+
+    public static function count(string $q, string $role): int
+    {
+        [$where, $params] = self::filter($q, $role);
+        $statement = Database::connection()->prepare("SELECT COUNT(*) FROM users u {$where}");
+        $statement->execute($params);
+        return (int) $statement->fetchColumn();
+    }
+
+    /** Totais para o painel: clientes e administradores. */
+    public static function totals(): array
+    {
+        $row = Database::connection()->query(
+            "SELECT COALESCE(SUM(role = 'user'), 0) AS clients, COALESCE(SUM(role = 'admin'), 0) AS admins FROM users"
+        )->fetch();
+        return array_map('intval', $row);
+    }
+
+    private static function filter(string $q, string $role): array
+    {
+        $where = [];
+        $params = [];
+        if ($q !== '') {
+            $where[] = '(u.name LIKE ? OR u.email LIKE ?)';
+            $like = '%' . addcslashes($q, '\\%_') . '%';
+            array_push($params, $like, $like);
+        }
+        if (in_array($role, ['user', 'admin'], true)) {
+            $where[] = 'u.role = ?';
+            $params[] = $role;
+        }
+        return [$where ? 'WHERE ' . implode(' AND ', $where) : '', $params];
+    }
 }
