@@ -7,6 +7,8 @@ import { cartService } from './services/cart-service.js';
 import { catalogService, routes } from './services/catalog-service.js';
 import { initHomePage } from './pages/home-page.js';
 import { initSubscriptionPage } from './pages/subscription-page.js';
+import { initAccountPage } from './pages/account-page.js';
+import { authService } from './services/auth-service.js';
 import { initSearch } from './ui/search-controller.js';
 
 const dropdowns = Array.from(document.querySelectorAll('.dropdown'));
@@ -123,8 +125,30 @@ document.querySelectorAll('.dropdown-categories').forEach((menu) => {
         .join('') + `<a class="dropdown-all" href="${routes.catalog}">Ver todos os produtos</a>`;
 });
 
+// Botão de conta do cabeçalho: "Minha conta" para quem está logado; login (voltando a esta página) para os demais.
+function initAccountButton() {
+    const button = document.querySelector('.header-buttons button:nth-child(2)');
+    if (!button) return;
+    button.removeAttribute('onclick');
+    let user = null;
+
+    button.addEventListener('click', () => {
+        const here = window.location.pathname + window.location.search;
+        window.location.href = user ? routes.account : `${routes.login}?redirect=${encodeURIComponent(here)}`;
+    });
+
+    authService.me().then((loggedUser) => {
+        user = loggedUser;
+        button.classList.toggle('is-logged', Boolean(user));
+        button.setAttribute('aria-label', user ? `Minha conta — ${user.firstName}` : 'Entrar na minha conta');
+        button.title = user ? `Olá, ${user.firstName}` : 'Entrar';
+    });
+}
+
+initAccountButton();
 initHomePage();
 initSubscriptionPage();
+initAccountPage();
 initCatalogPage();
 initProductPage();
 initCartPage();

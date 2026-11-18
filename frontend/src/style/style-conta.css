@@ -1,0 +1,36 @@
+@import url("./style.css");
+
+/* Página "Minha conta" */
+.account-page { width: var(--page); min-height: 50vh; margin: 54px auto 0; }
+.account-loading { color: var(--muted); font-size: 14px; }
+
+.account-hero { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 30px; }
+.account-hero h1 { margin-bottom: 10px; font-size: clamp(42px, 6vw, 74px); line-height: 1; letter-spacing: -.06em; }
+.account-hero p:not(.eyebrow) { color: var(--muted); font-size: 15px; }
+.account-badge { padding: 3px 8px; border-radius: 99px; background: var(--carbon); color: #fff; letter-spacing: .08em; }
+.account-logout { min-height: 46px; padding: 0 22px; border: 1.5px solid var(--carbon); border-radius: 10px; background: transparent; color: var(--carbon); font-size: 13px; font-weight: 800; cursor: pointer; transition: background .2s, color .2s; }
+.account-logout:hover { background: var(--carbon); color: #fff; }
+.account-logout:disabled { cursor: default; opacity: .6; }
+
+.account-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.account-card { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; padding: 28px; border-radius: 18px; background: #fff; }
+.account-card h2 { font-size: 22px; letter-spacing: -.03em; }
+.account-card > p { color: var(--muted); font-size: 14px; line-height: 1.6; }
+.account-card .button-outline, .account-card .button { margin-top: auto; }
+.account-card dl { display: grid; gap: 12px; width: 100%; }
+.account-card dl div { display: grid; gap: 3px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+.account-card dl div:last-child { border-bottom: 0; }
+.account-card dt { color: var(--muted); font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+.account-card dd { font-size: 15px; font-weight: 700; overflow-wrap: anywhere; }
+.account-card-box { background: radial-gradient(circle at 90% 10%, rgba(237,19,32,.35), transparent 55%), linear-gradient(145deg, #2b2b2b, var(--carbon)); color: #fff; }
+.account-card-box > p { color: #cfcfcf; }
+.account-status { margin-top: 16px; color: var(--red-dark); font-size: 13px; font-weight: 700; }
+
+@media (max-width: 1000px) {
+    .account-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 520px) {
+    .account-page { width: calc(100% - 20px); margin-top: 34px; }
+    .account-card { padding: 24px 20px; }
+}

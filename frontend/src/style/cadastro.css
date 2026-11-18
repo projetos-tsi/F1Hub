@@ -96,6 +96,8 @@
 }
 
 .signup-form .form-status[hidden] { display: none; }
+.signup-form .form-status.is-success { border-left-color: var(--green, #268f3d); }
+.signup-form .form-status.is-error { color: var(--red-dark, #bd0d17); }
 
 /* Foco visível para teclado */
 .signup-form .submit-button:focus-visible,

@@ -3,11 +3,12 @@
  *
  * - Valida os campos no navegador, com mensagens em português;
  * - Alterna a visibilidade das senhas;
- * - Simula o envio enquanto o backend de cadastro não existe.
- *
- * Campos alinhados com a tabela `users` (database/database.sql):
- * name, email e senha (o PHP gera o password_hash).
+ * - Envia o cadastro para a API PHP (backend/api/auth.php), que valida de novo,
+ *   grava em `users` com password_hash() e já inicia a sessão.
  */
+import { authService, safeRedirectTarget } from './services/auth-service.js';
+import { routes } from './services/catalog-service.js';
+
 (function () {
     'use strict';
 
@@ -25,6 +26,8 @@
         name(value) {
             const text = value.trim();
             if (!text) return 'Informe seu nome completo.';
+            /* Mesma regra do servidor: letras (com acentos), espaços, apóstrofo, hífen e ponto. */
+            if (!/^[\p{L}\p{M}'’.\-\s]+$/u.test(text)) return 'Use apenas letras, espaços, apóstrofo, hífen ou ponto no nome.';
             if (text.split(/\s+/).length < 2) return 'Informe nome e sobrenome.';
             return '';
         },
@@ -98,7 +101,42 @@
         });
     });
 
-    form.addEventListener('submit', (event) => {
+    const destination = safeRedirectTarget(routes.account);
+
+    // Mantém o destino ao trocar para a tela de login.
+    const loginLink = form.querySelector('.create-account a');
+    if (loginLink && window.location.search) loginLink.href = `login.html${window.location.search}`;
+
+    // Quem já está logado não precisa criar outra conta.
+    authService.me().then((user) => {
+        if (user) window.location.replace(destination);
+    });
+
+    function showStatus(message, type) {
+        status.textContent = message;
+        status.className = `form-status is-${type}`;
+        status.hidden = false;
+    }
+
+    /* Nome do campo na API → id do campo no formulário. */
+    const fieldIds = { name: 'name', email: 'email', password: 'password', confirmPassword: 'confirm-password', terms: 'terms' };
+
+    function showServerErrors(fields) {
+        let firstInvalid = null;
+        Object.entries(fields).forEach(([field, message]) => {
+            const input = document.getElementById(fieldIds[field]);
+            const messageBox = input && document.getElementById(input.id + '-message');
+            if (!input || !messageBox) return;
+            input.setAttribute('aria-invalid', 'true');
+            messageBox.textContent = message;
+            messageBox.classList.add('is-error');
+            touched.add(input);
+            firstInvalid = firstInvalid || input;
+        });
+        firstInvalid?.focus();
+    }
+
+    form.addEventListener('submit', async (event) => {
         event.preventDefault();
 
         let firstInvalid = null;
@@ -114,19 +152,23 @@
 
         submitButton.disabled = true;
         submitButton.textContent = 'Criando conta...';
+        status.hidden = true;
 
-        /*
-         * TODO (backend): enviar os dados para o PHP em vez de simular.
-         * Quando o cadastro real existir, troque este bloco por um envio de
-         * formulário/fetch para `frontend/pages/cadastro.php`, que deve validar
-         * os dados de novo, gravar em `users` com password_hash() e tratar
-         * e-mail já cadastrado.
-         */
-        status.textContent = 'Conta criada! Levando você para o login...';
-        status.hidden = false;
-
-        window.setTimeout(() => {
-            window.location.href = 'login.html';
-        }, 1800);
+        try {
+            const user = await authService.register({
+                name: form.elements.name.value,
+                email: form.elements.email.value,
+                password: passwordInput.value,
+                confirmPassword: confirmInput.value,
+                terms: form.elements.terms.checked
+            });
+            showStatus(`Conta criada! Bem-vindo(a) ao grid, ${user.firstName}.`, 'success');
+            window.setTimeout(() => window.location.assign(destination), 1200);
+        } catch (error) {
+            showStatus(error.message, 'error');
+            if (error.fields) showServerErrors(error.fields);
+            submitButton.disabled = false;
+            submitButton.textContent = 'Criar conta';
+        }
     });
 })();
