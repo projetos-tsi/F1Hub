@@ -66,29 +66,76 @@
 
     <main id="conteudo">
         <section class="hero" aria-labelledby="hero-title">
-            <a href="./src/pages/ferrari.html" class="hero-media" aria-label="Conheça a coleção Ferrari"><img src="./src/assets/images/imagem-promocional.png" alt="Jaqueta e camisa polo da Ferrari em promoção"></a>
+            <div class="hero-carousel" data-hero-carousel aria-roledescription="carrossel" aria-label="Coleções em destaque">
+                <div class="hero-track">
+                    <a class="hero-slide hero-slide-image" href="./src/pages/ferrari.html" data-eyebrow="Coleção Ferrari" data-cta="Comprar Ferrari" aria-roledescription="slide" aria-label="1 de 5: Coleção Ferrari">
+                        <img src="./src/assets/images/imagem-promocional.png" alt="Jaqueta e camisa polo da Ferrari em promoção">
+                    </a>
+                    <a class="hero-slide hero-slide-team" data-team="mercedes" href="./src/pages/mercedes.html" data-eyebrow="Coleção Mercedes" data-cta="Comprar Mercedes" aria-roledescription="slide" aria-label="2 de 5: Coleção Mercedes">
+                        <span class="hero-slide-copy"><span class="hero-slide-kicker">Coleção</span><span class="hero-slide-title">Mercedes</span><span class="hero-slide-tagline">Jaquetas, polos e moletons das Flechas de Prata</span></span>
+                        <span class="hero-slide-products"><img src="./src/assets/images/jaqueta-mercedes.png" alt="" loading="lazy"><img src="./src/assets/images/polo-mercedes2.png" alt="" loading="lazy"></span>
+                        <img class="hero-slide-logo" src="./src/assets/images/mercedes-logo.png" alt="" loading="lazy">
+                    </a>
+                    <a class="hero-slide hero-slide-team" data-team="rbr" href="./src/pages/rbr.html" data-eyebrow="Coleção Red Bull Racing" data-cta="Comprar Red Bull" aria-roledescription="slide" aria-label="3 de 5: Coleção Red Bull Racing">
+                        <span class="hero-slide-copy"><span class="hero-slide-kicker">Coleção</span><span class="hero-slide-title">Red Bull</span><span class="hero-slide-tagline">Moletons e dryfits de Max Verstappen</span></span>
+                        <span class="hero-slide-products"><img src="./src/assets/images/blusa-redbull.png" alt="" loading="lazy"><img src="./src/assets/images/camisa-redbull3.png" alt="" loading="lazy"></span>
+                        <img class="hero-slide-logo" src="./src/assets/images/rbr-logo.png" alt="" loading="lazy">
+                    </a>
+                    <a class="hero-slide hero-slide-team" data-team="mclaren" href="./src/pages/mclaren.html" data-eyebrow="Coleção McLaren" data-cta="Comprar McLaren" aria-roledescription="slide" aria-label="4 de 5: Coleção McLaren">
+                        <span class="hero-slide-copy"><span class="hero-slide-kicker">Coleção</span><span class="hero-slide-title">McLaren</span><span class="hero-slide-tagline">Papaya da cabeça aos pés com Norris e Piastri</span></span>
+                        <span class="hero-slide-products"><img src="./src/assets/images/polo-mclaren.png" alt="" loading="lazy"><img src="./src/assets/images/blusa-mclaren.png" alt="" loading="lazy"></span>
+                        <img class="hero-slide-logo" src="./src/assets/images/mclaren-logo.png" alt="" loading="lazy">
+                    </a>
+                    <a class="hero-slide hero-slide-team" data-team="williams" href="./src/pages/williams.html" data-eyebrow="Coleção Williams" data-cta="Comprar Williams" aria-roledescription="slide" aria-label="5 de 5: Coleção Williams">
+                        <span class="hero-slide-copy"><span class="hero-slide-kicker">Coleção</span><span class="hero-slide-title">Williams</span><span class="hero-slide-tagline">Do retrô Rothmans ao grid de 2026</span></span>
+                        <span class="hero-slide-products"><img src="./src/assets/images/jaqueta-williams.png" alt="" loading="lazy"><img src="./src/assets/images/blusa-williams.png" alt="" loading="lazy"></span>
+                        <img class="hero-slide-logo" src="./src/assets/images/williams-logo.png" alt="" loading="lazy">
+                    </a>
+                </div>
+                <button type="button" class="hero-arrow prev" aria-label="Coleção anterior"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+                <button type="button" class="hero-arrow next" aria-label="Próxima coleção"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+                <div class="hero-dots"></div>
+            </div>
             <div class="hero-caption">
-                <p class="eyebrow">Coleção Ferrari</p>
+                <p class="eyebrow" data-hero-eyebrow aria-live="polite">Coleção Ferrari</p>
                 <h1 id="hero-title">O grid está pronto. Escolha seu uniforme.</h1>
-                <a class="button button-light" href="./src/pages/ferrari.html">Comprar Ferrari <span aria-hidden="true">→</span></a>
+                <a class="button button-light" href="./src/pages/ferrari.html" data-hero-cta>Comprar Ferrari <span aria-hidden="true">→</span></a>
             </div>
         </section>
 
-        <section class="benefit-strip" aria-label="Diferenciais da F1 Hub">
-            <div><strong>5 equipes</strong><span>em um só grid</span></div>
-            <div><strong>5% OFF</strong><span>em pagamentos via PIX</span></div>
-            <div><strong>Coleção 2026</strong><span>para quem vive a F1</span></div>
-        </section>
+        <div class="marquee" role="note" aria-label="5% OFF no PIX, 5 equipes em um só grid, coleção 2026 e produtos dos seus pilotos favoritos">
+            <div class="marquee-track" aria-hidden="true">
+                <ul><li>5% OFF no PIX</li><li>5 equipes em um só grid</li><li>Coleção 2026</li><li>Produtos dos seus pilotos</li><li>5% OFF no PIX</li><li>5 equipes em um só grid</li><li>Coleção 2026</li><li>Produtos dos seus pilotos</li></ul>
+                <ul><li>5% OFF no PIX</li><li>5 equipes em um só grid</li><li>Coleção 2026</li><li>Produtos dos seus pilotos</li><li>5% OFF no PIX</li><li>5 equipes em um só grid</li><li>Coleção 2026</li><li>Produtos dos seus pilotos</li></ul>
+            </div>
+        </div>
 
         <section class="store-section" id="lancamentos" aria-labelledby="releases-title">
             <div class="section-heading">
-                <div><p class="eyebrow">Na pole position</p><h2 id="releases-title">Lançamentos</h2></div>
-                <a href="./src/pages/catalogo.html">Ver todos <span aria-hidden="true">→</span></a>
+                <div><p class="eyebrow">Na pole position</p><h2 id="releases-title">Lançamentos 2026</h2></div>
+                <div class="carousel-controls" data-carousel-controls></div>
             </div>
+            <div class="product-carousel" data-home-query="new"></div>
+            <div class="section-footer"><a class="button-outline" href="./src/pages/catalogo.html">Ver tudo</a></div>
+        </section>
 
-            <div class="product-row"
-                data-home-products="mercedes-polo-2025-preta, ferrari-jaqueta-driver, mercedes-bone-mechanics, redbull-bone-9fifty, mclaren-polo-equipe-2026"
-                data-home-tags="mercedes-polo-2025-preta:Destaque, mclaren-polo-equipe-2026:Novo"></div>
+        <section class="store-section pilots-section" aria-labelledby="pilots-title">
+            <div class="section-heading">
+                <div><p class="eyebrow">Do cockpit para você</p><h2 id="pilots-title">Escolha seu piloto</h2></div>
+                <div class="carousel-controls" data-carousel-controls></div>
+            </div>
+            <div class="pilot-row" data-home-pilots></div>
+        </section>
+
+        <section class="store-section" id="mais-vendidos" aria-labelledby="bestsellers-title">
+            <div class="section-heading">
+                <div><p class="eyebrow">Favoritos do paddock</p><h2 id="bestsellers-title">Mais vendidos</h2></div>
+                <div class="carousel-controls" data-carousel-controls></div>
+            </div>
+            <div class="product-carousel"
+                data-home-products="mercedes-polo-2025-preta, ferrari-jaqueta-driver, mercedes-bone-mechanics, redbull-bone-9fifty, mclaren-polo-equipe-2026, ferrari-polo-hp-unissex, mclaren-polo-norris-2026, williams-dryfit-sainz-azul-2025"
+                data-home-tags="mercedes-polo-2025-preta:Destaque"></div>
+            <div class="section-footer"><a class="button-outline" href="./src/pages/catalogo.html">Ver tudo</a></div>
         </section>
 
         <section class="store-section teams-section" id="categorias" aria-labelledby="teams-title">
@@ -105,18 +152,27 @@
             </div>
         </section>
 
+        <section class="store-section" id="modelagens" aria-labelledby="tabs-title" data-category-tabs>
+            <div class="section-heading">
+                <div><p class="eyebrow">Monte seu uniforme</p><h2 id="tabs-title">Escolha por modelagem</h2></div>
+                <div class="carousel-controls" data-carousel-controls></div>
+            </div>
+            <div class="category-tabs" role="tablist" aria-label="Modelagens" data-home-tabs></div>
+            <div class="product-carousel" id="modelagens-painel" role="tabpanel"></div>
+            <div class="section-footer"><a class="button-outline" href="./src/pages/catalogo.html" data-tab-link>Ver tudo</a></div>
+        </section>
+
         <section class="store-section promo-section" id="promocoes" aria-labelledby="promo-title">
             <div class="promo-copy">
                 <p class="eyebrow">Última volta</p>
                 <h2 id="promo-title">Seleção de peças com preço de pódio.</h2>
-                <p>Encontre produtos das principais equipes e garanta 5% de desconto no PIX.</p>
-                <a class="button button-dark" href="./src/pages/catalogo.html">Explorar produtos <span aria-hidden="true">→</span></a>
+                <p>Peças selecionadas com preço reduzido e mais 5% de desconto no PIX.</p>
+                <div class="promo-actions">
+                    <a class="button button-dark" href="./src/pages/catalogo.html">Explorar produtos <span aria-hidden="true">→</span></a>
+                    <div class="carousel-controls" data-carousel-controls></div>
+                </div>
             </div>
-            <div class="promo-products">
-                <a href="./src/pages/produto.html?id=williams-jaqueta-rp-hybrid" data-team="williams"><img src="./src/assets/images/jaqueta-williams.png" alt="Jaqueta Williams azul marinho"><span>Williams</span></a>
-                <a href="./src/pages/produto.html?id=mclaren-moletom-retro-vermelho" data-team="mclaren"><img src="./src/assets/images/moletom-mclaren.png" alt="Moletom McLaren"><span>McLaren</span></a>
-                <a href="./src/pages/produto.html?id=mercedes-jaqueta-2025-preta" data-team="mercedes"><img src="./src/assets/images/jaqueta-mercedes.png" alt="Jaqueta Mercedes"><span>Mercedes</span></a>
-            </div>
+            <div class="product-carousel promo-carousel" data-home-query="sale"></div>
         </section>
     </main>
 
@@ -127,6 +183,7 @@
             <div class="footer-column"><h2>Atendimento</h2><a href="./src/pages/login.html">Minha conta</a><a href="./src/pages/carrinho.html">Carrinho</a><a href="#">Termos de serviço</a><a href="#">Política de privacidade</a></div>
             <div class="footer-social"><h2>Siga a F1 Hub</h2><div><a href="https://www.facebook.com/" aria-label="Facebook"><img src="./src/assets/images/facebook.png" alt=""></a><a href="https://www.instagram.com/" aria-label="Instagram"><img src="./src/assets/images/instagram.png" alt=""></a><a href="https://x.com/" aria-label="X"><img src="./src/assets/images/X.svg" alt=""></a></div></div>
         </div>
+        <div class="footer-payments"><p>Formas de pagamento</p><ul><li><strong>PIX</strong><span>5% OFF</span></li><li><strong>Cartão de crédito</strong><span>em breve</span></li></ul></div>
         <div class="footer-bottom"><p>© 2026 F1 Hub. Todos os direitos reservados.</p><p>Projeto acadêmico • Feito por fãs de velocidade</p></div>
     </footer>
 

@@ -26,11 +26,14 @@ export function initGeneralCatalogPage() {
     filters.innerHTML = `${filterHeadingTemplate()}${Object.entries(facets).map(([key, values]) => groupTemplate(key, values)).join('')}<button class="clear-filters" type="button" hidden>Limpar filtros</button>`;
     const updateFilterCount = enhanceFilterPanel(filters);
 
-    const initialCategory = new URLSearchParams(window.location.search).get('category');
-    if (initialCategory) {
-        const input = [...filters.querySelectorAll('input[name="categories"]')].find((item) => item.value.toLowerCase() === initialCategory.toLowerCase());
+    // Filtros iniciais via URL: ?category=Boné, ?pilot=Lando Norris, ?team=mclaren
+    const params = new URLSearchParams(window.location.search);
+    [['category', 'categories'], ['pilot', 'pilots'], ['team', 'teams']].forEach(([param, group]) => {
+        const value = params.get(param);
+        if (!value) return;
+        const input = [...filters.querySelectorAll(`input[name="${group}"]`)].find((item) => item.value.toLowerCase() === value.toLowerCase());
         if (input) input.checked = true;
-    }
+    });
 
     function selectedFilters() {
         const selected = { teams: [], sizes: [], categories: [], pilots: [] };

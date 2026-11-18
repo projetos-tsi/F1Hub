@@ -1,4 +1,4 @@
-import { categoryMeta, products, teamMeta } from '../data/products.js';
+import { categoryMeta, products, promotions, teamMeta } from '../data/products.js';
 
 const normalize = (value) => value
     .normalize('NFD')
@@ -23,8 +23,12 @@ export const catalogService = {
     },
 
     enrich(item) {
+        const oldPrice = promotions[item.id] > item.price ? promotions[item.id] : null;
         return {
             ...item,
+            oldPrice,
+            discount: oldPrice ? Math.round((1 - item.price / oldPrice) * 100) : 0,
+            isNew: /\b2026\b/.test(item.name),
             teamName: teamMeta[item.team].name,
             teamLabel: teamMeta[item.team].label,
             teamColor: teamMeta[item.team].color,
@@ -88,6 +92,29 @@ export const catalogService = {
             categories: [...new Set(allProducts.map((item) => item.category))].sort(),
             pilots: [...new Set(allProducts.map((item) => item.pilot))].sort()
         };
+    },
+
+    newArrivals() {
+        return this.all().filter((item) => item.isNew);
+    },
+
+    onSale() {
+        return this.all().filter((item) => item.oldPrice).sort((a, b) => b.discount - a.discount);
+    },
+
+    byCategory(category) {
+        return this.all().filter((item) => item.category === category);
+    },
+
+    // Um resumo por piloto: equipe, quantidade de produtos e uma imagem representativa.
+    pilots() {
+        const summary = new Map();
+        this.all().filter((item) => item.pilot !== 'Equipe').forEach((item) => {
+            const entry = summary.get(item.pilot) || { name: item.pilot, team: item.team, teamName: item.teamName, imageUrl: item.imageUrl, count: 0 };
+            entry.count += 1;
+            summary.set(item.pilot, entry);
+        });
+        return [...summary.values()];
     },
 
     similar(productItem, limit = 5) {

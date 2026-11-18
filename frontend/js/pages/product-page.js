@@ -1,6 +1,6 @@
 import { cartService } from '../services/cart-service.js';
 import { catalogService, routes } from '../services/catalog-service.js';
-import { productCardTemplate } from '../ui/product-card.js';
+import { priceTemplate, productCardTemplate } from '../ui/product-card.js';
 
 export function initProductPage() {
     const productMedia = document.querySelector('.product-media');
@@ -31,7 +31,11 @@ export function initProductPage() {
     title.innerHTML = `
         <p class="product-team-label">${product.teamLabel}</p>
         <h1>${product.name}</h1>
-        <div class="prices"><p>${catalogService.formatPrice(product.price)}</p><p class="pix">${catalogService.pixPrice(product.price)} com 5% de desconto no PIX</p></div>`;
+        <div class="prices">
+            <p>${priceTemplate(product)}</p>
+            ${product.discount ? `<span class="discount-chip">-${product.discount}%</span>` : ''}
+            <p class="pix">${catalogService.pixPrice(product.price)} com 5% de desconto no PIX</p>
+        </div>`;
 
     const sizes = productInfo.querySelector('.sizes');
     sizes.innerHTML = `
