@@ -10,6 +10,7 @@ import { initSubscriptionPage } from './pages/subscription-page.js';
 import { initAccountPage } from './pages/account-page.js';
 import { authService } from './services/auth-service.js';
 import { initSearch } from './ui/search-controller.js';
+import { initTeamVideoHover } from './ui/team-videos.js';
 import { escapeHtml } from './ui/product-card.js';
 
 const dropdowns = Array.from(document.querySelectorAll('.dropdown'));
@@ -157,6 +158,7 @@ function initAccountButton() {
 }
 
 initAccountButton();
+initTeamVideoHover();
 initHomePage(catalogReady);
 initSubscriptionPage(catalogReady);
 initAccountPage();

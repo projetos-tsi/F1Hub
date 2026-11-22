@@ -7,6 +7,7 @@
     <title>Equipes | F1 Hub</title>
     <link rel="stylesheet" href="../style/reset.css">
     <link rel="stylesheet" href="../style/style-equipes.css">
+    <link rel="stylesheet" href="../style/style-team-video.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
@@ -57,26 +58,26 @@
     </header>
     <h1 id="conteudo">Escolha sua equipe</h1>
     <main>
-        <div class="team-wrapper">        
-            <a class="team-button mercedes" href="./mercedes.html">
-                <img src="../assets/images/mercedes-logo.png" alt="Mercedes — ver coleção">
-            </a>
-            <a class="team-button ferrari" href="./ferrari.html">
-                <img src="../assets/images/ferrari-logo.png" alt="Ferrari — ver coleção">
-            </a>
-        </div>
-        <div class="team-wrapper">
-            <a class="team-button rbr" href="./rbr.html">
-                <img src="../assets/images/rbr-logo.png" alt="Red Bull — ver coleção">
-            </a>
-            <a class="team-button mclaren" href="./mclaren.html">
-                <img src="../assets/images/mclaren-logo.png" alt="McLaren — ver coleção">
-            </a>
-        </div>
-            <a class="team-button williams" href="./williams.html">
-                <img src="../assets/images/williams-logo.png" alt="Williams — ver coleção">
-            </a>
-    </main>
+    <div class="team-wrapper">
+        <a class="team-button mercedes" href="./mercedes.html" data-team-video="../assets/videos/mercedes.mp4">
+            <img src="../assets/images/mercedes-logo.png" alt="Mercedes — ver coleção">
+        </a>
+        <a class="team-button ferrari" href="./ferrari.html" data-team-video="../assets/videos/ferrari.mp4">
+            <img src="../assets/images/ferrari-logo.png" alt="Ferrari — ver coleção">
+        </a>
+    </div>  
+    <div class="team-wrapper">
+        <a class="team-button rbr" href="./rbr.html" data-team-video="../assets/videos/rbr.mp4">
+            <img src="../assets/images/rbr-logo.png" alt="Red Bull — ver coleção">
+        </a>
+        <a class="team-button mclaren" href="./mclaren.html" data-team-video="../assets/videos/mclaren.mp4">
+            <img src="../assets/images/mclaren-logo.png" alt="McLaren — ver coleção">
+        </a>
+    </div>
+    <a class="team-button williams" href="./williams.html" data-team-video="../assets/videos/williams.mp4">
+        <img src="../assets/images/williams-logo.png" alt="Williams — ver coleção">
+    </a>
+</main>
      <footer class="site-footer">
         <div class="footer-main">
             <div class="footer-brand"><img src="../assets/images/logo.svg" alt="F1 Hub"><p>Da largada à bandeirada, sua paixão veste F1 Hub.</p></div>
