@@ -1,0 +1,47 @@
+.team-card .team-video,
+.team-button .team-video {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity .35s ease;
+    pointer-events: none;
+}
+
+.team-card[data-team-video]::before,
+.team-button[data-team-video]::before {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(to top, rgba(0,0,0,.6), rgba(0,0,0,.15) 65%);
+    content: "";
+    opacity: 0;
+    transition: opacity .35s ease;
+    pointer-events: none;
+}
+
+.team-card.is-playing .team-video,
+.team-button.is-playing .team-video,
+.team-card.is-playing::before,
+.team-button.is-playing::before { opacity: 1; }
+
+
+.team-card[data-team-video] > img,
+.team-card[data-team-video] > span,
+.team-card[data-team-video] > small,
+.team-button[data-team-video] > img,
+.team-button[data-team-video]::after { z-index: 2; }
+
+
+.team-card[data-team-video]:focus-visible,
+.team-button[data-team-video]:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+
+@media (prefers-reduced-motion: reduce) {
+    .team-card .team-video,
+    .team-button .team-video,
+    .team-card[data-team-video]::before,
+    .team-button[data-team-video]::before { transition: none; }
+}
